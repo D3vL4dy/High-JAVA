@@ -22,25 +22,27 @@ public class ArrayListTest02 {
 		
 		System.out.println();
 		System.out.println("김씨 성을 가진 사람들...");
+		
+		// 방법1
 		for(int i = 0; i < nameList.size(); i++) {
 			if(nameList.get(i).substring(0, 1).equals("김")) {
 				System.out.println(nameList.get(i));
 			}
 		}
 		
-		// 2번째 방법
-//		if(nameList.get(i).charAt(0)=='김') {
+		// 방법2 (charAt() : 특정 인덱스에 위치한 문자를 반환)
+//		if(nameList.get(i).charAt(0)=='김') { 
 //			System.out.println(nameList.get(i));
 //		}
 		
-		// 3번째 방법
-//		if(nameList.get(i).indexOf("김")==0) {
+		// 방법3 (indexOf(비교객체) : 앞에서 뒤쪽으로 가면서 자리 검사)
+//		if(nameList.get(i).indexOf("김")==0) { 
 //			System.out.println(nameList.get(i));
 //		}
 		
-		// 4번째 방법
-//		if(nameList.get(i).startsWith("김")==true) {
-//			System.out.println(nameList.get(i));
+		// 방법4 (startsWith(비교객체)특정 문자 또는 문자열로 시작하는지 체크)
+//		if(nameList.get(i).startsWith("김")==true) { // boolean값 반환
+//			System.out.println(nameList.get(i)); 
 //		}
 	}
 }

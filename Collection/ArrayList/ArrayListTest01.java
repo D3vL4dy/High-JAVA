@@ -53,6 +53,7 @@ public class ArrayListTest01 {
 			System.out.println(i + "번째 : " + list2.get(i));
 		}
 		System.out.println("--------------------------------");
+		
 		for (String str : list2) {
 			System.out.println(str);
 		}
@@ -78,6 +79,7 @@ public class ArrayListTest01 {
 		// ==> 기본적으로 Object형 배열로 반환한다.
 		// toArray(new 제네릭타입[0]) ==> 제네릭 타입의 배열로 변환한다.
 
+		// 방법1 : Object[]
 		Object[] strArr = list2.toArray(); // 다른 변수로 저장하기 위해서는 형변환을 해줘야 함
 //		String[] strArr = (String[])list2.toArray();
 
@@ -87,6 +89,7 @@ public class ArrayListTest01 {
 		}
 		System.out.println("--------------------------------");
 
+		// 방법2 : (new String[0])
 		String[] strArr2 = list2.toArray(new String[0]); // String 배열로 변환 후 사용
 		for (String str : strArr2) {
 			System.out.println(str);

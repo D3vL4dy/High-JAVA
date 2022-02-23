@@ -23,9 +23,8 @@ public class ArrayListTest03 {
 			nameList.add(name);
 		}
 
-		// 첫번째 문제
-		// 제일 긴 별명이 저장될 변수 선언
-		// ==> List의 첫번째 자료로 초기화 한다.
+		// 문제1
+		// 제일 긴 별명이 저장될 변수 선언 ==> List의 첫번째 자료로 초기화 한다.
 		String max = nameList.get(0);
 		for(int i = 1; i < nameList.size(); i++) {
 			if(max.length() < nameList.get(i).length()) {
@@ -34,13 +33,12 @@ public class ArrayListTest03 {
 		}
 		System.out.println("제일 긴 별명 : " + max);
 		
-		// 두번째 문제
-		// 제일 긴 별명의 길이가 저장될 변수 선언
-		// ==> 첫번째 별명의 길이로 초기화한다.
+		// 문제2
+		// 제일 긴 별명의 길이가 저장될 변수 선언 ==> 첫번째 별명의 길이로 초기화한다.
 		int maxLength = nameList.get(0).length();
 		for(int i = 1; i < nameList.size(); i++) {
 			if(maxLength < nameList.get(i).length()) {
-				maxLength = nameList.get(i).length();
+				maxLength = nameList.get(i).length(); // maxLength = 길이
 			}
 		}
 
