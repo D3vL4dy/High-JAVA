@@ -52,7 +52,7 @@ public class VectorTest {
 		// 데이터 수정하기 : set(index, 새로운 데이터)
 		// ==> 'index'번째의 데이터를 '새로운 데이터'로 덮어쓴다.
 		// ==> 반환 값 : 원래의 데이터
-		String temp2 = (String) v1.set(0, "ZZZZ"); // Object로 반환되는 값을 String에 위해 형변환
+		String temp2 = (String) v1.set(0, "ZZZZ"); // Object로 반환되는 값을 String에 저장하기 위해 형변환
 		System.out.println("v1 => " + v1);
 		System.out.println("temp2 => " + temp2); // 원래의 값 반환
 
@@ -84,15 +84,13 @@ public class VectorTest {
 		System.out.println("--------------------------------");
 		
 		/*
-		 * 제네릭타입(Generic Type) ==> 클래스 내부에서 사용할 데이터 타입을 외부에서 지정하는 기법으로
-		 *                            객체를 생성할 때 <> 괄호 안에 그 객체의 내부에서 사용할 데이터의 타입을
-		 *                            지정해 주는 것을 말한다.
-		 *                            이런식으로 객체를 생성하면 제네릭 타입으로 지정한 종류의 데이터 이외의
-		 *                            다른 데이터는 저장할 수 없다.
-		 *                            제네릭 타입으로 지정할 수 있는 데이터 타입은 '클래스형' 이어야 한다.
-		 *                            (int는 Integer, boolean은 Boolean,
-		 *                            char은 Character등으로 대체해서 기술해야 한다.
-		 *                            제네릭 타입으로 생성하게 되면 꺼내올 때 별도의 형변환이 필요없다.
+		 * 제네릭타입(Generic Type) ==> 
+		 * - 클래스 내부에서 사용할 데이터 타입을 외부에서 지정하는 기법으로 객체를 생성할 때 
+		 *   <> 괄호 안에 그 객체의 내부에서 사용할 데이터의 타입을 지정해 주는 것을 말한다.
+		 * - 이런식으로 객체를 생성하면 제네릭 타입으로 지정한 종류의 데이터 이외의 다른 데이터는 저장할 수 없다.
+		 * - 제네릭 타입으로 지정할 수 있는 데이터 타입은 '클래스형' 이어야 한다.
+		 *   (int는 Integer, boolean은 Boolean, char은 Character등으로 대체해서 기술해야 한다.
+		 * - 제네릭 타입으로 생성하게 되면 꺼내올 때 별도의 형변환이 필요없다.
 		 */
 		
 		// String을 저장할 수 있는 Vector 객체 생성
@@ -113,7 +111,6 @@ public class VectorTest {
 		v2.clear();
 
 		System.out.println("v2의 size : " + v2.size());
-
 		v2.add("AAAA");
 		v2.add("BBBB");
 		v2.add("CCCC");
