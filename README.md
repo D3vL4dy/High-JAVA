@@ -1,2 +1,0 @@
-# High-JAVA
-High Java
