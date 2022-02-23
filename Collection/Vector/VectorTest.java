@@ -1,4 +1,4 @@
-package kr.or.ddit.basic;
+package collection;
 
 import java.util.Vector;
 
@@ -13,7 +13,7 @@ public class VectorTest {
 
 		System.out.println("처음 크기 : " + v1.size());
 
-		// 데이터 추가하기 : add(추가할 데이터)
+		// 데이터 추가하기1 : add(추가할 데이터)
 		// 반환 값 : 성공(true), 실패(false)
 		// 모든 값은 Object 타입으로 저장됨
 		v1.add("aaa"); // 문자열도 객체이기 때문에 저장 가능
@@ -33,7 +33,7 @@ public class VectorTest {
 		v1.addElement("CCCC");
 		System.out.println("v1 => " + v1);
 
-		// 데이터 추가하기2 : add(index, 데이터)
+		// 데이터 추가하기3 : add(index, 데이터)
 		// ==> index;번째에 '데이터'를 끼워 넣는다.
 		// ==> 'index'는 0부터 시작한다.
 		// ==> 반환값이 없다.
