@@ -56,26 +56,28 @@ class Browser {
 		System.out.println(url + " 사이트에 접속합니다...");
 		
 		if(currentURL != null && !"".equals(currentURL)) { // 현재 페이지가 있으면...
+			//!"".equals(currentURL) ==> null과 같지 않으면
 			back.push(currentURL); // 현재 페이지를 back스택에 저장한다.
 		}
 		
-		currentURL = url; // 현재 페이지를 변경한다.
+		currentURL = url; // 현재 페이지를 변경한다. (매개변수의 url을 현재 페이지에 저장)
 		forward.clear(); // forward스택의 전체 데이터를 삭제한다.
 	}
 	
 	// 뒤로가기
 	public void goBack() {
-		// isEmpty() ==> List나 Stack이 비어있으면 true 그렇지 않으면 false를 반환한다.
+		// isEmpty() ==> List나 Stack이 비어있으면 true, 그렇지 않으면 false를 반환한다.
 		
-		if(!back.isEmpty()) { // back스택에 데이터가 있으면...
+		if(!back.isEmpty()) { // back스택에 데이터가 있으면
 			forward.push(currentURL); // 현재 페이지를 forward스택에 추가
 			
 			currentURL = back.pop(); // back스택에서 1개의 주소를 꺼내와 현재 페이지로 한다.
 		}
 	}
 	
+	// 앞으로가기
 	public void goForward() {
-		if(!forward.isEmpty()) {
+		if(!forward.isEmpty()) { // forward스택에 데이터가 있으면
 			back.push(currentURL); // 현재 페이지를 back스택에 추가
 			
 			currentURL = forward.pop(); // forward스택에서 주소를 1개 꺼내와 현재 페이지로 한다.
