@@ -5,15 +5,15 @@ import java.util.Collections;
 import java.util.Comparator;
 
 /*
- * 정렬과 관련된 interface는 Comparable, Comparator 2가지 있다.
+ * 정렬과 관련된 interface는 Comparable, Comparator 2가지 있다. (객체비교)
  * Comaprable은 Collection에 추가되는 데이터 자체에 정렬 기준을 넣고 싶을 때 
  * 즉, 내부 정렬 기준을 구현하는 인터페이스이고,
  * 
- * Comparator는 외부에 별도로 정렬 기준을 구현하고 싶을 때 즉, 
- * 외부 정렬 기준을 구현할 때 사용하는 인터페이스 이다.
+ * Comparator는 외부에 별도로 정렬 기준을 구현하고 싶을 때 
+ * 즉, 외부 정렬 기준을 구현할 때 사용하는 인터페이스 이다.
  * 
- * Comparable에서는 compareTo() 메서드를 재정의 해야 하고,
- * Comparator에서는 compare() 메서드를 재정의 해야 한다.
+ * Comparable에서는 compareTo(str) 메서드를 재정의 해야 하고, (자기 자신-매개변수 객체 비교, 정수 반환)
+ * Comparator에서는 compare(str1, str2) 메서드를 재정의 해야 한다. (두 매개변수 객체 비교)
  * 
  * String클래스, Wrapper클래스, Date클래스, File클래스 등에는 내부 정렬 기준이 이미 구현되어 있다.
  * (내부 정렬 기준은 오름차순으로 처리되도록 구현되어 있다.)
