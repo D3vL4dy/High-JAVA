@@ -19,7 +19,7 @@ import java.util.Comparator;
  * (내부 정렬 기준은 오름차순으로 처리되도록 구현되어 있다.)
  */
 
-public class ListSortTest {
+public class ListSortTest01 {
 
 	public static void main(String[] args) {
 
@@ -62,10 +62,7 @@ class Desc implements Comparator<String> {
 	// 반환 값이 양수 일 때 ==> 두 값의 순서가 바뀐다.
 	// 반환 값이 음수 일 때 ==> 두 값의 순서가 바뀌지 않는다.
 
-	// 오름차순 정렬일 경우 
-	// ==> 앞의 값이 크면 양수
-	// ==> 앞의 값이 같으면 0
-	// ==> 앞의 값이 작으면 음수가 반환되도록 구현하면 된다.
+	// 오름차순 정렬일 경우 ==> 앞의 값이 크면 양수, 같으면 0, 작으면 음수가 반환되도록 구현하면 된다.
 	@Override
 	public int compare(String str1, String str2) {
 		// 내림차순으로 정렬하는 기준 만들기
