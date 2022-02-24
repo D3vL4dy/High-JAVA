@@ -2,6 +2,7 @@ package kr.or.ddit.basic;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 // 숙제 : 회원번호의 내림차순으로 정렬될 수 있는 외부 정렬 기준을 작성하시오.
 
@@ -22,13 +23,21 @@ public class ListSortTest02 {
 			System.out.println(mem);
 		}
 
-		Collections.sort(memList);
+		Collections.sort(memList); //comparable
 
 		// 이름 순 정렬
 		System.out.println("정렬 후...");
 		for (Member mem : memList) {
 			System.out.println(mem);
 		}
+		
+		Collections.sort(memList, new SortNumDesc()); //comparator
+		
+		System.out.println("정렬 후...");
+		for (Member mem : memList) {
+			System.out.println(mem);
+		}
+		
 	}
 }
 
@@ -84,7 +93,39 @@ class Member implements Comparable<Member> { // 멤버클래스이기 때문에 
 		// mem.getName() > 뒤의 데이터
 		// String의 내부 정렬은 오름차순이기 때문에 반환 값 그대로 사용
 		return name.compareTo(mem.getName());
-
 	}
+	
+	// 회원번호의 내림차순 정렬 기준 만들기
+//	@Override
+//	public int compareTo(Member mem) { // Member가 앞의 데이터, 매개변수가 뒤의 데이터
+//		// 현재 객체의 num > 앞의 데이터
+//		// mem.getNum() > 뒤의 데이터
+//		// String의 내부 정렬은 오름차순이기 때문에 반환 값 그대로 사용
+//		return (int) mem.getNum() - this.num;
+//
+//	}
+}
 
+//Member의 회원번호 (num값)의 내림차순으로 정렬하는 외부 정렬 기준 클래스
+class SortNumDesc implements Comparator<Member> {
+
+	@Override
+	public int compare(Member mem1, Member mem2) {
+		
+		// 방법1 : 숫자이기 때문에 if문으로 비교식 만들기
+//		if (mem1.getNum() > mem2.getNum()) { 
+//			return -1;
+//		} else if (mem1.getNum() < mem2.getNum()) {
+//			return 1;
+//		} else {
+//			return 0;
+//		}
+		
+		//Wrapper클래스를 이용하는 방법1 (Wrapper클래스에는 내부정렬기준이 있어 compareTo 사용 가능)
+//		return new Integer(mem1.getNum()).compareTo(mem2.getNum()) * -1;
+		
+		//Wrapper클래스를 이용하는 방법2
+		return Integer.compare(mem1.getNum(), mem2.getNum()) * -1;
+				
+	}
 }
