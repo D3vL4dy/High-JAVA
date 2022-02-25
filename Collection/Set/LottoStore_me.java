@@ -1,4 +1,4 @@
-package collection;
+package kr.or.ddit.basic;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -73,11 +73,12 @@ import java.util.Scanner;
 	감사합니다
  */
 
-public class Lotto {
+public class LottoStore_me {
 	HashSet<Integer> lottoSet = new HashSet<Integer>();
 
 	Scanner sc = new Scanner(System.in);
 
+	// 메뉴를 출력하고 작업 번호를 입력받는 메서드
 	void start() {
 		System.out.println("==========================");
 		System.out.println("       Lotto 프로그램");
@@ -99,6 +100,7 @@ public class Lotto {
 		}
 	}
 	
+	// 로또 번호를 랜덤 생성하는 메서드
 	void lotto_random() {
 		while(lottoSet.size()<6) {
 			int random = (int) (Math.random() * 45 + 1);
@@ -106,8 +108,8 @@ public class Lotto {
 		}
 	}
 
+	// 로또를 구입하는 메서드
 	void buy_lotto() {
-		
 		System.out.println(" Lotto 구입 시작");
 		System.out.println();
 		System.out.println("(1000원에 로또번호 하나입니다.)");
@@ -138,7 +140,7 @@ public class Lotto {
 
 	public static void main(String[] args) {
 
-		new Lotto().start();
+		new LottoStore_me().start();
 
 	}
 }
