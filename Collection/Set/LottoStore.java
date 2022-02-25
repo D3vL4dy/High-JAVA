@@ -44,7 +44,7 @@ public class LottoStore {
 		System.out.println("==========================");
 		System.out.print("메뉴선택 : ");
 		int num = scan.nextInt();
-		return num;
+		return num; //자기를 호출한 곳으로 num값을 가지고 돌아감
 	}
 
 	// 로또를 구입하는 메서드
@@ -58,7 +58,7 @@ public class LottoStore {
 
 		if (money < 1000) {
 			System.out.println("입력 금액이 너무 적습니다. 로또번호 구입 실패!!!");
-			return;
+			return; // 자기를 호출한 곳으로 돌아감
 		} else if (money >= 101000) {
 			System.out.println("입력 금액이 너무 많습니다. 로또번호 구입 실패!!!");
 			return;
