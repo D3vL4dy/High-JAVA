@@ -1,6 +1,9 @@
-package kr.or.ddit.basic;
+package collection;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -124,89 +127,119 @@ public class PhoneBookTest {
 		}
 	}
 
+	// 등록
 	private void telInsert() {
 		System.out.println("새롭게 등록할 전화번호 정보를 입력하세요.");
 		System.out.print("이름 >> ");
-		String n1 = scan.nextLine();
+		String name = scan.nextLine();
+		
+		Set<String> keySet = map.keySet();
+		if(keySet.contains(name)) {
+			System.out.println("'" + name + "'은 이미 등록된 사람입니다.\n");
+			return;
+		}
 		
 		System.out.print("전화번호 >> ");
-		String n2 = scan.nextLine();
+		String tel = scan.nextLine();
 		System.out.print("주소 >> ");
-		String n3 = scan.nextLine();
-
-		map.put("name", new Phone(n1, n2, n3));
+		String addr = scan.nextLine();
+		
+		map.put(name, new Phone(name, tel, addr));
 		System.out.println();
-		if(map.containsKey("name")) {
-			System.out.println("'" + n1 + "'은 이미 등록된 사람입니다.\n");
-			System.out.println(map);
-			return;
-		}else {
-			System.out.println("'" + n1 + "' 전화번호 정보 등록 완료!!\n");
-			System.out.println(map);
-			return;
-		}
-	}
-	
-	private void telUpdate() {
-		System.out.println("수정할 전화번호 주인을 입력하세요.");
-		System.out.print("이름 >> ");
-		String n1 = scan.nextLine();
-		
-		if(map.containsKey("name")) {
-			System.out.print("전화번호 >> ");
-			String n2 = scan.nextLine();
-			System.out.print("주소 >> ");
-			String n3 = scan.nextLine();
-			map.put("name", new Phone(n2, n3));
-			System.out.println("'" + n1 + "' 전화번호 정보 수정 완료!!\n");
-			return;
-		}else {
-			System.out.println("찾는 이름이 없습니다.\n");
-			return;
-		}
-	}
-	
-	private void telDelete() {
-		System.out.println("삭제할 전화번호 주인을 입력하세요.");
-		System.out.print("이름 >> ");
-		String n1 = scan.nextLine();
-		
-		if(map.containsKey("name")) {
-			map.remove("name", "addr");
-			map.remove("name", "tel");
-			System.out.println("'" + n1 + "' 전화번호 정보 삭제 완료!!\n");
-			return;
-		}else {
-			System.out.println("찾는 이름이 없습니다.\n");
-			return;
-		}
-	}
+		System.out.println("'" + name + "' 전화번호 정보 등록 완료!!\n");
 
-	private void telSelect() {
-//		Set<Phone> keySet = map.keySet();
-//		System.out.println("조회할 전화번호 주인을 입력하세요.");
-//		System.out.print("이름 >> ");
-//		String n1 = scan.nextLine();
-//		
+//		map.put("name", new Phone(name, tel, addr));
+//		System.out.println();
 //		if(map.containsKey("name")) {
-//			for(Phone name : keySet) {
-//				String value = map.get(key);
-//				System.out.println(key + " ==> " + value);
-//			}
-//			System.out.println("'" + n1 + "' 전화번호 정보 조회 완료!!\n");
+//			System.out.println("'" + name + "'은 이미 등록된 사람입니다.\n");
+//			System.out.println(map);
 //			return;
 //		}else {
-//			System.out.println("찾는 이름이 없습니다.\n");
+//			System.out.println("'" + name + "' 전화번호 정보 등록 완료!!\n");
+//			System.out.println(map);
 //			return;
 //		}
 	}
 	
-	private void telSelectAll() {
-		// TODO Auto-generated method stub
+	// 수정
+	private void telUpdate() {
+		System.out.println("수정할 전화번호 주인을 입력하세요.");
+		System.out.print("이름 >> ");
+		String name = scan.nextLine();
+		
+		if(map.containsKey(name)) { 
+			System.out.print("전화번호 >> ");
+			String tel = scan.nextLine();
+			System.out.print("주소 >> ");
+			String addr = scan.nextLine();
+			map.put(name, new Phone(name, tel, addr));
+			System.out.println("'" + name + "' 전화번호 정보 수정 완료!!\n");
+			return;
+		}else {
+			System.out.println("찾는 이름이 없습니다.\n");
+			return;
+		}
+	}
+	
+	// 삭제
+	private void telDelete() {
+		System.out.println("삭제할 전화번호 주인을 입력하세요.");
+		System.out.print("이름 >> ");
+		String name = scan.nextLine();
+		
+		if(map.containsKey(name)) {
+			map.remove(name);
+			System.out.println("'" + name + "' 전화번호 정보 삭제 완료!!\n");
+			return;
+		}else {
+			System.out.println("찾는 이름이 없습니다.\n");
+			return;
+		}
+	}
+
+	// 검색
+	private void telSelect() {
+		System.out.println("조회할 전화번호 주인을 입력하세요.");
+		System.out.print("이름 >> ");
+		String name = scan.nextLine();
+		
+		if(map.containsKey(name)) {
+			Phone value = map.get(name); 
+			System.out.println(value);
+			System.out.println("'" + name + "' 전화번호 정보 조회 완료!!\n");
+			return;
+		}else {
+			System.out.println("찾는 이름이 없습니다.\n");
+			return;
+		}
 		
 	}
 	
-	
+	// 전체 출력
+	private void telSelectAll() {
+		System.out.println("-------------------------------------");
+		System.out.println("번호\t이름\t전화번호\t\t주소");
+		System.out.println("-------------------------------------");
+		for(Phone value : map.values()) {
+			System.out.println(value);
+		}
+		System.out.println("-------------------------------------");
+		System.out.println();
+
+//		Set<String> keySet = map.keySet();
+//		for(Phone value : map.values()) {
+//			System.out.println(value);
+//		}
+		
+		
+//		Iterator<String> keys = map.keySet().iterator();
+//		while (keys.hasNext()) {
+//			String key = keys.next();
+//			Phone value = map.get(key);
+//			System.out.println("키 : " + key + ", 값 : " + value);
+//		}
+
+	}
 }
 
 class Phone{
@@ -221,41 +254,9 @@ class Phone{
 		this.tel = tel;
 	}
 
-	public Phone(String addr, String tel) {
-		super();
-		this.addr = addr;
-		this.tel = tel;
-	}
-
 	@Override
 	public String toString() {
 		return "Phone [name=" + name + ", addr=" + addr + ", tel=" + tel + "]";
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getAddr() {
-		return addr;
-	}
-
-	public void setAddr(String addr) {
-		this.addr = addr;
-	}
-
-	public String getTel() {
-		return tel;
-	}
-
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
-	
-	
-	
 }
