@@ -1,252 +1,277 @@
-package collection;
+package kr.or.ddit.basic;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
 
 /*
- * 문제) 이름, 주소, 전화번호를 멤버로 갖는 Phone클래스를 만들고,
- * 		Map을 이용하여 전화번호 정보를 관리하는 프로그램을 작성하시오.
- * 
- * 		전화번호 정보는 Map에 저장하여 관리한다.
- * 		(key값은 입력받은 사람의 '이름'으로 하고,
- * 		value값은 'Phone클래스의 인스턴스'로 한다.)
- * 
- * 		아래 메뉴의 기능을 모두 작성하시오.
- * 		(삭제, 검색 기능은 '이름'을 입력 받아 처리한다.)
- * 
- * 		메뉴 예시)
+ *  문제) 이름, 주소, 전화번호를 멤버로 갖는 Phone클래스를 만들고, 
+ *      Map을 이용하여 정보를 관리하는 프로그램을 작성하시오.
+ *      
+ *      전화번호 정보는 Map에 저장하여 관리한다.
+ *      (key값은 입력받은 사람의 '이름'으로 하고, 
+ *       value값은 'Phone클래스의 인스턴스'로 한다.)
+ *       
+ *       아래 메뉴의 기능을 모두 작성하시오.
+ *       (삭제,검색 기능은 ==> '이름'을 입력받아 처리한다.)
+ *       
+ *   메뉴 예시) 
+ *      1. 전화번호 등록
+ *      2. 전화번호 수정        ==> '이름'을 입력 받아 처리한다. 
+ *      3. 전화번호 삭제
+ *      4. 전화번호 검색 
+ *      5. 전화번호 전체 출력
+ *      0. 프로그램 종료   
+ * -----------------------------------
+ * 실행에시) 
+ *   	1. 전화번호 등록
+ *      2. 전화번호 수정        
+ *      3. 전화번호 삭제
+ *      4. 전화번호 검색 
+ *      5. 전화번호 전체 출력
+ *      0. 프로그램 종료   
+ *     번호 입력 >> 1 
+ * ------------------------------------
+ *     새롭게 등록할 전화번호 정보를 입력하세요.
+ *     이름 >> 홍길동 
+ *     전화번호 >> 010-1111-1111
+ *     주소 >> 대전시 중구 오류동 
+ *     
+ *     '홍길동'전화번호 정보 등록 완료!!
+ * ------------------------------------
  * 		1. 전화번호 등록
- * 		2. 전화번호 수정
- * 		3. 전화번호 삭제
- * 		4. 전화번호 검색	
- * 		5. 전화번호 전체 출력	
- * 		0. 프로그램 종료
- * -------------------------------
- * 실행 예시)
- * 		1. 전화번호 등록
- * 		2. 전화번호 수정
- * 		3. 전화번호 삭제
- * 		4. 전화번호 검색	
- * 		5. 전화번호 전체 출력	
- * 		0. 프로그램 종료
- * 		------------------
- * 		번호입력 >> 1
- * 		
- * 		새롭게 등록할 전화번호 정보를 입력하세요.
- * 		이름 >> 홍길동
- * 		전화번호 >> 010-1111-1111
- * 		주소 >> 대전시 중구 오류동
- * 
- * 		'홍길동'전화번호 정보 등록 완료!!
- * 
- * 		1. 전화번호 등록
- * 		2. 전화번호 수정
- * 		3. 전화번호 삭제
- * 		4. 전화번호 검색	
- * 		5. 전화번호 전체 출력	
- * 		0. 프로그램 종료
- * 		------------------
- * 		번호입력 >> 1
- * 
- * 		새롭게 등록할 전화번호 정보를 입력하세요.
- * 		이름 >> 홍길동
- * 		'홍길동'은 이미 등록된 사람입니다.
- * 
- * 		1. 전화번호 등록
- * 		2. 전화번호 수정
- * 		3. 전화번호 삭제
- * 		4. 전화번호 검색	
- * 		5. 전화번호 전체 출력	
- * 		0. 프로그램 종료
- * 		------------------
- * 		번호입력 >> 5
- * 
- * -----------------------------------------
- * 번호  이름     전화번호          주소
- * -----------------------------------------
- *  1   홍길동   010-1111-1111  대전시 중구 오류동
- * -----------------------------------------
- * 출력 완료...
- * 
- * 		1. 전화번호 등록
- * 		2. 전화번호 수정
- * 		3. 전화번호 삭제
- * 		4. 전화번호 검색	
- * 		5. 전화번호 전체 출력	
- * 		0. 프로그램 종료
- * 		------------------
- * 		번호입력 >>    
+ *      2. 전화번호 수정        
+ *      3. 전화번호 삭제
+ *      4. 전화번호 검색 
+ *      5. 전화번호 전체 출력
+ *      0. 프로그램 종료   
+ * ------------------------------------    
+ *     번호 입력 >> 1
+ *  새롭게 등록할 전화번호 정보를 입력하세요.
+ *     이름 >> 홍길동 
+ *  '홍길동'은 이미 등록된 사람입니다.
+ * ------------------------------------    
+ *      1. 전화번호 등록
+ *      2. 전화번호 수정        
+ *      3. 전화번호 삭제
+ *      4. 전화번호 검색 
+ *      5. 전화번호 전체 출력
+ *      0. 프로그램 종료   
+ * ------------------------------------    
+ *      번호입력 >> 5
+ *      
+ *  번호 이름    전화번호   주소
+ *  1   홍길동   010-1111-1111 대전시 중구 오류동 
+ *  
+ *     
  */
+
 public class PhoneBookTest {
-	Scanner scan = new Scanner(System.in);
-	HashMap<String, Phone> map = new HashMap<String, Phone>();
+	private HashMap<String, Phone> phoneBookMap;
+	private Scanner scan;
 	
+	// 생성자
+	public PhoneBookTest() {
+		phoneBookMap = new HashMap<String, Phone>();
+		scan = new Scanner(System.in);
+	}
+
 	public static void main(String[] args) {
-		new PhoneBookTest().start();
+		new PhoneBookTest().phoneStart();
 	}
 	
-	public void start() {
-		while (true) {
-			System.out.println("전화번호 관리 프로그램");
-			System.out.println("----------------------------");
-			System.out.println("1. 전화번호 등록");
-			System.out.println("2. 전화번호 수정");
-			System.out.println("3. 전화번호 삭제");
-			System.out.println("4. 전화번호 검색");
-			System.out.println("5. 전화번호 전체 출력");
-			System.out.println("0. 프로그램 종료");
-			System.out.println("----------------------------");
-			System.out.print("번호입력 >> ");
-			int input = Integer.parseInt(scan.nextLine());
-			System.out.println();
-
-			switch (input) {
-			case 1:
-				telInsert();
+	// 프로그램을 시작하는 메서드
+	public void phoneStart() {
+		System.out.println();
+		System.out.println("*****************************");
+		System.out.println("전화번호 관리 프로그램");
+		System.out.println("*****************************");
+		System.out.println();
+		
+		while(true) {
+			int choice = displayMenu();
+			switch(choice) {
+			case 1 : // 등록
+				insert();
 				break;
-			case 2:
-				telUpdate();
+			case 2 : // 수정
+				update();
 				break;
-			case 3:
-				telDelete();
+			case 3 : // 삭제
+				delete();
 				break;
-			case 4:
-				telSelect();
+			case 4 : // 검색
+				search();
 				break;
-			case 5:
-				telSelectAll();
+			case 5 : // 전체 출력
+				displayAll();
 				break;
-			case 0:
+			case 0 :
 				System.out.println("프로그램이 종료되었습니다.");
 				System.exit(0);
+			default : 
+				System.out.println("작업 번호를 잘못 입력했습니다.");
+				System.out.println("다시 선택하세요.");
 			}
 		}
 	}
+	
+	// 전화번호 정보를 검색하는 메서드
+	private void search() {
+		System.out.println();
+		System.out.println("검색할 전화번호 정보를 입력하세요.");
+		System.out.print("이름 >> ");
+		String name = scan.next();
+		
+		// 입력한 사람의 이름이 전화번호 정보에 없으면
+		if(!phoneBookMap.containsKey(name)) {
+			System.out.println(name + "씨는 등록되지 않은 사람입니다.");
+			System.out.println("검색 작업을 마칩니다.");
+			return;
+		}
+		
+		Phone p = phoneBookMap.get(name);
+		System.out.println(name + "씨의 전화번호 정보");
+		System.out.println("----------------------------");
+		System.out.println("이름 : " + p.getName());
+		System.out.println("전화번호 : " + p.getTel());
+		System.out.println("주소 : " + p.getAddr());
+		System.out.println("----------------------------");
+	}
 
-	// 등록
-	private void telInsert() {
+	// 전화번호 정보를 삭제하는 메서드
+	private void delete() {
+		System.out.println();
+		System.out.println("삭제할 전화번호 정보를 입력하세요.");
+		System.out.print("이름 >> ");
+		String name = scan.next();
+		
+		// 입력한 사람의 이름이 전화번호 정보에 없으면
+		if(!phoneBookMap.containsKey(name)) {
+			System.out.println(name + "씨는 등록되지 않은 사람입니다.");
+			System.out.println("삭제 작업을 마칩니다.");
+			return;
+		}
+		
+		phoneBookMap.remove(name);
+		System.out.println(name + "씨 전화번호 정보 삭제 완료!!");
+		
+	}
+
+	// 전화번호 정보를 수정하는 메서드
+	private void update() {
+		System.out.println();
+		System.out.println("수정할 전화번호 정보를 입력하세요.");
+		System.out.print("이름 >> ");
+		String name = scan.next();
+		
+		// 입력한 사람의 이름이 전화번호 정보에 없으면
+		if(!phoneBookMap.containsKey(name)) {
+			System.out.println(name + "씨는 등록되지 않은 사람입니다.");
+			System.out.println("수정 작업을 마칩니다.");
+			return;
+		}
+		
+		System.out.println("새로운 주소 >> ");
+		String newAddr = scan.next();
+		
+		System.out.println("새로운 전화번호 >> ");
+		String newTel = scan.next();
+		
+		// 같은 이름의 키값으로 저장하면 수정 완료
+		phoneBookMap.put(name, new Phone(name, newAddr, newTel));
+		System.out.println(name + "씨 전화번호 정보 수정 완료!!");
+		
+	}
+	
+	// 전화번호 정보 전체 자료를 출력하는 메서드
+	private void displayAll() {
+		System.out.println();
+		
+		// 모든 key값 가져오기
+		Set<String> phoneKeySet = phoneBookMap.keySet();
+		System.out.println("----------------------------");
+		System.out.println("번호\t이름\t전화번호\t주소");
+		System.out.println("----------------------------");
+		if(phoneKeySet.size() == 0) {
+			System.out.println("등록된 전화번호 정보가 하나도 없습니다.");
+		}else {
+			int cnt = 0; // 번호 출력용 변수
+			for(String name : phoneKeySet) {
+				cnt++;
+				Phone p = phoneBookMap.get(name);
+				System.out.println(cnt + "\t" + name + "\t" + p.getTel() + "\t" + p.getAddr());
+			}
+		}
+		System.out.println("----------------------------");
+		System.out.println("출력 완료");
+	}
+	
+	// 새로운 전화번호 정보를 등록하는 메서드
+	private void insert() {
+		
+		System.out.println();
 		System.out.println("새롭게 등록할 전화번호 정보를 입력하세요.");
 		System.out.print("이름 >> ");
-		String name = scan.nextLine();
+		String name = scan.next();
 		
-		Set<String> keySet = map.keySet();
-		if(keySet.contains(name)) {
-			System.out.println("'" + name + "'은 이미 등록된 사람입니다.\n");
-			return;
+		// 이미 등록된 사람인지 여부를 검사
+		if(phoneBookMap.containsKey(name)) {
+			System.out.println(name + "씨는 이미 등록된 사람입니다.");
+			return; // return을 사용하지 않으려면 else를 써야돼 
 		}
 		
 		System.out.print("전화번호 >> ");
-		String tel = scan.nextLine();
+		String tel = scan.next();
+		
+		scan.nextLine(); // 입력 버퍼 비우기
 		System.out.print("주소 >> ");
+//		String addr = scan.next();
 		String addr = scan.nextLine();
 		
-		map.put(name, new Phone(name, tel, addr));
+		/*
+		 * Scanner객체의 입력 메서드의 특징
+		 * - next(), nextInt(), nextDouble(), ...등
+		 *  => 사이띄기, Tab키, Enter키를 구분 문자로 분리해서 분리된 자료만 읽어간다.
+		 * - nextLine()
+		 *  => 한 줄 단위로 입력한다. 즉, 자료를 입력하고 Enter키를 누르면 Enter키까지 읽어간다.
+		 * - Scanner는 입력한 값이 입력버퍼에 먼저 저장된 후에 차례로 꺼내와서 처리된다.  
+		 */
+		
+		// 방법1
+//		Phone p = new Phone(name, tel, addr);
+//		phoneBookMap.put(name, p);
+		
+		// 방법2
+		phoneBookMap.put(name, new Phone(name, addr, tel));
+		System.out.println(name + "씨 전화번호 정보 등록 완료!!");
+	}
+	
+	// 메뉴를 출력하고 작업 번호를 입력받아 반환하는 메서드
+	private int displayMenu() {
 		System.out.println();
-		System.out.println("'" + name + "' 전화번호 정보 등록 완료!!\n");
-
-//		map.put("name", new Phone(name, tel, addr));
-//		System.out.println();
-//		if(map.containsKey("name")) {
-//			System.out.println("'" + name + "'은 이미 등록된 사람입니다.\n");
-//			System.out.println(map);
-//			return;
-//		}else {
-//			System.out.println("'" + name + "' 전화번호 정보 등록 완료!!\n");
-//			System.out.println(map);
-//			return;
-//		}
-	}
-	
-	// 수정
-	private void telUpdate() {
-		System.out.println("수정할 전화번호 주인을 입력하세요.");
-		System.out.print("이름 >> ");
-		String name = scan.nextLine();
-		
-		if(map.containsKey(name)) { 
-			System.out.print("전화번호 >> ");
-			String tel = scan.nextLine();
-			System.out.print("주소 >> ");
-			String addr = scan.nextLine();
-			map.put(name, new Phone(name, tel, addr));
-			System.out.println("'" + name + "' 전화번호 정보 수정 완료!!\n");
-			return;
-		}else {
-			System.out.println("찾는 이름이 없습니다.\n");
-			return;
-		}
-	}
-	
-	// 삭제
-	private void telDelete() {
-		System.out.println("삭제할 전화번호 주인을 입력하세요.");
-		System.out.print("이름 >> ");
-		String name = scan.nextLine();
-		
-		if(map.containsKey(name)) {
-			map.remove(name);
-			System.out.println("'" + name + "' 전화번호 정보 삭제 완료!!\n");
-			return;
-		}else {
-			System.out.println("찾는 이름이 없습니다.\n");
-			return;
-		}
+		System.out.println("----------------------------");
+		System.out.println("1. 전화번호 등록");
+		System.out.println("2. 전화번호 수정");
+		System.out.println("3. 전화번호 삭제");
+		System.out.println("4. 전화번호 검색");
+		System.out.println("5. 전화번호 전체 출력");
+		System.out.println("0. 프로그램 종료");
+		System.out.println("----------------------------");
+		System.out.print("번호입력 >> ");
+		int num = scan.nextInt();
+		return num;
 	}
 
-	// 검색
-	private void telSelect() {
-		System.out.println("조회할 전화번호 주인을 입력하세요.");
-		System.out.print("이름 >> ");
-		String name = scan.nextLine();
-		
-		if(map.containsKey(name)) {
-			Phone value = map.get(name); 
-			System.out.println(value);
-			System.out.println("'" + name + "' 전화번호 정보 조회 완료!!\n");
-			return;
-		}else {
-			System.out.println("찾는 이름이 없습니다.\n");
-			return;
-		}
-		
-	}
-	
-	// 전체 출력
-	private void telSelectAll() {
-		System.out.println("-------------------------------------");
-		System.out.println("번호\t이름\t전화번호\t\t주소");
-		System.out.println("-------------------------------------");
-		for(Phone value : map.values()) {
-			System.out.println(value);
-		}
-		System.out.println("-------------------------------------");
-		System.out.println();
-
-//		Set<String> keySet = map.keySet();
-//		for(Phone value : map.values()) {
-//			System.out.println(value);
-//		}
-		
-		
-//		Iterator<String> keys = map.keySet().iterator();
-//		while (keys.hasNext()) {
-//			String key = keys.next();
-//			Phone value = map.get(key);
-//			System.out.println("키 : " + key + ", 값 : " + value);
-//		}
-
-	}
 }
 
+// 하나의 전화번호 정보가 저장될 class 작성
 class Phone{
-	String name;
-	String addr;
-	String tel;
+	private String name;
+	private String addr;
+	private String tel;
 	
+	// 생성자
 	public Phone(String name, String addr, String tel) {
 		super();
 		this.name = name;
@@ -254,9 +279,33 @@ class Phone{
 		this.tel = tel;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAddr() {
+		return addr;
+	}
+
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
 	@Override
 	public String toString() {
 		return "Phone [name=" + name + ", addr=" + addr + ", tel=" + tel + "]";
 	}
-
+	
 }
