@@ -231,10 +231,13 @@ public class PhoneBookTest {
 		
 		/*
 		 * Scanner객체의 입력 메서드의 특징
+		 * 
 		 * - next(), nextInt(), nextDouble(), ...등
 		 *  => 사이띄기, Tab키, Enter키를 구분 문자로 분리해서 분리된 자료만 읽어간다.
+		 *  
 		 * - nextLine()
 		 *  => 한 줄 단위로 입력한다. 즉, 자료를 입력하고 Enter키를 누르면 Enter키까지 읽어간다.
+		 *  
 		 * - Scanner는 입력한 값이 입력버퍼에 먼저 저장된 후에 차례로 꺼내와서 처리된다.  
 		 */
 		
