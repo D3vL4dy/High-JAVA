@@ -17,7 +17,7 @@ public class BaseballTest {
 	private Scanner scan = new Scanner(System.in);
 
 	public static void main(String[] args) {
-//		BaseballTest02 b = new BaseballTest02();
+//		BaseballTest b = new BaseballTest();
 //		b.gameStart();
 
 		// => 줄여서 적으면
@@ -67,7 +67,7 @@ public class BaseballTest {
 		Collections.shuffle(numList);
 	}
 
-	// 사용자로부터 3개의 정수를 압력받아서 List에 저장하는 메서드
+	// 사용자로부터 3개의 정수를 입력받아서 List에 저장하는 메서드
 	// 입력한 정수는 중복되지 않게 한다.
 	private void inputNum() {
 		int n1, n2, n3; // 입력한 정수가 저장될 변수 선언
