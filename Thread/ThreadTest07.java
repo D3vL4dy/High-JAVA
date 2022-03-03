@@ -30,76 +30,71 @@ public class ThreadTest07 {
 
 	public static void main(String[] args) {
 
-		Thread th1 = new Computer();
-		Thread th2 = new UserInput();
-		Thread th3 = new Time();
+		Thread th1 = new UserInput();
+		Thread th2 = new CountDown();
 		th1.start();
 		th2.start();
-		th3.start();
 	}
 
 }
 
-// 컴퓨터의 가위바위보 생성 쓰레드
-class Computer extends Thread{
+// 가위바위보 게임 쓰레드
+class UserInput extends Thread {
+	public static boolean inputCheck = false;
 	public static String com;
+	public static String user;
+
 	@Override
 	public void run() {
-		int random = (int)(Math.random() * 3 + 1);
-		if(random == 1) {
+		int random = (int) (Math.random() * 3 + 1);
+		if (random == 1) {
 			com = "가위";
-		}else if(random == 2){
+		} else if (random == 2) {
 			com = "바위";
-		}else {
+		} else {
 			com = "보";
 		}
-		
-	}
-}
 
-// 사용자가 입력하는 쓰레드
-class UserInput extends Thread{
-	
-	public static boolean inputCheck = false;
-	public static String user;
-	
-	@Override
-	public void run() {
 		user = JOptionPane.showInputDialog("가위 바위 보를 입력하세요.");
 		inputCheck = true;
-//		System.out.println("입력값 : " + user);
+
+		System.out.println("컴퓨터 : " + com);
+		System.out.println("당 신 : " + user);
+
+		if (inputCheck == true) {
+			if (com.equals(user)) {
+				System.out.println("비겼습니다.");
+			} else {
+				if ((com.equals("가위") && user.equals("바위")) || (com.equals("바위") && user.equals("보"))
+						|| (com.equals("보") && user.equals("가위"))) {
+					System.out.println("당신이 이겼습니다.");
+				} else if ((com.equals("바위") && user.equals("가위")) || (com.equals("가위") && user.equals("보"))
+						|| (com.equals("보") && user.equals("바위"))) {
+					System.out.println("당신이 졌습니다.");
+				}
+			}
+			return;
+		}
 	}
 }
 
 // 카운트다운을 하는 쓰레드
-class Time extends Thread {
+class CountDown extends Thread {
 
 	@Override
 	public void run() {
 		for (int i = 5; i >= 1; i--) {
 			System.out.println(i);
-			if (UserInput.inputCheck == true) {
-				if (Computer.com.equals(UserInput.user)) {
-					System.out.println("비겼습니다.");
-				} else {
-					if ((Computer.com.equals("가위") && UserInput.user.equals("바위"))
-							|| (Computer.com.equals("바위") && UserInput.user.equals("보"))
-							|| (Computer.com.equals("보") && UserInput.user.equals("가위"))) {
-						System.out.println("당신이 이겼습니다.");
-					} else if ((Computer.com.equals("바위") && UserInput.user.equals("가위"))
-							|| (Computer.com.equals("가위") && UserInput.user.equals("보"))
-							|| (Computer.com.equals("보") && UserInput.user.equals("바위"))) {
-						System.out.println("당신이 졌습니다.");
-					}
-				}
+			if(UserInput.inputCheck == true) {
+				return;
 			}
+
 			try {
 				Thread.sleep(1000);
-			} catch (InterruptedException e) {}
+			} catch (InterruptedException e) {
+			}
 		}
 		System.out.println("시간 초과로 당신이 졌습니다.");
 		System.exit(0);
 	}
 }
-
-// 결과를 출력하는 쓰레드
