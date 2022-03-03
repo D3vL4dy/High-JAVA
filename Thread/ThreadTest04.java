@@ -14,10 +14,9 @@ public class ThreadTest04 {
 		long startTime = System.currentTimeMillis();
 		smth.start();
 		try {
-			smth.join();
-		} catch (InterruptedException e) {
-			// TODO: handle exception
-		}
+			smth.join(); // Thread(smth) 종료시까지 기다림
+		} catch (InterruptedException e) {}
+		
 		long endTime = System.currentTimeMillis();
 		System.out.println("단독으로 처리했을 때 경과시간 : " + (endTime - startTime));
 		System.out.println();
@@ -39,9 +38,7 @@ public class ThreadTest04 {
 		for(SumThread sm : smths) {
 			try {
 				sm.join();
-			} catch (InterruptedException e) {
-				// TODO: handle exception
-			}
+			} catch (InterruptedException e) {}
 		}
 		
 		endTime = System.currentTimeMillis();
@@ -65,7 +62,7 @@ class SumThread extends Thread {
 	}
 
 	@Override
-	public void run() {
+	public void run() { // 쓰레드의 실행문(메인메서드)
 		long sum = 0L;
 		for (long i = min; i <= max; i++) {
 			sum += i;

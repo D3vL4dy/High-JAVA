@@ -37,7 +37,7 @@ class Timer extends Thread{
 		for(int i = 10; i >= 1; i--) {
 			System.out.println(i);
 			// 입력이 완료되었는지 여부를 검사해서 완료되면 쓰레드를 종료시킨다.
-			// 즉 카운트다운을 멈춘다. (inputCheck가 true일 때)
+			// 즉, 카운트다운을 멈춘다. (inputCheck가 true일 때)
 			if(DataInput.inputCheck == true) {
 				return; // run()메서드가 종료되면 쓰레드가 종료된다.
 			}
