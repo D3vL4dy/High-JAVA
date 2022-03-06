@@ -1,4 +1,4 @@
-package kr.or.ddit.basic;
+package thread;
 
 /*
  * 10마리의 말들이 경주하는 경마 프로그램 작성하기
@@ -23,13 +23,14 @@ package kr.or.ddit.basic;
 public class ThreadTest13 {
 
 	public static void main(String[] args) {
-		Horse[] horse = new Horse[] { new Horse("가"), new Horse("나"), new Horse("다"), new Horse("라"), new Horse("마"),
-				new Horse("바"), new Horse("사"), new Horse("아"), new Horse("자"), new Horse("차") };
+		Horse[] horse = new Horse[] { new Horse("1번"), new Horse("2번"), new Horse("3번"), new Horse("4번"), new Horse("5번"),
+				new Horse("6번"), new Horse("7번"), new Horse("8번"), new Horse("9번"), new Horse("10번") };
 
 		for (Horse hs : horse) {
 			hs.start();
 		}
 
+		// 모든 사람의 출력이 끝날 때까지 기다린다.
 		for (Horse hs : horse) {
 			try {
 				hs.join();
@@ -48,8 +49,9 @@ public class ThreadTest13 {
 // 말 쓰레드
 class Horse extends Thread {
 	public static String name;
+	public int location;
 	public static int rank;
-	public static int location;
+	
 
 	public Horse(String name) {
 		this.name = name;
@@ -58,33 +60,37 @@ class Horse extends Thread {
 	@Override
 	public void run() {
 		for (int i = 1; i <= 50; i++) {
-			System.out.println(name + "의 위치" + location);
-			try {
-				Thread.sleep((int) (Math.random() * 50));
-			} catch (InterruptedException e) {
-				// TODO: handle exception
-			}
+			System.out.println(name + "의 위치 : " + location);
+				location += i;
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO: handle exception
+				}
 		}
 		System.out.println(name + "출력 끝.......................");
 	}
 }
 
 // 경기 구간 출력 쓰레드
-class PrintLocation extends Thread{
-	public static String lane[];
-	
+class PrintLocation extends Thread {
+//	public int location;
+	public String lane;
+
 	@Override
 	public void run() {
-		for(int i = 0; i < 50; i++) {
-			lane[i] = "-";
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				// TODO: handle exception
+		for (int j = 0; j < 10; j++) {
+
+			for (int i = 1; i <= 50; i++) {
+				lane += "-";
+				try {
+					Thread.sleep((int) (Math.random() * 50 + 1));
+				} catch (InterruptedException e) {
+					// TODO: handle exception
+				}
 			}
-			System.out.println(Horse.name + "의 위치" + Horse.location);
-			lane[Horse.location+1] = "0";
 		}
+		System.out.println(Horse.name + "의 위치" + Horse.location);
+		
 	}
-	
 }
