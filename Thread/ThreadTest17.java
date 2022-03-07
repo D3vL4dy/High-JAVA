@@ -37,7 +37,7 @@ public class ThreadTest17 {
 				}
 			}
 		};
-		// ----------------------------------------------------
+		// -------------------------------------------------------
 
 		Thread[] ths = new Thread[] { 
 				new Thread(r), new Thread(r), new Thread(r), 
