@@ -122,9 +122,9 @@ class Horse extends Thread implements Comparable<Horse> {
 	}
 
 	@Override
-	public String toString() {
-		return "경주마 " + horseName + "은(는) " + rank + "등 입니다.";
-	}
+//	public String toString() {
+//		return "경주마 " + horseName + "은(는) " + rank + "등 입니다.";
+//	}
 
 	// 등수의 오름차순 정렬 기준 설정하기
 	public int compareTo(Horse horse) {
@@ -139,6 +139,8 @@ class Horse extends Thread implements Comparable<Horse> {
 		for (int i = 1; i <= 50; i++) {
 			this.position = i; // 현재 구간을 말의 현재 위치로 한다.
 			try {
+				// 쓰레드의 작동 시간을 멈추는 작업으로 
+				// 값을 랜덤하게 설정해 말이 달리는 속도를 각각 다르게 조절
 				Thread.sleep((int) (Math.random() * 500));
 			} catch (InterruptedException e) {
 				// TODO: handle exception
