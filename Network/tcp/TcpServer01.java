@@ -35,10 +35,15 @@ public class TcpServer01 {
 
 		// 클라이언트에게 메세지 보내기
 
+		// OutputStream : 상대방에게 보내기
+		// InputStream : 상대방에게 받기
+		
 		// Socket의 OutputStream객체를 구성해서 전송한다.
 		// (Socket의 getOutputStream()메서드를 이용한다.)
 		OutputStream out = socket.getOutputStream(); // 바이트기반
-		DataOutputStream dos = new DataOutputStream(out);
+		
+		// 문자열 기반 메서드(writeUTF)를 사용하기 위해 DataOutputStream 보조스트림 사용
+		DataOutputStream dos = new DataOutputStream(out); 
 
 		// 클라이언트에게 메세지 전송하기 (소켓에서 쓰기 작업을 진행한다.)
 		dos.writeUTF("환영합니다. 어서오세요.");
