@@ -32,310 +32,287 @@ import kr.or.ddit.util.DBUtil;
  */
 
 public class JdbcTest06 {
-	Scanner scan = new Scanner(System.in);
+	private Connection conn;
+	private Statement stmt;
+	private PreparedStatement pstmt;
+	private ResultSet rs;
 	
-	Connection conn = null;
-	Statement stmt = null; 
-	PreparedStatement pstmt = null; 
-	ResultSet rs = null;
+	private Scanner scan = new Scanner(System.in);
 	
-	String id;
-	String name;
-	String pass;
-	String tel;
-	String addr;
-	
-	
-	public static void main(String[] args) {
-		new JdbcTest06().start();
-	}
-	
-	public void start() {
-		System.out.println();
-		System.out.println("---------------------------");
-		System.out.println("     == 작업 선택 ==");
-		System.out.println("---------------------------");
-		System.out.println();
-		
+	// 시작 메서드
+	public void startMember() {
 		while(true) {
 			int choice = displayMenu();
+			
 			switch(choice) {
 			case 1 : // 추가
-				insert();
+				insertMember();
 				break;
 			case 2 : // 수정
-				update();
+				updateMember();
 				break;
 			case 3 : // 삭제
-				delete();
+				deleteMember();
 				break;
 			case 4 : // 전체 출력
-				select();
+				displayMember();
 				break;
-			case 0 :
-				System.out.println("프로그램이 종료되었습니다.");
-				System.exit(0);
+			case 0 : // 작업 끝
+				System.out.println("작업을 마칩니다.");
+				return;
 			default : 
 				System.out.println("작업 번호를 잘못 입력했습니다.");
-				System.out.println("다시 선택하세요.");
+				System.out.println("다시 입력하세요.");
 			}
 		}
 	}
 	
-	// 4. 자료 전체 출력
-	private void select() {
+	// 회원 정보를 삭제하는 메서드
+	private void deleteMember() {
+		System.out.println();
+		System.out.println("삭제할 회원 정보를 입력하세요.");
+		System.out.println("삭제할 회원ID >> ");
+		String memId = scan.next();
+		
 		try {
 			conn = DBUtil.getConnection();
 			
-			String sql = "select mem_id, mem_name, mem_pass, mem_tel, mem_addr from mymember";
+			String sql = "delete from mymember where mem_id = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memId);
+			
+			int cnt = pstmt.executeUpdate();
+			
+			if(cnt > 0) {
+				System.out.println(memId + "회원 삭제 성공!!");
+			}else {
+				System.out.println(memId + "회원은 없는 회원이거나 삭제에 실패했습니다.");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		
+	}
+
+	// 회원 정보를 수정하는 메서드
+	private void updateMember() {
+		System.out.println();
+		System.out.println("수정할 회원 정보를 입력하세요.");
+		System.out.println("회원ID >> ");
+		String memId = scan.next();
+		
+		int count = getMemberCount(memId);
+		if(count == 0) { // 없는 회원이면
+			System.out.println(memId + "은(는) 없는 회원ID입니다.");
+			System.out.println("수정 작업을 마칩니다.");
+			return;
+		}
+		
+		System.out.println();
+		System.out.println("수정할 내용을 입력하세요.");
+		
+		System.out.println("새로운 비밀번호 >> ");
+		String newMemPass = scan.next();
+		
+		System.out.println("새로운 회원이름 >> ");
+		String newMemName = scan.next();
+		
+		System.out.println("새로운 전화번호 >> ");
+		String newMemTel = scan.next();
+		
+		scan.nextLine();
+		System.out.println("새로운 회원주소 >> ");
+		String newMemAddr = scan.nextLine();
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			String sql = "update mymember set "
+					 + "mem_pass = ?, mem_name = ?, mem_tel = ?, mem_addr = ? "
+					+ "where mem_id = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newMemPass);
+			pstmt.setString(2, newMemName);
+			pstmt.setString(3, newMemTel);
+			pstmt.setString(4, newMemAddr);
+			pstmt.setString(5, memId);
+			
+			int cnt = pstmt.executeUpdate();
+			
+			if(cnt > 0) {
+				System.out.println(memId + "회원 정보 수정 완료!!");
+			}else {
+				System.out.println(memId + "회원 정보 수정 실패..");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		
+	}
+
+	// 전체 회원 정보를 출력하는 메서드
+	private void displayMember() {
+		System.out.println();
+		System.out.println("-------------------------------------------");
+		System.out.println(" ID\t비밀번호\t이름\t전화번호\t주소");
+		System.out.println("-------------------------------------------");
+		
+		try {
+			conn = DBUtil.getConnection();
+			String sql = "select * from mymember";
 			
 			stmt = conn.createStatement();
 			
 			rs = stmt.executeQuery(sql);
 			
-			System.out.println("==  자료 전체 출력 결과  ==");
-			
 			while(rs.next()) {
-				System.out.println("MEM_ID : " + rs.getString("mem_id"));
-				System.out.println("MEM_ID : " + rs.getString("mem_name"));
-				System.out.println("MEM_ID : " + rs.getString("mem_pass"));
-				System.out.println("MEM_ID : " + rs.getString("mem_tel"));
-				System.out.println("MEM_ID : " + rs.getString("mem_addr"));
-				System.out.println("-------------------------------------------");
+				String memId = rs.getString("mem_id");
+				String memPass = rs.getString("mem_pass");
+				String memName = rs.getString("mem_name");
+				String memTel = rs.getString("mem_tel");
+				String memAddr = rs.getString("mem_addr");
+				
+				System.out.println(memId + "\t" + memPass 
+						+ "\t" + memName + "\t" + memTel + "\t" + memAddr);
 			}
+			System.out.println("-------------------------------------------");
+			System.out.println("출력 끝...");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if(rs!=null) try { rs.close(); } catch(SQLException e) {}
-			if(stmt!=null) try { stmt.close(); } catch (SQLException e) {}
-			if(conn!=null) try { conn.close(); } catch (SQLException e) {}
-		}
-		
-	}
-
-	// 3. 자료 삭제
-	private void delete() {
-		// 자료 삭제는 '회원ID'를 입력 받아서 처리한다.
-		try {
-			conn = DBUtil.getConnection();
-			
-			int count = 0;
-			
-			do {
-				System.out.print("삭제할 회원 아이디 : ");
-				id = scan.next();
-				
-				String sql1 = "select count(*) cnt from mymember " 
-						+ "where mem_id = ?";
-				
-				pstmt = conn.prepareStatement(sql1);
-				pstmt.setString(1, id);
-				
-				rs = pstmt.executeQuery();
-				
-				if(rs.next()) {
-					count = rs.getInt("cnt");
-				}
-				
-				if(count > 0) {
-					System.out.println(id + "는 등록된 회원입니다.");
-					System.out.println("자료 삭제를 시작합니다.");
-					break;
-				} else {
-					System.out.println(id + "는 등록된 회원입니다.");
-					System.out.println("다시 입력하세요.");
-				}
-				
-			}while(count > 0); 
-			
-			
-			String sql2 = "delete from mymember " + 
-					"where mem_id = ?";
-			
-			pstmt = conn.prepareStatement(sql2);
-			pstmt.setString(1, id);
-			
-			int cnt = pstmt.executeUpdate(); 
-			
-			if(cnt > 0) {
-				System.out.println("삭제 성공!!");
-			}else {
-				System.out.println("삭제 실패...");
-			}
-			
-		}catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if(rs!=null) try { rs.close(); } catch(SQLException e) {}
-			if(pstmt!=null) try { pstmt.close(); } catch (SQLException e) {}
-			if(conn!=null) try { conn.close(); } catch (SQLException e) {}
+			disConnect();
 		}
 	}
 
-	// 2. 자료 수정
-	private void update() {
-		// 자료 수정에서 '회원ID'는 변경되지 않는다.
-		try {
-			conn = DBUtil.getConnection();
-			
-			int count = 0;
-			
-			do {
-				System.out.print("수정할 회원 아이디 : ");
-				id = scan.next();
-				
-				String sql1 = "select count(*) cnt from mymember " 
-						+ "where mem_id = ?";
-				
-				pstmt = conn.prepareStatement(sql1);
-				pstmt.setString(1, id);
-				
-				rs = pstmt.executeQuery();
-				
-				if(rs.next()) {
-					count = rs.getInt("cnt");
-				}
-				
-				if(count > 0) {
-					System.out.println(id + "는 등록된 회원입니다.");
-					System.out.println("자료 수정을 시작합니다.");
-					break;
-				}else {
-					System.out.println(id + "는 등록된 회원입니다.");
-					System.out.println("다시 입력하세요.");
-				}
-				
-			}while(count > 0); 
-			
-			System.out.print("회원 이름 : ");
-			name = scan.next();
-			
-			System.out.print("비밀번호 : ");
-			pass = scan.next();
-			
-			System.out.print("전화번호 : ");
-			tel = scan.next();
-			
-			System.out.print("주소 : ");
-			scan.nextLine();
-			addr = scan.nextLine();
-			
-			String sql2 = "insert into mymember " + 
-					"(mem_name, mem_pass, mem_tel, mem_addr)" +
-					"values(?, ?, ?, ?)";
-			
-			pstmt = conn.prepareStatement(sql2);
-			pstmt.setString(1, name);
-			pstmt.setString(2, pass);
-			pstmt.setString(3, tel);
-			pstmt.setString(4, addr);
-			
-			int cnt = pstmt.executeUpdate(); 
-			
-			if(cnt > 0) {
-				System.out.println("수정 성공!!");
-			}else {
-				System.out.println("수정 실패...");
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if(rs!=null) try { rs.close(); } catch(SQLException e) {}
-			if(pstmt!=null) try { pstmt.close(); } catch (SQLException e) {}
-			if(conn!=null) try { conn.close(); } catch (SQLException e) {}
-		}
-		
-	}
-
-	// 1. 자료 추가
-	private void insert() {
-		try {
-			conn = DBUtil.getConnection();
-			
-			// 자료 추가에서 '회원ID'는 중복되지 않는다.(중복되면 다시 입력 받는다.)
-			int count = 0; // 입력한 회원아이디의 개수가 저장될 변수
-			
-			do {
-				System.out.print("회원 아이디 : ");
-				id = scan.next();
-				
-				String sql1 = "select count(*) cnt from mymember " 
-						+ "where mem_id = ?";
-				
-				pstmt = conn.prepareStatement(sql1);
-				pstmt.setString(1, id);
-				
-				rs = pstmt.executeQuery();
-				
-				if(rs.next()) {
-					count = rs.getInt("cnt");
-				}
-				
-				if(count > 0) {
-					System.out.println("입력한 회원ID " + id + "는 이미 등록된 ID입니다.");
-					System.out.println("다시 입력하세요.");
-				}
-				
-			}while(count > 0); // 중복되면 반복처리 되도록 한다.
-			
-			System.out.print("회원 이름 : ");
-			name = scan.next();
-			
-			System.out.print("비밀번호 : ");
-			pass = scan.next();
-			
-			System.out.print("전화번호 : ");
-			tel = scan.next();
-			
-			System.out.print("주소 : ");
-			scan.nextLine();
-			addr = scan.nextLine();
-			
-			String sql2 = "insert into mymember " + 
-					"values(?, ?, ?, ?, ?)";
-			
-			pstmt = conn.prepareStatement(sql2);
-			pstmt.setString(1, id);
-			pstmt.setString(2, name);
-			pstmt.setString(3, pass);
-			pstmt.setString(4, tel);
-			pstmt.setString(5, addr);
-			
-			int cnt = pstmt.executeUpdate(); 
-			
-			if(cnt > 0) {
-				System.out.println("추가 성공!!");
-			}else {
-				System.out.println("추가 실패...");
-			}
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if(rs!=null) try { rs.close(); } catch(SQLException e) {}
-			if(pstmt!=null) try { pstmt.close(); } catch (SQLException e) {}
-			if(conn!=null) try { conn.close(); } catch (SQLException e) {}
-		}		
-	}
-
-	// 메뉴를 출력하고 작업 번호를 입력받아 반환하는 메서드
-	private int displayMenu() {
+	// 회원 정보를 추가(입력)하는 메서드
+	private void insertMember() {
 		System.out.println();
-		System.out.println("----------------------------");
-		System.out.println("1. 자료 추가");
-		System.out.println("2. 자료 수정");
-		System.out.println("3. 자료 삭제");
-		System.out.println("4. 자료 전체 출력");
-		System.out.println("0. 작업 끝");
-		System.out.println("----------------------------");
-		System.out.print("번호입력 >> ");
-		int num = scan.nextInt();
-		System.out.println();
-		return num;
+		System.out.println("추가할 회원 정보를 입력하세요.");
+		
+		// 자료 추가에서 '회원ID'는 중복되지 않는다.(중복되면 다시 입력 받는다.) 
+		int count = 0; // 입력한 회원ID의 개수가 저장될 변수
+		
+		String memId; // 회원ID가 저장될 변수
+		do {
+			System.out.print("회원ID >> ");
+			memId = scan.next();
+			
+			count = getMemberCount(memId);
+			
+			if(count > 0) {
+				System.out.println(memId + "는 이미 등록된 ID입니다.");
+				System.out.println("다른 회원ID를 입력하세요.");
+			}
+			
+		}while(count > 0);
+		
+		System.out.print("비밀번호 >> ");
+		String memPass = scan.next(); // next() : 띄어쓰기를 하지 않는 데이터
+		
+		System.out.print("회원이름 >> ");
+		String memName = scan.next();
+		
+		System.out.print("전화번호 >> ");
+		String memTel = scan.next();
+		
+		scan.nextLine(); // 입력버퍼 비우기 (nextLine() 전에 오는 next()값 지우기)
+		System.out.print("주소 >> ");
+		String memAddr = scan.nextLine();
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			String sql = "insert into mymember " 
+					+ "(mem_id, mem_pass, mem_name, mem_tel, mem_addr) "
+					+ " values (?, ?, ?, ?, ?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memId);
+			pstmt.setString(2, memPass);
+			pstmt.setString(3, memName);
+			pstmt.setString(4, memTel);
+			pstmt.setString(5, memAddr);
+			
+			int cnt = pstmt.executeUpdate();
+			
+			if(cnt > 0) {
+				System.out.println("회원 정보 추가 성공!!");
+			}else {
+				System.out.println("회원 정보 추가 실패...");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
 	}
 	
+	// 회원ID를 매개변수로 받아서 해당 회원ID의 개수를 반환하는 메서드
+	private int getMemberCount(String memId) {
+		int count = 0;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			String sql = "select count(*) cnt from mymember " 
+					+ "where mem_id = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memId);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt("cnt");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		
+		return count;
+	}
+	
+	// 사용했던 자원을 반납하는 메서드
+	private void disConnect() {
+		if(rs!=null) try { rs.close(); } catch(SQLException e) {}
+		if(stmt!=null) try { stmt.close(); } catch (SQLException e) {}
+		if(pstmt!=null) try { pstmt.close(); } catch (SQLException e) {}
+		if(conn!=null) try { conn.close(); } catch (SQLException e) {}
+	}
+
+	// 메뉴를 출력하고 선택한 작업번호를 반환하는 메서드
+	private int displayMenu() {
+		System.out.println();
+		System.out.println("---------------------------");
+		System.out.println(" == 작 업 선 택 ==");
+		System.out.println("1. 자 료 추 가");
+		System.out.println("2. 자 료 수 정");
+		System.out.println("3. 자 료 삭 제");
+		System.out.println("4. 전 체 자 료 출 력");
+		System.out.println("0. 작 업 끝");
+		System.out.println("---------------------------");
+		System.out.println("원하는 작업번호 >> ");
+		return scan.nextInt();
+		
+	}
+	
+	
+	public static void main(String[] args) {
+		new JdbcTest06().startMember();
+
+	}
 
 }
