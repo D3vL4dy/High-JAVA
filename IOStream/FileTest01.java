@@ -1,4 +1,4 @@
-package kr.or.ddit.basic;
+package iostream;
 
 import java.io.File;
 
@@ -9,7 +9,7 @@ public class FileTest01 {
 		
 		// 1. new File(String 파일명 또는 경로)
 		// ==> 파일 또는 경로를 나타낼 때 디렉토리와 디렉토리 사이 
-		//     또는 디렉토리와 파일명 사이의 구분 문자로 '/'를 사용하거나 '/'를 사용할 수 있다.
+		//     또는 디렉토리와 파일명 사이의 구분 문자로 '/'를 사용하거나 '\\'를 사용할 수 있다.
 		
 		//File file1 = new File("d:/d_other/test.txt"); // 구분문자로 '/'를 사용
 		File file1 = new File("d:\\D_Other\\test.txt"); // 구분문자로 '\'를 사용
@@ -25,7 +25,7 @@ public class FileTest01 {
 		System.out.println("폴더인가? ==> " + file2.isDirectory());
 		System.out.println();
 		
-		// 2. new File(File parant, String child)
+		// 2. new File(File parent, String child)
 		// ==> 'parent'디렉토리(폴더) 안에 있는 'child'파일을 갖는 File객체
 		File file3 = new File(file2, "test.txt");
 		System.out.println("파일명 : " + file3.getName());
