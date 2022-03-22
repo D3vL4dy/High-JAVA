@@ -113,14 +113,13 @@ public class MemberDaoImpl implements IMemberDao{
 	}
 
 	@Override
-	public int updateMember2(Connection conn, MemberVO memVo) throws SQLException {
-		String updateField = null;
+	public int updateMember2(Connection conn, String memId, String updateField, String updateData) throws SQLException {
 		String sql = "update mymember set " 
-				+ updateField  + "=? where mem_id = ?";
+				+ updateField + "=? where mem_id = ?";
 		
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, memVo.getUpdateData());
-		pstmt.setString(2, memVo.getMem_id());
+		pstmt.setString(1, updateData);
+		pstmt.setString(2, memId);
 		
 		int cnt = pstmt.executeUpdate();
 		

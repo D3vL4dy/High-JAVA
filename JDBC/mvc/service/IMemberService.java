@@ -65,6 +65,6 @@ public interface IMemberService {
 	 * @param memVo update할 회원 정보가 저장된 MemberVO객체
 	 * @return 작업 성공 : 1, 작업 실패 : 0
 	 */
-	public int updateMember2(MemberVO memVo);
+	public int updateMember2(String memId, String updateField, String updateData);
 
 }

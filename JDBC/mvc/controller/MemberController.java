@@ -1,13 +1,11 @@
 package kr.or.ddit.basic.mvc.controller;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
 import kr.or.ddit.basic.mvc.service.IMemberService;
 import kr.or.ddit.basic.mvc.service.MemberServiceImpl;
 import kr.or.ddit.basic.mvc.vo.MemberVO;
-import kr.or.ddit.util.DBUtil;
 
 public class MemberController {
 	private Scanner scan = new Scanner(System.in);
@@ -99,11 +97,11 @@ public class MemberController {
 			String updateData = scan.nextLine();
 			
 			// 입력한 데이터를 VO객체에 저장한다.
-			MemberVO memVo = new MemberVO();
-			memVo.setUpdateData(updateData);
-			memVo.setMem_id(memId);
+//			MemberVO memVo = new MemberVO();
+//			setUpdateData(updateData);
+//			memVo.setMem_id(memId);
 
-			int cnt = service.updateMember2(memVo);
+			int cnt = service.updateMember2(memId, updateField, updateData);
 
 			if (cnt > 0) {
 				System.out.println("회원정보 수정 성공!!");

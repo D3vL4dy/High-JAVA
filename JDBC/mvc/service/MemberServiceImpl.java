@@ -99,12 +99,12 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 	@Override
-	public int updateMember2(MemberVO memVo) {
+	public int updateMember2(String memId, String updateField, String updateData) {
 		Connection conn = null;
 		int cnt = 0; // 반환값 변수
 		try {
 			conn = DBUtil3.getConnection();
-			cnt = dao.updateMember2(conn, memVo);
+			cnt = dao.updateMember2(conn, memId, updateField, updateData);
 
 		} catch (SQLException e) {
 			cnt = 0;
