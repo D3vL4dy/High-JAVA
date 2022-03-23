@@ -39,9 +39,9 @@ public class BoardServiceImpl implements IBoardService {
 		}
 		return cnt;
 	}
-
+	
 	@Override
-	public int updateMember(BoardVO boardVo, int boardNo) {
+	public int updateBoard(BoardVO boardVo, int boardNo) {
 		Connection conn = null;
 		int cnt = 0; // 반환값 변수
 		try {
@@ -58,7 +58,7 @@ public class BoardServiceImpl implements IBoardService {
 	}
 
 	@Override
-	public int deleteMember(int boardNo) {
+	public int deleteBoard(int boardNo) {
 		Connection conn = null;
 		int cnt = 0; // 반환값 변수
 		try {
@@ -77,35 +77,69 @@ public class BoardServiceImpl implements IBoardService {
 	@Override
 	public List<BoardVO> getAllBoard() {
 		Connection conn = null;
-		List<BoardVO> memList = null;
+		List<BoardVO> boardList = null;
 		
 		try {
 			conn = DBUtil3.getConnection();
-			memList = dao.getAllBoard(conn);
+			boardList = dao.getAllBoard(conn);
 			
 		} catch (SQLException e) {
-			memList = null;
+			boardList = null;
 		} finally {
 			if(conn != null) try { conn.close(); } catch (SQLException e) {}
 		}
-		return memList;
+		return boardList;
 	}
 
 	@Override
-	public List<BoardVO> getBoardNo_Select() {
+	public List<BoardVO> getBoardNo_Select(int boardNo) {
 		Connection conn = null;
-		List<BoardVO> memList = null;
+		List<BoardVO> boardList = null;
 		
 		try {
 			conn = DBUtil3.getConnection();
-			memList = dao.getAllBoard(conn);
+			boardList = dao.getBoardNo_Select(conn, boardNo);
 			
 		} catch (SQLException e) {
-			memList = null;
+			boardList = null;
 		} finally {
 			if(conn != null) try { conn.close(); } catch (SQLException e) {}
 		}
-		return memList;
+		return boardList;
+	}
+
+	@Override
+	public List<BoardVO> selectBoard(String boardTitle) {
+		Connection conn = null;
+		List<BoardVO> boardList = null;
+		
+		try {
+			conn = DBUtil3.getConnection();
+			boardList = dao.selectBoard(conn, boardTitle);
+			
+		} catch (SQLException e) {
+			boardList = null;
+		} finally {
+			if(conn != null) try { conn.close(); } catch (SQLException e) {}
+		}
+		return boardList;
+	}
+
+	@Override
+	public int updateCnt(int boardNo) {
+		Connection conn = null;
+		int cnt = 0; // 반환값 변수
+		try {
+			conn = DBUtil3.getConnection();
+			cnt = dao.updateCnt(conn, boardNo);
+
+		} catch (SQLException e) {
+			cnt = 0;
+			e.printStackTrace();
+		} finally {
+			if (conn != null) try { conn.close(); } catch (SQLException e) {}
+		}
+		return cnt;
 	}
 
 }

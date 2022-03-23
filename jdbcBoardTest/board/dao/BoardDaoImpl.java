@@ -96,29 +96,75 @@ public class BoardDaoImpl implements IBoardDao{
 	}
 
 	@Override
-	public List<BoardVO> getBoardNo_Select(Connection conn) throws SQLException {
+	public List<BoardVO> getBoardNo_Select(Connection conn, int boardNo) throws SQLException {
 		List<BoardVO> boardList = null; // 반환값이 저장될 변수
-		String sql = "select board_title, board_writer, board_content, board_date, board_cnt from jdbc_board";
-		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery(sql);
+		String sql = "select * from jdbc_board where board_no = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, boardNo);
+		
+		ResultSet rs = pstmt.executeQuery();
 
 		boardList = new ArrayList<BoardVO>();
-		
-		BoardVO boardVo = new BoardVO(); // 1개의 레코드가 저장될 변수
-		boardVo.setBoard_title(rs.getString("board_title"));
-		boardVo.setBoard_writer(rs.getString("board_writer"));
-		boardVo.setBoard_content(rs.getString("board_content"));
-		boardVo.setBoard_date(rs.getString("board_date"));
-		boardVo.setBoard_cnt(rs.getInt("board_cnt"));
-
-		boardList.add(boardVo); // List에 baordVO객체 추가
+		if(rs.next()) {
+			BoardVO boardVo = new BoardVO(); // 1개의 레코드가 저장될 변수
+			boardVo.setBoard_title(rs.getString("board_title"));
+			boardVo.setBoard_writer(rs.getString("board_writer"));
+			boardVo.setBoard_content(rs.getString("board_content"));
+			boardVo.setBoard_date(rs.getDate("board_date"));
+			boardVo.setBoard_cnt(rs.getInt("board_cnt"));
+			
+			boardList.add(boardVo); // List에 baordVO객체 추가
+		}
 
 		if (rs != null)
 			rs.close();
-		if (stmt != null)
-			stmt.close();
+		if (pstmt != null)
+			pstmt.close();
 
 		return boardList;
+	}
+
+	@Override
+	public List<BoardVO> selectBoard(Connection conn, String boardTitle) throws SQLException {
+		List<BoardVO> boardList = null; // 반환값이 저장될 변수
+		String sql = "select * from jdbc_board where board_title like '%' || ? || '%'";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, boardTitle);
+		
+		ResultSet rs = pstmt.executeQuery();
+
+		boardList = new ArrayList<BoardVO>();
+		if(rs.next()) {
+			BoardVO boardVo = new BoardVO(); // 1개의 레코드가 저장될 변수
+			boardVo.setBoard_no(rs.getInt("board_no"));
+			boardVo.setBoard_title(rs.getString("board_title"));
+			boardVo.setBoard_writer(rs.getString("board_writer"));
+			boardVo.setBoard_date(rs.getDate("board_date"));
+			
+			boardList.add(boardVo); // List에 baordVO객체 추가
+		}
+
+		if (rs != null)
+			rs.close();
+		if (pstmt != null)
+			pstmt.close();
+
+		return boardList;
+	}
+
+	@Override
+	public int updateCnt(Connection conn, int boardNo) throws SQLException {
+		String sql = "update jdbc_board set "
+				+ "board_cnt = board_cnt+1 where board_no = ?";
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, boardNo);
+
+		int cnt = pstmt.executeUpdate();
+		
+		if(pstmt!=null) pstmt.close();
+		
+		return cnt;
 	}
 
 }

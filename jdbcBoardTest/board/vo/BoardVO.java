@@ -1,5 +1,7 @@
 package kr.or.ddit.board.vo;
 
+import java.util.Date;
+
 /*
  * DB테이블에 있는 컬럼을 기준으로 데이터를 객체화할 클래스
  * 
@@ -11,7 +13,7 @@ public class BoardVO {
 	private int board_no;
 	private String board_title;
 	private String board_writer;
-	private String board_date;
+	private Date board_date;
 	private int board_cnt;
 	private String board_content;
 	
@@ -35,12 +37,6 @@ public class BoardVO {
 	public void setBoard_writer(String board_writer) {
 		this.board_writer = board_writer;
 	}
-	public String getBoard_date() {
-		return board_date;
-	}
-	public void setBoard_date(String board_date) {
-		this.board_date = board_date;
-	}
 	public int getBoard_cnt() {
 		return board_cnt;
 	}
@@ -54,6 +50,12 @@ public class BoardVO {
 		this.board_content = board_content;
 	}
 	
+	public Date getBoard_date() {
+		return board_date;
+	}
+	public void setBoard_date(Date board_date) {
+		this.board_date = board_date;
+	}
 	@Override
 	public String toString() {
 		return "BoardVO [board_no=" + board_no + ", board_title=" + board_title + ", board_writer=" + board_writer

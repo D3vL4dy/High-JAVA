@@ -1,5 +1,7 @@
 package kr.or.ddit.board.service;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import kr.or.ddit.board.vo.BoardVO;
@@ -29,7 +31,7 @@ public interface IBoardService {
 	 * @param boardNo delete할 게시글 번호가 저장된 BoardNO객체
 	 * @return 작업 성공 : 1, 작업 실패 : 0
 	 */
-	public int updateMember(BoardVO boardVo, int boardNo);
+	public int updateBoard(BoardVO boardVo, int boardNo);
 	
 	/**
 	 * 글번호를 매개변수로 받아 해당 게시글을 delete하는 메서드
@@ -37,7 +39,7 @@ public interface IBoardService {
 	 * @param boardNo delete할 게시글 번호가 저장된 BoardNO객체
 	 * @return 작업 성공 : 1, 작업 실패 : 0
 	 */
-	public int deleteMember(int boardNo);
+	public int deleteBoard(int boardNo);
 	
 	/**
 	 * DB의 전체 게시글을 가져와서 List에 담아서 반환하는 메서드
@@ -49,8 +51,25 @@ public interface IBoardService {
 	/**
 	 * 글번호를 매개변수로 받아 해당 게시글을 가져와서 List에 담아 반환하는 메서드
 	 * 
+	 * @param boardNo select할 게시글 번호가 저장된 BoardNO객체
 	 * @return BoardVO객체가 저장된 List
 	 */
-	public List<BoardVO> getBoardNo_Select();
+	public List<BoardVO> getBoardNo_Select(int boardNo);
+	
+	/**
+	 * 문자를 매개변수로 받아 해당 게시글을 가져와서 List에 담아 반환하는 메서드
+	 * 
+	 * @param boardTitle select할 문자가 저장된 BoardNO객체
+	 * @return BoardVO객체가 저장된 List
+	 */
+	public List<BoardVO> selectBoard(String boardTitle);
+	
+	/**
+	 * 글번호를 매개변수로 받아 해당 게시글의 조회수를 update하는 메서드
+	 * 
+	 * @param boardNo update할 게시글 번호가 저장된 BoardNO객체
+	 * @return 작업 성공 : 1, 작업 실패 : 0
+	 */
+	public int updateCnt(int boardNo);
 	
 }

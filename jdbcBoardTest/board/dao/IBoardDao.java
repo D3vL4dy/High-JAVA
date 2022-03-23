@@ -62,13 +62,30 @@ public interface IBoardDao {
 	 * 글번호를 매개변수로 받아 해당 게시글을 가져와서 List에 담아 반환하는 메서드
 	 * 
 	 * @param conn Connection객체
+	 * @param boardNo select할 게시글 번호가 저장된 BoardNO객체
 	 * @return BoardVO객체가 저장된 List
 	 * @throws SQLException
 	 */
-	public List<BoardVO> getBoardNo_Select(Connection conn) throws SQLException;
+	public List<BoardVO> getBoardNo_Select(Connection conn, int boardNo) throws SQLException;
 	
+	/**
+	 * 문자를 매개변수로 받아 해당 게시글을 가져와서 List에 담아 반환하는 메서드
+	 * 
+	 * @param conn Connection객체
+	 * @param boardTitle select할 문자가 저장된 BoardNO객체
+	 * @return BoardVO객체가 저장된 List
+	 * @throws SQLException
+	 */
+	public List<BoardVO> selectBoard(Connection conn, String boardTitle) throws SQLException;
 	
-	
-	
+	/**
+	 * 글번호를 매개변수로 받아 해당 게시글의 조회수를 update하는 메서드
+	 * 
+	 * @param conn Connection객체
+	 * @param boardNo update할 게시글 번호가 저장된 BoardNO객체
+	 * @return 작업 성공 : 1, 작업 실패 : 0
+	 * @throws SQLException
+	 */
+	public int updateCnt(Connection conn, int boardNo) throws SQLException;
 	
 }
