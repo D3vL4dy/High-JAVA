@@ -12,11 +12,23 @@ import java.util.Map;
 import kr.or.ddit.basic.mvc.vo.MemberVO;
 
 public class MemberDaoImpl implements IMemberDao{
+	
+	// 1번
+	private static MemberDaoImpl dao;
+	
+	// 2번
+	private MemberDaoImpl() {}
+	
+	// 3번
+	public static MemberDaoImpl getInstance() {
+		if(dao == null) dao = new MemberDaoImpl();
+		return dao;
+	}
 
 	@Override
 	public int insertMember(Connection conn, MemberVO memVo) throws SQLException { 
 		// throws SQLException가 있어 try-catch 사용하지 않음
-		String sql = "insert into mymember"
+		String sql = "insert into mymember "
 				 + "(mem_id, mem_pass, mem_name, mem_tel, mem_addr) "
 				 + " values(?, ?, ?, ?, ?)";
 		

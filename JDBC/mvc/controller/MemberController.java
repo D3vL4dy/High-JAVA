@@ -13,9 +13,10 @@ public class MemberController {
 	private Scanner scan = new Scanner(System.in);
 	private IMemberService service;
 	
-	// 생성자
+	// 생성자 (singleton 사용)
 	public MemberController() {
-		service = new MemberServiceImpl();
+//		service = new MemberServiceImpl();
+		service = MemberServiceImpl.getInstance();
 	}
 	
 	// 시작 메서드

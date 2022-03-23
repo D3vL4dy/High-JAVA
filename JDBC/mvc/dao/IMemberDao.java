@@ -21,7 +21,7 @@ public interface IMemberDao {
 	/**
 	 * MemberVo에 담겨진 자료를 DB에 insert하는 메서드
 	 * 
-	 * @param conn  java.sql.Connecion객체
+	 * @param conn java.sql.Connecion객체
 	 * @param memVO DB에 insert할 자료가 저장된 MemberVO객체
 	 * @return insert 작업 성공 : 1, insert 작업 실패 : 0
 	 * @throws SQLException
@@ -60,7 +60,7 @@ public interface IMemberDao {
 	/**
 	 * 회원ID를 매개변수로 받아서 해당 회원ID의 개수를 반환하는 메서드
 	 * 
-	 * @param conn  Connection객체
+	 * @param conn Connection객체
 	 * @param memId 검색할 회원ID
 	 * @return 검색된 회원ID의 갯수
 	 * @throws SQLException

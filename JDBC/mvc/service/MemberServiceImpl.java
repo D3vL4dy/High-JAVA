@@ -13,10 +13,21 @@ import kr.or.ddit.util.DBUtil3;
 public class MemberServiceImpl implements IMemberService {
 	private IMemberDao dao;
 
-	public MemberServiceImpl() {
-		dao = new MemberDaoImpl();
+	// 1번
+	private static MemberServiceImpl service;
+	
+	// 2번 생성자 (singleton 사용)
+	private MemberServiceImpl() {
+		//dao = new MemberDaoImpl();
+		dao = MemberDaoImpl.getInstance(); 
 	}
-
+	
+	// 3번
+	public static MemberServiceImpl getInstance() {
+		if(service == null) service = new MemberServiceImpl();
+		return service;
+	}
+	
 	@Override
 	public int insertMember(MemberVO memVo) {
 		Connection conn = null;

@@ -1,7 +1,5 @@
 package kr.or.ddit.basic.mvc.service;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -21,8 +19,7 @@ public interface IMemberService {
 	 * MemberVo에 담겨진 자료를 DB에 insert하는 메서드
 	 * 
 	 * @param memVO DB에 insert할 자료가 저장된 MemberVO객체
-	 * @return insert 작업 성공 : 1, insert 작업 실패 : 0
-	 * @throws SQLException
+	 * @return 작업 성공 : 1, insert 작업 실패 : 0
 	 */
 	public int insertMember(MemberVO memVo);
 
@@ -31,7 +28,6 @@ public interface IMemberService {
 	 * 
 	 * @param memId 삭제할 회원ID
 	 * @return 작업 성공 : 1, 작업 실패 : 0
-	 * @throws SQLException
 	 */
 	public int deleteMember(String memId);
 
@@ -40,7 +36,6 @@ public interface IMemberService {
 	 * 
 	 * @param memVo update할 회원 정보가 저장된 MemberVO객체
 	 * @return 작업 성공 : 1, 작업 실패 : 0
-	 * @throws SQLException
 	 */
 	public int updateMember(MemberVO memVo);
 
@@ -48,7 +43,6 @@ public interface IMemberService {
 	 * DB의 전체 회원 정보를 가져와서 List에 담아서 반환하는 메서드
 	 * 
 	 * @return MemberVO객체가 저장된 List
-	 * @throws SQLException
 	 */
 	public List<MemberVO> getAllMember();
 
@@ -57,7 +51,6 @@ public interface IMemberService {
 	 * 
 	 * @param memId 검색할 회원ID
 	 * @return 검색된 회원ID의 갯수
-	 * @throws SQLException
 	 */
 	public int getMemberCount(String memId);
 	
