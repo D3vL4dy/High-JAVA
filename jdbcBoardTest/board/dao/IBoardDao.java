@@ -3,7 +3,6 @@ package kr.or.ddit.board.dao;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 import kr.or.ddit.board.vo.BoardVO;
 

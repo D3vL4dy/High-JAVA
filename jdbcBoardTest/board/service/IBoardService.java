@@ -1,7 +1,5 @@
 package kr.or.ddit.board.service;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 import kr.or.ddit.board.vo.BoardVO;

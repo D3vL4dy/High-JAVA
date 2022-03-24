@@ -1,7 +1,5 @@
 package kr.or.ddit.board.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,7 +8,6 @@ import kr.or.ddit.board.service.IBoardService;
 import kr.or.ddit.board.vo.BoardVO;
 
 public class BoardController {
-	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	
 	private Scanner scan = new Scanner(System.in);
 	private IBoardService service;
@@ -23,7 +20,6 @@ public class BoardController {
 	// 시작 메서드
 	public void startBoard() {
 		while (true) {
-			displayBoard();
 			int choice = displayMenu();
 
 			switch (choice) {
@@ -46,6 +42,7 @@ public class BoardController {
 		}
 	}
 
+	// 게시글 제목을 검색하는 메서드
 	private void selectBoard() {
 		System.out.println();
 		System.out.println("검색 작업");
@@ -76,6 +73,7 @@ public class BoardController {
 		}
 	}
 
+	// 게시물 번호를 입력받아 게시글 내용을 보여주는 메서드
 	private void boardNo_selectBoard() {
 		System.out.println();
 		System.out.print("보기를 원하는 게시물 번호 입력 >> ");
@@ -85,7 +83,7 @@ public class BoardController {
 		List<BoardVO> boardList = service.getBoardNo_Select(boardNo);
 		
 		if(boardList == null || boardList.size() == 0) {
-			System.out.println("출력할 자료가 없습니다.");
+			System.out.println(boardNo + "번 게시글이 존재하지 않습니다.");
 		}else {
 			
 			for(BoardVO boardVo : boardList) {
@@ -93,7 +91,7 @@ public class BoardController {
 				String boardTitle = boardVo.getBoard_title();
 				String boardWriter = boardVo.getBoard_writer();
 				String boardContent = boardVo.getBoard_content();
-				Date boardDate = boardVo.getBoard_date();
+				String boardDate = boardVo.getBoard_date();
 				int boardCnt = boardVo.getBoard_cnt();
 				
 				System.out.println();
@@ -102,11 +100,9 @@ public class BoardController {
 				System.out.println(" - 제 목 : " + boardTitle);
 				System.out.println(" - 작성자 : " + boardWriter);
 				System.out.println(" - 내 용 : " + boardContent);
-				System.out.println(" - 작성일 : " + format.format(boardDate));
+				System.out.println(" - 작성일 : " + boardDate);
 				System.out.println(" - 조회수 : " + boardCnt);
 				System.out.println("-------------------------------------------");
-				
-				
 			}
 			System.out.println();
 			System.out.println("메뉴 : 1. 수정    2. 삭제    3. 리스트로 가기");
@@ -120,10 +116,13 @@ public class BoardController {
 			case 2: // 삭제
 				deleteBoard(boardNo);
 				break;
+			case 3: // 리스트로 가기
+				return;	
 			}
 		}
 	}
 
+	// 게시글을 삭제하는 메서드
 	private void deleteBoard(int boardNo) {
 		
 		int cnt = service.deleteBoard(boardNo);
@@ -136,6 +135,7 @@ public class BoardController {
 		}
 	}
 
+	// 게시글을 수정하는 메서드
 	private void updateBoard(int boardNo) {
 		System.out.println();
 		System.out.println("수정 작업하기");
@@ -145,7 +145,6 @@ public class BoardController {
 		String boardTitle = scan.nextLine();
 		
 		System.out.print(" - 내 용 >> ");
-		scan.nextLine();
 		String boardContent = scan.nextLine();
 		
 		// 입력한 데이터를 VO객체에 저장한다.
@@ -162,6 +161,7 @@ public class BoardController {
 		}
 	}
 
+	// 게시글 목록을 보여주는 메서드
 	private void displayBoard() {
 		List<BoardVO> boardList = service.getAllBoard();
 		System.out.println();
@@ -184,6 +184,7 @@ public class BoardController {
 		}
 	}
 	
+	// 새 글을 작성하는 메서드
 	private void insertBoard() {
 		System.out.println();
 		System.out.println("새글 작성하기");
@@ -215,8 +216,9 @@ public class BoardController {
 		}
 	}
 
-	// 메뉴를 출력하고 선택한 작업번호를 반환하는 메서드
+	// 게시글 목록을 보여주고 메뉴를 나타내며 사용자가 입력한 메뉴 번호를 반환하는 메서드
 	private int displayMenu() {
+		displayBoard();
 		System.out.println("------------------------------------------------");
 		System.out.println("메뉴 : 1. 새글작성  2. 게시글보기  3. 검색  0. 작업끝");
 		System.out.print("작업선택 >> ");
