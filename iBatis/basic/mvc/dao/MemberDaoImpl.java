@@ -8,6 +8,7 @@ import java.util.Scanner;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
 import kr.or.ddit.basic.mvc.vo.MemberVO;
+import kr.or.ddit.mvc.vo.MemberVo;
 import kr.or.ddit.util.SqlMapClientFactory;
 
 public class MemberDaoImpl implements IMemberDao{
@@ -24,71 +25,40 @@ public class MemberDaoImpl implements IMemberDao{
 		return dao;
 	}
 	
-	SqlMapClient smc = SqlMapClientFactory.getSqlMapClient();
 	
 	@Override
 	public int insertMember(SqlMapClient smc, MemberVO memVo) throws SQLException {
-		MemberVO memberVo = new MemberVO();
-		memberVo.setMem_id(memVo.getMem_id());
-		memberVo.setMem_pass(memVo.getMem_pass());
-		memberVo.setMem_name(memVo.getMem_name());
-		memberVo.setMem_tel(memVo.getMem_tel());
-		memberVo.setMem_addr(memVo.getMem_addr());
-		
 		Object obj = smc.insert("member.insertMember", memberVo);
 		
-		if (obj == null) {
-			System.out.println("insert 성공");
-		} else {
-			System.out.println("insert 실패");
-		}
-		return 0;
+		return obj;
 	}
 
 	@Override
 	public int deleteMember(SqlMapClient smc, String memId) throws SQLException {
-		MemberVO memberVo = new MemberVO();
-		memberVo.setMem_id(memId);
+		int cnt = (int) smc.delete("member.insertMember", memId);
 		
-		int cnt = smc.delete("member.insertMember", memId);
-		
-		if (cnt > 0) {
-			System.out.println("insert 성공");
-		} else {
-			System.out.println("insert 실패");
-		}
-		return 0;
+		return cnt;
 	}
 
 	@Override
 	public int updateMember(SqlMapClient smc, MemberVO memVo) throws SQLException {
-		MemberVO memberVo = new MemberVO();
-		memberVo.setMem_pass(memVo.getMem_pass());
-		memberVo.setMem_name(memVo.getMem_name());
-		memberVo.setMem_tel(memVo.getMem_tel());
-		memberVo.setMem_addr(memVo.getMem_addr());
-		memberVo.setMem_id(memVo.getMem_id());
+		int cnt = (int) smc.delete("member.updateMember", memberVo);
 		
-		int cnt = smc.delete("member.updateMember", memberVo);
-		
-		if (cnt > 0) {
-			System.out.println("update 성공");
-		} else {
-			System.out.println("update 실패");
-		}
-		return 0;
+		return cnt;
 	}
 
 	@Override
 	public List<MemberVO> getAllMember(SqlMapClient smc) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		List<MemberVo> memList = smc.queryForList("member.getAllMember");
+		
+		return memList;
 	}
 
 	@Override
 	public int getMemberCount(SqlMapClient smc, String memId) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		int count = (int) smc.queryForObject("member.getMemberCount", memId);
+
+        return count;
 	}
 
 //	@Override

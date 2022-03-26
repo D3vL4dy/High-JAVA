@@ -26,14 +26,11 @@ public class MemberServiceImpl implements IMemberService {
 		return service;
 	}
 	
-	Scanner scan = new Scanner(System.in);
-	SqlMapClient smc = null;
-
 	@Override
 	public int insertMember(MemberVO memVo) {
 		int cnt = 0;
 		try {
-			smc = SqlMapClientFactory.getSqlMapClient();
+			SqlMapClient smc = SqlMapClientFactory.getSqlMapClient();
 			cnt = dao.insertMember(smc, memVo);
 		} catch (SQLException e) {
 			cnt = 0;
@@ -46,7 +43,7 @@ public class MemberServiceImpl implements IMemberService {
 	public int deleteMember(String memId) {
 		int cnt = 0;
 		try {
-			smc = SqlMapClientFactory.getSqlMapClient();
+			SqlMapClient smc = SqlMapClientFactory.getSqlMapClient();
 			cnt = dao.deleteMember(smc, memId);
 		} catch (SQLException e) {
 			cnt = 0;
@@ -59,7 +56,7 @@ public class MemberServiceImpl implements IMemberService {
 	public int updateMember(MemberVO memVo) {
 		int cnt = 0;
 		try {
-			smc = SqlMapClientFactory.getSqlMapClient();
+			SqlMapClient smc = SqlMapClientFactory.getSqlMapClient();
 			cnt = dao.updateMember(smc, memVo);
 		} catch (SQLException e) {
 			cnt = 0;
@@ -72,7 +69,7 @@ public class MemberServiceImpl implements IMemberService {
 	public List<MemberVO> getAllMember() {
 		List<MemberVO> memList = null;
 		try {
-			smc = SqlMapClientFactory.getSqlMapClient();
+			SqlMapClient smc = SqlMapClientFactory.getSqlMapClient();
 			memList = dao.getAllMember(smc);
 		} catch (SQLException e) {
 			memList = null;
@@ -85,7 +82,7 @@ public class MemberServiceImpl implements IMemberService {
 	public int getMemberCount(String memId) {
 		int count = 0;
 		try {
-			smc = SqlMapClientFactory.getSqlMapClient();
+			SqlMapClient smc = SqlMapClientFactory.getSqlMapClient();
 			count = dao.getMemberCount(smc, memId);
 		} catch (SQLException e) {
 			count = 0;
