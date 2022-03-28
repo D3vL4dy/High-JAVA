@@ -14,7 +14,6 @@ public class MemberVO {
 	private String mem_tel;
 	private String mem_addr;
 	
-	
 	// VO클래스에서 별도의 생성자를 만들때에는 기본 생성자도 반드시 같이 만들어 준다.
 	
 	public String getMem_id() {

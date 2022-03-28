@@ -54,21 +54,13 @@ public interface IMemberService {
 	 */
 	public int getMemberCount(String memId);
 	
-//	/**
-//	 * MemberVo자료를 이용하여 DB에 원하는 자료만 update하는 메서드
-//	 * 
-//	 * @param memVo update할 회원 정보가 저장된 MemberVO객체
-//	 * @return 작업 성공 : 1, 작업 실패 : 0
-//	 */
-//	public int updateMember2(String memId, String updateField, String updateData);
-	
-//	/**
-//	 * Map의 정보를 이용하여 회원정보 중 원하는 컬럼을 수정하는 메서드
-//	 * 		key값 정보 ==> 회원ID(memid), 수정할컬럼명(field), 수정할데이터(data)
-//	 * 
-//	 * @param paramMap 수정할 회원ID, 수정할 컬럼명, 수정할 데이터가 저장된 Map객체
-//	 * @return 작업 성공 : 1, 작업 실패 : 0
-//	 */
-//	public int updateMember2(Map<String, String> paramMap);
+	/**
+	 * Map의 정보를 이용하여 회원정보 중 원하는 컬럼을 수정하는 메서드
+	 * 		key값 정보 ==> 회원ID(memid), 수정할컬럼명(field), 수정할데이터(data)
+	 * 
+	 * @param paramMap 수정할 회원ID, 수정할 컬럼명, 수정할 데이터가 저장된 Map객체
+	 * @return 작업 성공 : 1, 작업 실패 : 0
+	 */
+	public int updateMember2(Map<String, String> paramMap);
 
 }

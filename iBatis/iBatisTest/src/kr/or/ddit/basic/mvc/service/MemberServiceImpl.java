@@ -3,7 +3,6 @@ package kr.or.ddit.basic.mvc.service;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 
@@ -14,23 +13,25 @@ import kr.or.ddit.util.SqlMapClientFactory;
 
 public class MemberServiceImpl implements IMemberService {
 	private IMemberDao dao;
+	private SqlMapClient smc;
 
 	private static MemberServiceImpl service;
-	
+
 	private MemberServiceImpl() {
-		dao = MemberDaoImpl.getInstance(); 
+		dao = MemberDaoImpl.getInstance();
+		smc = SqlMapClientFactory.getSqlMapClient();
 	}
-	
+
 	public static MemberServiceImpl getInstance() {
-		if(service == null) service = new MemberServiceImpl();
+		if (service == null)
+			service = new MemberServiceImpl();
 		return service;
 	}
-	
+
 	@Override
 	public int insertMember(MemberVO memVo) {
 		int cnt = 0;
 		try {
-			SqlMapClient smc = SqlMapClientFactory.getSqlMapClient();
 			cnt = dao.insertMember(smc, memVo);
 		} catch (SQLException e) {
 			cnt = 0;
@@ -43,7 +44,6 @@ public class MemberServiceImpl implements IMemberService {
 	public int deleteMember(String memId) {
 		int cnt = 0;
 		try {
-			SqlMapClient smc = SqlMapClientFactory.getSqlMapClient();
 			cnt = dao.deleteMember(smc, memId);
 		} catch (SQLException e) {
 			cnt = 0;
@@ -56,7 +56,6 @@ public class MemberServiceImpl implements IMemberService {
 	public int updateMember(MemberVO memVo) {
 		int cnt = 0;
 		try {
-			SqlMapClient smc = SqlMapClientFactory.getSqlMapClient();
 			cnt = dao.updateMember(smc, memVo);
 		} catch (SQLException e) {
 			cnt = 0;
@@ -69,7 +68,6 @@ public class MemberServiceImpl implements IMemberService {
 	public List<MemberVO> getAllMember() {
 		List<MemberVO> memList = null;
 		try {
-			SqlMapClient smc = SqlMapClientFactory.getSqlMapClient();
 			memList = dao.getAllMember(smc);
 		} catch (SQLException e) {
 			memList = null;
@@ -82,7 +80,6 @@ public class MemberServiceImpl implements IMemberService {
 	public int getMemberCount(String memId) {
 		int count = 0;
 		try {
-			SqlMapClient smc = SqlMapClientFactory.getSqlMapClient();
 			count = dao.getMemberCount(smc, memId);
 		} catch (SQLException e) {
 			count = 0;
@@ -91,11 +88,16 @@ public class MemberServiceImpl implements IMemberService {
 		return count;
 	}
 
-//	@Override
-//	public int updateMember2(Map<String, String> paramMap) {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-	
+	@Override
+	public int updateMember2(Map<String, String> paramMap) {
+		int cnt = 0;
+		try {
+			cnt = dao.updateMember2(smc, paramMap);
+		} catch (SQLException e) {
+			cnt = 0;
+			e.printStackTrace();
+		}
+		return cnt;
+	}
 
 }
