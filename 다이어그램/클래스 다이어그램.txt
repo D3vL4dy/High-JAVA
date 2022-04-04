@@ -1,0 +1,62 @@
+class A{ // 멤버변수를 갖고 있으면 Association관계
+   b B; // A와 B는 Aggregation관계
+   c C; // A와 C는 Composition관계
+
+   A(){
+      b = new B();
+   }
+
+   A(C c){
+      this.c = c;
+   }
+
+   void test1(D d){
+      d.메서드명();
+      ...
+   }
+
+   E test2(){ // A와 D, E는 Dependency관계
+      E e = new E();
+      return e;
+   }
+}
+
+class B{
+
+}
+
+class C{
+
+}
+
+class D{
+
+}
+
+class E{
+
+}
+
+class Z{
+   main(){
+      C c = new C();
+
+      A a1 = new A( );
+      A a2 = new A(c);
+   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
