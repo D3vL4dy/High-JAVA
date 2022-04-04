@@ -8,8 +8,17 @@ import java.util.Scanner;
 import kr.or.ddit.basic.mvc.service.IMemberService;
 import kr.or.ddit.basic.mvc.service.MemberServiceImpl;
 import kr.or.ddit.basic.mvc.vo.MemberVO;
+import kr.or.ddit.util.CryptoUtil;
+
+/*
+ * 1. 회원 정보 중에서 회원ID는 양방향 암호화로 변환하여 DB에 저장하고 
+ *    화면에 보여줄 때는 원래의 데이터로 복원하여 보여준다.
+ * 2. 비밀번호는 단방향 알고리즘으로 암호화하여 DB에 저장한다.
+ */
 
 public class MemberController {
+	private static String key = "a1b2c3d4e5f6g7h8"; 
+	
 	private Scanner scan = new Scanner(System.in);
 	private IMemberService service;
 	
@@ -20,7 +29,7 @@ public class MemberController {
 	}
 	
 	// 시작 메서드
-	public void startMember() {
+	public void startMember() throws Exception {
 		while (true) {
 			int choice = displayMenu();
 
@@ -51,13 +60,14 @@ public class MemberController {
 	}
 	
 	// 회원 정보를 수정하는 메서드 ==> 원하는 항목만 선택해서 수정하기
-	private void updateMember2() {
+	private void updateMember2() throws Exception {
 		System.out.println();
 		System.out.println("수정할 회원 정보를 입력하세요.");
 		System.out.println("회원ID >> ");
 		String memId = scan.next();
+		String encryptedStr = CryptoUtil.encryptoAES256(memId, key);
 
-		int count = service.getMemberCount(memId);
+		int count = service.getMemberCount(encryptedStr);
 		if (count == 0) { // 없는 회원이면
 			System.out.println(memId + "은(는) 없는 회원ID입니다.");
 			System.out.println("수정 작업을 마칩니다.");
@@ -103,6 +113,10 @@ public class MemberController {
 		scan.nextLine(); // 버퍼 비우기
 		System.out.println("새로운 " + updateTitle + " >> ");
 		String updateData = scan.nextLine();
+		
+		if("mem_pass".equals(updateField)) {
+			updateData = CryptoUtil.sha512(updateData);
+		}
 		
 		// 수정 작업에 필요한 정보를 Map객체에 셋팅한다.
 		// key값 정보 ==> 회원ID(memid), 수정할컬럼명(field), 수정할데이터(data)
@@ -179,11 +193,10 @@ public class MemberController {
 //				System.out.println("회원정보 수정 실패~~");
 //			}
 //			
-//			
 //		}
 	
 	// 전체 회원 정보를 출력하는 메서드
-	private void displayMember() {
+	private void displayMember() throws Exception {
 		
 		List<MemberVO> memList = service.getAllMember();
 		
@@ -196,7 +209,10 @@ public class MemberController {
 			System.out.println("출력할 자료가 하나도 없습니다.");
 		}else {
 			for(MemberVO memVo : memList) {
-				String memId = memVo.getMem_id();
+				String decryptedStr = memVo.getMem_id();
+				String memId = CryptoUtil.decryptoAES256(decryptedStr, key);
+//				System.out.println("AES-256 복호화 : " + decryptedStr);
+				
 				String memPass = memVo.getMem_pass();
 				String memName = memVo.getMem_name();
 				String memTel = memVo.getMem_tel();
@@ -211,13 +227,14 @@ public class MemberController {
 	}
 	
 	// 회원 정보를 수정하는 메서드 ==> 전체 항목 수정하기
-	private void updateMember() {
+	private void updateMember() throws Exception {
 		System.out.println();
 		System.out.println("수정할 회원 정보를 입력하세요.");
 		System.out.println("회원ID >> ");
 		String memId = scan.next();
+		String encryptedStr = CryptoUtil.encryptoAES256(memId, key);
 		
-		int count = service.getMemberCount(memId);
+		int count = service.getMemberCount(encryptedStr);
 		if(count == 0) { // 없는 회원이면
 			System.out.println(memId + "은(는) 없는 회원ID입니다.");
 			System.out.println("수정 작업을 마칩니다.");
@@ -229,6 +246,7 @@ public class MemberController {
 		
 		System.out.println("새로운 비밀번호 >> ");
 		String newMemPass = scan.next();
+		String result = CryptoUtil.sha512(newMemPass);
 		
 		System.out.println("새로운 회원이름 >> ");
 		String newMemName = scan.next();
@@ -242,7 +260,7 @@ public class MemberController {
 		
 		// 입력한 데이터를 VO객체에 저장한다.
 		MemberVO memVo = new MemberVO();
-		memVo.setMem_pass(newMemPass);
+		memVo.setMem_pass(result);
 		memVo.setMem_name(newMemName);
 		memVo.setMem_tel(newMemTel);
 		memVo.setMem_addr(newMemAddr);
@@ -259,13 +277,15 @@ public class MemberController {
 	}
 	
 	// 회원 정보를 삭제하는 메서드
-	private void deleteMember() {
+	private void deleteMember() throws Exception {
 		System.out.println();
 		System.out.println("삭제할 회원 정보를 입력하세요.");
 		System.out.println("삭제할 회원ID >> ");
 		String memId = scan.next();
 		
-		int cnt = service.deleteMember(memId);
+		String encryptedStr = CryptoUtil.encryptoAES256(memId, key);
+		
+		int cnt = service.deleteMember(encryptedStr);
 		
 		if(cnt > 0) {
 			System.out.println("회원정보 삭제 성공!!");
@@ -276,7 +296,7 @@ public class MemberController {
 	}
 
 	// 회원 정보를 추가(입력)하는 메서드
-	private void insertMember() {
+	private void insertMember() throws Exception {
 		System.out.println();
 		System.out.println("추가할 회원 정보를 입력하세요.");
 
@@ -297,8 +317,11 @@ public class MemberController {
 
 		} while (count > 0);
 
+		String encryptedStr = CryptoUtil.encryptoAES256(memId, key);
+		
 		System.out.print("비밀번호 >> ");
 		String memPass = scan.next(); // next() : 띄어쓰기를 하지 않는 데이터
+		String result = CryptoUtil.sha512(memPass);
 
 		System.out.print("회원이름 >> ");
 		String memName = scan.next();
@@ -312,8 +335,9 @@ public class MemberController {
 		
 		// 입력한 데이터를 VO객체에 저장한다.
 		MemberVO memVo = new MemberVO();
-		memVo.setMem_id(memId);
-		memVo.setMem_pass(memPass);
+		
+		memVo.setMem_id(encryptedStr);
+		memVo.setMem_pass(result);
 		memVo.setMem_name(memName);
 		memVo.setMem_tel(memTel);
 		memVo.setMem_addr(memAddr);
@@ -345,7 +369,7 @@ public class MemberController {
 
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		new MemberController().startMember();
 	}
 
