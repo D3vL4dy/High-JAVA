@@ -18,7 +18,7 @@ public class ResponseRedirectTest extends HttpServlet {
 		// redirect방식으로 이동한 페이지 처리하기
 		request.setCharacterEncoding("utf-8");
 		
-		// 파라미터 데이터 가져오기(ResponseTest01.jsp에서)
+		// 파라미터 데이터 가져오기(ResponseTest02.jsp에서)
 		String userName = request.getParameter("userName");		
 		
 		// setAttribute()메서드로 저장한 데이터 가져오기
