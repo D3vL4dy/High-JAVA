@@ -4,9 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Cookie 연습</title>
 </head>
 <body>
-
+<a href="<%=request.getContextPath() %>/cookieAddTest.do">Cookie 정보 저장하기</a>
+<br><hr><br>
+<a href="<%=request.getContextPath() %>/cookieReadTest.do">Cookie 정보 확인하기</a>
+<br><hr><br>
+<a href="<%=request.getContextPath() %>/cookieDeleteTest.do">Cookie 정보 삭제하기</a>
+<br><hr><br>
 </body>
 </html>
