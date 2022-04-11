@@ -43,6 +43,7 @@ public class ResponseTest02 extends HttpServlet {
 		String tel = "010-1112-1110";
 		
 		// 새로운 페이지에 전달할 데이터를 GET방식으로 구성해서 보낸다.
+		// 파라미터를 같이 보내지 않음
 		name = URLEncoder.encode(name, "utf-8");
 		response.sendRedirect(
 			"/testWeb/responseRedirectTest.do?userName=" + name + "&tel=" + tel
