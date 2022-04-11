@@ -37,6 +37,7 @@ public class ResponseTest01 extends HttpServlet {
 		// 형식) setAttribute("키값", 넘겨줄 데이터)
 		
 		request.setAttribute("tel", "010-1234-5678");
+		// 정보(파라미터)를 JSP로 같이 보내서 정보를 출력할 수 있게 하는 기능
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/responseForwardTest.do");
 		rd.forward(request, response);
