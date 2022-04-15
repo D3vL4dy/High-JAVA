@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+    <% 
+    
+    String res = (String)request.getAttribute("res1");
+    //String input = (String)request.getAttribute("res2");
+    //if(res.equals(input))
+    
+    if(res != null){
+	%>
+    
+    {
+    	"flag"  : "<%= res %>님 가입성공!!!"
+    }
+    	
+   	<% }else{ %>
+    
+    {
+    	"flag"  : "Sorry~~ 가입실패!!!"
+    }
+    
+    	
+    <% }
+    
+    
+    %>

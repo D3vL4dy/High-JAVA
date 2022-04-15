@@ -1,0 +1,257 @@
+@charset "UTF-8";
+
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+/*font-family: NanumSquare */
+/*index1.html*/
+body{
+	padding-right:0;
+}
+a{
+text-decoration-line: none !important;
+	
+}
+#top_login{
+color: #000;	
+}
+
+.container{
+padding: 70px 0 100px;	
+}
+
+ol{
+margin: 0;
+padding: 0;
+}
+*{
+ text-decoration: none;
+     list-style: none;
+     margin: 0;
+padding: 0;
+font-family: Nanum Gothic !important;
+}
+
+.top_menu{
+	width: 1200px;
+    margin: auto;
+}
+
+.topButton{
+	    color: #000;
+    letter-spacing: -2px;
+    padding: 10px;
+    text-decoration-line: none;
+	
+}
+
+
+iframe{
+	
+}
+header {     background: #fff; }
+header img {       width: 200px;
+    margin: 0 20px; }
+header .logolink{      display: inline-block;
+    margin: auto; }
+header h1{ display: inline-block; }
+nav{     text-align: center;
+    padding: 20px; }
+ nav a{      font-family: emoji;
+    font-weight: 600;
+    margin: 5px;
+    color: #000;
+    border: 2px solid #666;
+    border-radius: 10px;
+    padding: 10px 60px;
+    width: 20%;
+    display: inline-block;
+    font-size: 16px; } 
+    
+/****** 로그인,로그아웃 ******/
+
+.successID{
+	font-size: 14px;
+    font-weight: bold;
+    display: inline-block;
+}
+.logoutButton{
+	    color: #ff0000;
+    font-size: 14px;
+    margin-left: 15px;
+    border-left: 1px solid #ddd;
+    padding-left: 15px;
+}
+
+/* 본문,기본*/
+ #wrap{     min-width: 1000px;
+    display: inline-block;
+    width: 100%; }
+ footer{     text-align: center;
+    padding: 70px;
+    background: #111;
+    color: #fff;
+     }   
+   .foot{
+   color:#666;
+   }
+ 
+contain{
+	display: block;
+    text-align: center;
+    min-height: 800px;
+}
+ 
+section{
+	
+}
+
+/*본문,기본 end*/
+
+#login_form{
+	
+}
+
+#login_form label{
+	    width: 60px;
+}
+
+.contain_box{
+	padding: 200px;
+} 
+
+.navbar{
+	background-color: #fff!important;
+    display: inline-block !important;
+    border: 0;
+	
+}
+
+.modal-header .close{
+	font-size: 40px;
+    padding: 0;
+    padding-right: 10px;
+}
+
+#login_button{
+	
+	width: 100%;
+	
+}
+.check_s{
+	    margin-right: 5px;
+}
+.modal-title{
+	font-size: 20px;
+	
+}
+
+.modal-body{
+	    padding: 30px 60px 60px !important;
+}
+.btn:not(:disabled):not(.disabled){
+	    background: #111 !important;
+    border: 1px solid #111;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+.haederTop{
+    width: 1200px;
+    margin: auto;
+    display: block;
+    padding: 50px 0 20px;
+	
+}
+#sword{
+	width: 500px;
+	
+}
+.form-control{
+	margin-right: 10px;
+}
+
+/*회원가입, 장바구니*/
+
+table{  border: 3px solid #ddd;
+    border-collapse: collapse;
+    text-align: center;
+    margin: auto; }
+tr{  }
+td{  padding: 10px 30px;   border: 1px solid #ddd; }
+th{    padding: 10px; border: 1px solid #ddd; }
+
+tr td:nth-child(3), tr td:nth-child(4){ padding:0; }
+.con { height: 40px;
+    margin: 4px; text-align: center; }
+    
+.tit0{ text-align: center; }
+.button_shop{
+	    text-align: center;
+    padding: 20px;
+}
+
+
+#check0{   margin: 0 10px;
+    padding: 3px;
+    width: 100px; }
+ .register_rwap{   text-align: left;
+    display: inline-block;
+    padding-top: 20px; }
+    
+
+
+
+
+/* 회원가입 */
+
+#dong{
+margin-left: 20px;
+}
+.ziptr:hover{
+background: lime;
+
+}
+
+.join_con{
+	text-align: center;
+    margin: auto;
+    width: 400px !important;
+}
+.needs-validation_wrap{
+	text-align: left;
+    display: inline-block;
+    width: 100%;
+}
+.join_con h2{
+	width: 400px;
+    display: block;
+    margin: auto;
+    padding-bottom: 50px;
+}
+
+
+#umail, #member_post{
+	    width: 70%;
+    display: inline-block;
+}
+#chk, #zipserach{
+	width: 25%;
+    display: inline-block;
+    padding: 5px 5px;
+    margin: 0;
+    margin-top: 3px;
+    margin-right: 0px !important;
+}
+
+.join_con label{
+	    display: block;
+}
+
+.join_con .form-control{
+	max-width: none;
+}
+
+.joincheck{
+	padding : 10px !important;
+}
+
+

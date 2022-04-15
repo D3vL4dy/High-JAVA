@@ -1,0 +1,69 @@
+package cumtrip.main.service;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import cumtrip.main.dao.IMemberDao;
+import cumtrip.main.dao.MemberDaolmpl;
+import cumtrip.vo.MemberVO;
+
+
+//dao에 접근 - dao객체가 필요
+//service객체 생성 리턴 - controller가 사용
+
+public class MemberServicelmpl implements IMemberService {
+	
+	
+	private IMemberDao dao;
+	private static IMemberService service;
+	
+	private MemberServicelmpl() {
+		dao = MemberDaolmpl.getInstance();
+		
+	}
+	
+	public static IMemberService getInstance() {
+		if(service == null) service = new MemberServicelmpl();
+		return service;
+		
+	}
+
+
+	@Override
+	public String Count(String id) {
+		String count = null;
+		try {
+			count = dao.Count(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
+	
+
+//	@Override
+//	public List<ZipVo> search(String data) {
+//		// TODO Auto-generated method stub
+//		return dao.search(data);
+//	}
+	
+
+	@Override
+	public String insert(MemberVO vo) {
+		String count = null;
+		try {
+			count = dao.insert(vo);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
+
+	
+
+	
+	
+}

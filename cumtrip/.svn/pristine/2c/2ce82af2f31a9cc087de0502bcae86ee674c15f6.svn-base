@@ -1,0 +1,14 @@
+package cumtrip.submain.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import cumtrip.vo.PhotoVO;
+
+public interface ISubmainDao {
+	// 관광지 이미지 출력 메서드
+	public List<PhotoVO> tPhoto()throws SQLException;
+	
+	// 음식점 이미지 출력 메서드
+	public List<PhotoVO> fPhoto()throws SQLException;
+}

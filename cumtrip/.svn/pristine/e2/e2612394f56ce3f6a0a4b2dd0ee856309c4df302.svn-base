@@ -1,0 +1,23 @@
+package cumtrip.main.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import cumtrip.vo.MemberVO;
+
+
+public interface IMemberDao {
+
+
+	
+	//중복검사 메서드
+	public String Count( String id )throws SQLException;
+	
+	
+	//저장하기
+	public String insert( MemberVO vo )throws SQLException;
+	
+	
+	
+	
+}

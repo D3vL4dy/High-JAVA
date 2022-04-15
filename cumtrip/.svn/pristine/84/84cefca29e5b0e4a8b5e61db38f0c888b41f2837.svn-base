@@ -1,0 +1,179 @@
+/**
+ * 
+ */
+ 	//카카오 우편번호 검색
+	
+	function findAddr(){
+	   new daum.Postcode({
+	        oncomplete: function(data) {
+	           
+	           console.log(data);
+	           
+	            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+	            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+	            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	            var roadAddr = data.roadAddress; // 도로명 주소 변수
+	            var jibunAddr = data.jibunAddress; // 지번 주소 변수
+	            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	            document.getElementById('member_post').value = data.zonecode;
+	            if(roadAddr !== ''){
+	                document.getElementById("member_addr").value = roadAddr;
+	            } 
+	            else if(jibunAddr !== ''){
+	                document.getElementById("member_addr").value = jibunAddr;
+	            }
+	        }
+	    }).open();
+	}
+	
+	//보류
+	$(function(){
+
+		$("#member_post").on("click", "#zipserach", function(event) {
+			  event.preventDefault();
+			  alert("이 링크는 동작하지 않습니다!");
+		});
+		
+	})
+	
+ 	 
+   	$(function() {
+  		//아이디 중복체크
+		$('#chk').on('click', function() {
+			event.preventDefault(); 
+			
+			//입력한 값 가져오기
+			idvalue = $('#uid').val().trim();
+			console.log(idvalue);
+			
+			//서버로 전송
+			$.ajax({
+				url: '/jqpro/IdCheck.do',
+				type: 'get',
+				data: {"id" : idvalue},
+				success: function(res) {
+					//alert(res.flag);
+					$('#idspan').html(res.flag).css('color','red');
+					
+				},
+				error: function(xhr) {
+					alert("상태: "+xhr.status);
+				},
+				dataType: 'json'
+				
+			})
+			
+			
+		})
+
+
+
+		
+		
+		
+		
+		
+		
+		
+			
+	//우편번호찾기 - modal로 수행
+	$('#btn1').on('click', function() {
+		//입력한 값 가져온다.
+		dongvalue = $('#dong').val().trim()
+		console.log(dongvalue);
+		
+		//서버로 전송
+		
+		$.ajax({
+			url: '/jqpro/ZipSearch',
+			type: 'get',
+			data: {"keyval": dongvalue},
+			success: function(res) {
+				str = "<table>";
+				str += "<tr><td>우편번호</td>";
+				str += "<td>주소</td>";
+				str += "<td>번지</td></tr>";
+				
+				$.each(res, function(i, v) {
+					var bunji = v.bunji;
+					if(typeof bunji == "undefined"){
+						bunji = "";
+				
+					}
+					
+					str += "<tr class='ziptr'><td>" + v.zipcode +"</td>";
+					str += "<td>"+ v.sido + v.gugun + v.dong + "</td>";
+					str += "<td>"+ bunji +"</td></tr>";
+				})
+				str += "</table>";
+				$('#result1').html(str);
+			},
+			error: function(xhr) {
+				alert("상태: "+ xhr.status)
+			},
+			dataType: 'json'
+			
+		})
+		
+	})
+	
+	//검색결과에서 선택하여 부모창으로 값을 넘기기
+	$(document).on('click','.ziptr', function() {
+		zipcode = $("td:eq(0)", this).text();
+		addr = $('td:eq(1)', this).text();
+		
+		$('#uzip').val(zipcode);
+		$('#uadd1').val(addr);
+		
+		
+		$('#dong').val("");
+		$('#result1').empty();
+		$('#myModal').modal('hide');
+		
+		
+	})
+	
+	
+	
+	
+	$('form').on('submit', function() {
+
+		
+		fdata1 = $('form').serialize();
+		fdata2 = $('form').serializeArray();
+		fdata3 = $('form').serializeJSON();
+		
+		
+		console.log(fdata1);
+		console.log(fdata2);
+		console.log(fdata3);
+		
+		
+		$.ajax({
+			url: '<%= request.getContextPath() %>/Insert.do',
+			data: fdata3,
+			type: 'post',
+			success: function(res) {
+				$('#joinspan').html(res.flag).css('color','red');
+				//alert(res.flag);
+			},
+			error: function(vhr) {
+				alert("상태: "+vhr.status)
+			},
+			dataType: 'json'
+			
+		})
+		
+		return false;
+		
+		
+	})
+	
+	
+	
+	
+	
+	
+	
+})
+	

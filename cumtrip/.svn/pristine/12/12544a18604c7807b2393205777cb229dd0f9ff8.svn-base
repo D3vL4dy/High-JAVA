@@ -1,0 +1,39 @@
+package cumtrip.admin.service;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import cumtrip.admin.dao.MemberDao;
+import cumtrip.admin.dao.PlaceDao;
+import cumtrip.util.SqlMapClientFactory;
+import cumtrip.vo.MemberVO;
+import cumtrip.vo.MiddleVO;
+
+public class PlaceService {
+	private PlaceDao dao;
+	private static PlaceService service;
+	
+	private PlaceService() {
+		dao = PlaceDao.getInstance();
+	}
+	public static PlaceService getInstance() {
+		if(service == null) service = new PlaceService();
+		return service;
+	}
+	
+	public int insertspace(MiddleVO vo){
+		SqlMapClient smc = null;
+		int result = 0;
+		
+		try {
+		smc = SqlMapClientFactory.getsqlMapClient();
+		result = dao.insertspace(smc, vo);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+}

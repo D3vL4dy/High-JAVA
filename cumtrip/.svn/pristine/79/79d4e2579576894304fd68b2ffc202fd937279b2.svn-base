@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap 
+	PUBLIC "//iBATIS.com//DTD SQL Map 2.0//EN"
+	 "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+ <sqlMap  namespace="stay">
+ 	<insert id="insertstay" parameterClass="stayvo">
+ 		insert into stay (stay_no, stay_name,stay_location, stay_x,stay_y, stay_ex,
+	  stay_cate)
+	 values('S000'||stay_seq.nextval ,#stay_name#,#stay_location#,#stay_x#, #stay_y#
+	  ,#stay_ex#, #stay_cate#) 
+ 	
+ 	</insert>
+	<select id="selectstayno" parameterClass="map" resultClass="string">
+	select stay_no from stay where stay_location = #location# and stay_name= #name#
+	 </select>
+	<insert id="insertroom" parameterClass="map">
+		insert into room (room_no, stay_no, room_grade, room_price)
+		values(#roomnum#,#stayno#, #grade#, #cost#)
+	</insert>	
+	<select id="selectallstay" resultClass="stayvo">
+		select * from stay
+	</select>
+	<select id="selectonestay" resultClass="stayvo" parameterClass="string">
+		select * from stay where stay_no = #data#
+	</select>	
+	<update id="updatestay" parameterClass="stayvo">
+		update stay set stay_name =#stay_name#, stay_location =#stay_location#, stay_x = #stay_x#, stay_y = #stay_y#,
+		stay_cate = #stay_cate# , stay_ex = #stay_ex# where stay_no = #stay_no#
+	</update>
+	<select id = "selectroom" parameterClass="string" resultClass="roomvo">
+		select * from room where stay_no = #stay_no#
+	</select>
+	<update id="updateroom" parameterClass="map">
+	 update room set room_no = #room_no#, room_grade = #room_grade#, room_price = #room_price# where stay_no = #stay_no# and room_no = #roomnum#	
+	</update>
+
+ </sqlMap>

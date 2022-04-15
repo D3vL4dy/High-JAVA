@@ -1,0 +1,176 @@
+@charset "UTF-8";
+
+
+/*index1.html*/
+body{
+	padding-right:0;
+}
+a{
+text-decoration-line: none !important;
+	
+}
+#top_login{
+color: #000;	
+}
+
+.container{
+padding: 70px 0 100px;	
+}
+
+ol{
+margin: 0;
+padding: 0;
+}
+*{
+ text-decoration: none;
+     list-style: none;
+     margin: 0;
+padding: 0;
+}
+
+.topButton{
+	    color: #000;
+    letter-spacing: -2px;
+    padding: 10px;
+    text-decoration-line: none;
+	
+}
+
+
+iframe{
+	
+}
+header {     background: #fff;
+    box-shadow: 10px 0px 10px #cacaca; }
+header img {       width: 200px;
+    margin: 0 20px; }
+header .logolink{      display: inline-block;
+    margin: auto; }
+header h1{ display: inline-block; }
+nav{     text-align: center;
+    padding: 20px;
+    border-top: 1px solid #ededed; }
+ nav a{   font-family: emoji;
+    font-weight: 600;
+    margin: 25px;
+    color: #000; } 
+
+/* 본문,기본*/
+ #wrap{     min-width: 1000px;
+    display: inline-block;
+    width: 100%; }
+ footer{     text-align: center;
+    padding: 70px;
+    background: #111;
+    color: #fff;
+     }   
+   .foot{
+   color:#666;
+   }
+ 
+contain{
+	display: block;
+    text-align: center;
+    min-height: 800px;
+}
+ 
+section{
+	
+}
+
+/*본문,기본 end*/
+
+#login_form{
+	
+}
+
+#login_form label{
+	    width: 60px;
+}
+
+.contain_box{
+	padding: 200px;
+} 
+
+.navbar{
+	background-color: #fff!important;
+    display: inline-block !important;
+    border: 0;
+	
+}
+
+.modal-header .close{
+	font-size: 40px;
+    padding: 0;
+    padding-right: 10px;
+}
+
+#login_button{
+	
+	width: 100%;
+	
+}
+.check_s{
+	    margin-right: 5px;
+}
+.modal-title{
+	font-size: 20px;
+	
+}
+
+.modal-body{
+	    padding: 30px 60px 60px !important;
+}
+.btn:not(:disabled):not(.disabled){
+	    background: #111 !important;
+    border: 1px solid #111;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+.haederTop{
+    width: 1200px;
+    margin: auto;
+    display: block;
+    padding: 40px 0 30px;
+	
+}
+#sword{
+	width: 500px;
+	
+}
+.form-control{
+	margin-right: 10px;
+}
+
+/*회원가입, 장바구니*/
+
+table{  border: 3px solid #ddd;
+    border-collapse: collapse;
+    text-align: center;
+    margin: auto; }
+tr{  }
+td{  padding: 10px 30px;   border: 1px solid #ddd; }
+th{    padding: 10px; border: 1px solid #ddd; }
+
+tr td:nth-child(3), tr td:nth-child(4){ padding:0; }
+.con { height: 40px;
+    margin: 4px; text-align: center; }
+    
+.tit0{ text-align: center; }
+.button_shop{
+	    text-align: center;
+    padding: 20px;
+}
+
+
+#check0{   margin: 0 10px;
+    padding: 3px;
+    width: 100px; }
+ .register_rwap{   text-align: left;
+    display: inline-block;
+    padding-top: 20px; }
+    
+
+    
+    
+    

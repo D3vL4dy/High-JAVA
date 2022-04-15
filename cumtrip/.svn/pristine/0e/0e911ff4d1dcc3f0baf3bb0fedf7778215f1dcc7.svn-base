@@ -1,0 +1,13 @@
+package cumtrip.submain.service;
+
+import java.util.List;
+
+import cumtrip.vo.PhotoVO;
+
+public interface ISubmainService {
+	// 관광지 이미지 출력 메서드
+	public List<PhotoVO> tPhoto();
+	
+	// 음식점 이미지 출력 메서드
+	public List<PhotoVO> fPhoto();
+}

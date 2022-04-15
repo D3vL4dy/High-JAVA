@@ -1,0 +1,58 @@
+package cumtrip.admin.controller;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import cumtrip.admin.service.StayService;
+
+
+/**
+ * Servlet implementation class Updateroom
+ */
+@WebServlet("/updateroom.do")
+public class Updateroom extends HttpServlet {
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		StayService service = StayService.getInstance();
+		
+		Map<String,String> map = new HashMap<String,String>();
+		String stayno = request.getParameter("stayno");
+		String roomnum[] = request.getParameterValues("roomnum");
+		String roomno[] = request.getParameterValues("roomno");
+		String grade[] = request.getParameterValues("grade");
+		String price[] = request.getParameterValues("price");
+		System.out.println(stayno);
+		map.put("stay_no", stayno);
+		int result = 0;
+		for(int i = 0 ; i<roomno.length; i++) {
+			map.put("roomnum", roomnum[i]);
+			map.put("room_grade", grade[i]);
+			System.out.println(grade[i]);
+			map.put("room_no", roomno[i]);
+			map.put("room_price", price[i]);
+		    result = service.updateroom(map);
+		    System.out.println(result);
+		}
+		
+		response.sendRedirect(request.getContextPath()+"/admin/selectstay.jsp");
+	}
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

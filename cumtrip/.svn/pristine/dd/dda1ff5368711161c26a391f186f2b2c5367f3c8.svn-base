@@ -1,0 +1,56 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<div class="haederTop">
+	<a href="#" class="logolink"><img src="../images/logo.svg" ></a>
+	<nav class="navbar navbar-expand-sm navbar-info">
+	   	
+	  <form class="form-inline">
+	  
+	   <select class="form-control" id="stype">
+	   		<option value="">전체</option>
+	   		<option value="subject">제목</option>
+	   		<option value="writer">작성자</option>
+	   		<option value="content">내용</option>
+	   	</select>
+   	
+	    <input id="sword" class="form-control mr-sm-2" type="text" placeholder="Search">
+	    <button id="search" class="btn btn-primary" type="button">Search</button>
+	  </form>
+	</nav>
+
+<!-- 로그인시작 -->
+<a data-toggle="modal" href="#loginModal" id="top_login">LOGIN</a>
+  <div class="modal fade" id="loginModal" role="dialog">
+   <div class="modal-dialog">
+    <div class="modal-content">
+     <div class="modal-header">
+      <h1 class="modal-title" align="center">로그인</h1>
+      <button type="button" class="close" data-dismiss="modal">×</button>
+
+     </div>
+     <div class="modal-body">
+         <!-- 본문시작 -->
+	      <form id="login_form">
+	      	<label for="id">ID</label><input type="text" class="form-control" id="id" name="id" placeholder="id"><br>
+	      	<label for="pass">PASS</label><input type="text" class="form-control" id="pass" name="pass" placeholder="pass"><br>
+	      	<input type="submit" value="확인" id="login_button"  class="btn btn-dark"><br><br>
+	      	<input type="checkbox" id="id_s" class="check_s">아이디 찾기
+	      	<input type="checkbox" id="pass_s" class="check_s">비밀번호 찾기
+	      	<input type="checkbox" id="sing_s" class="check_s">회원가입
+	      </form>
+     </div>
+    </div>
+   </div>
+  </div>
+  <!-- 로그인 마침 -->
+  
+  
+  	<a href="./singIn.jsp" class="topButton" id="SignUp">회원가입</a>
+</div>
+	
+	
+	<nav>
+	<a href="./index1.html">관광명소</a>
+	<a href="#">음식점</a>
+	<a href="#">숙소</a>
+	</nav>

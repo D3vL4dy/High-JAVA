@@ -1,0 +1,58 @@
+package cumtrip.main.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import cumtrip.util.SqlMapClientFactory;
+import cumtrip.vo.MemberVO;
+
+
+//mapper접근 - SqlMapClient객체가 필요
+//dao클래스 객체 생성 - 리턴 - service에서 사용
+
+
+public class MemberDaolmpl implements IMemberDao {
+
+	private SqlMapClient client;
+	private static IMemberDao dao;
+	
+	private MemberDaolmpl() {
+		client = SqlMapClientFactory.getsqlMapClient();
+	}
+	
+	public static IMemberDao getInstance() {
+		if( dao == null ) dao = new MemberDaolmpl();
+		return dao;
+	}
+	
+
+
+	
+
+	@Override
+	public String Count(String id) throws SQLException {
+
+		return (String)client.queryForObject("member.memberCount", id);
+	}
+
+
+	
+	
+	@Override
+	public String insert(MemberVO vo) throws SQLException {
+
+			return (String)client.insert("member.memberInsert", vo);
+		}
+	
+	
+	
+	}
+
+
+
+
+
+
+

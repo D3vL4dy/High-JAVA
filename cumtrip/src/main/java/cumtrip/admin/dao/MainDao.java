@@ -1,0 +1,42 @@
+package cumtrip.admin.dao;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import cumtrip.vo.MiddleVO;
+
+public class MainDao {
+	private static MainDao dao;
+	private MainDao() {}
+	public static MainDao getInstance() {
+		if(dao == null) dao = new MainDao();
+		return dao;
+	}
+	
+	public List<String> spacemain(SqlMapClient smc) throws SQLException{
+		List<String> list = null;
+
+		list = smc.queryForList("main.spacemain");	
+
+		return list;
+	}
+	public List<String> restaurantmain(SqlMapClient smc) throws SQLException{
+		List<String> list = null;
+		
+		list = smc.queryForList("main.restaurantmain");	
+		
+		return list;
+	}
+	public List<String> staymain(SqlMapClient smc) throws SQLException{
+		List<String> list = null;
+		
+		list = smc.queryForList("main.staymain");	
+		
+		return list;
+	}
+	
+}
+

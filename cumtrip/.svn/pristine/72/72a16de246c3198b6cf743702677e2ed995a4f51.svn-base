@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://kit.fontawesome.com/0661566fd2.js" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/main.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="../js/main.js"></script> 
+  
+</head>
+<body>
+<header id="header"><!-- 상단 헤더 불러오기 --></header>
+<div id = "wrap">
+	
+	
+	<contain>
+		
+		<section>
+			<article>
+				<ol class="contain_box">
+						본문내용
+						
+				</ol>
+			</article>
+			
+		</section>
+	
+		</contain>
+		
+</div>
+
+<footer id="footer"><!-- 하단불러오기 --></footer>
+		<!-- Copyright(c)2021 Hong -->
+
+</body>
+</html>

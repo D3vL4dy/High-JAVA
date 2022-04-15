@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap 
+	PUBLIC "//iBATIS.com//DTD SQL Map 2.0//EN"
+	 "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="sub">
+	<select id="tPhoto" resultClass="photovo">
+		select photo_path from photo
+		where mid_no in (select mid_no from middle where mid_location like
+		'대전광역시'||'%' and mid_no like 'T'||'%' )
+	</select>
+	
+	<select id="fPhoto" resultClass="photovo">
+		select photo_path from photo
+		where mid_no in (select mid_no from middle where mid_location like
+		'대전광역시'||'%' and mid_no like 'F'||'%' )
+	</select>
+	
+</sqlMap>	 

@@ -1,0 +1,202 @@
+/**
+ * 
+ */
+ 	//카카오 우편번호 검색
+	
+	
+	function findAddr(){
+	   new daum.Postcode({
+	        oncomplete: function(data) {
+	           
+	           console.log(data);
+	           
+	            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+	            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+	            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	            var roadAddr = data.roadAddress; // 도로명 주소 변수
+	            var jibunAddr = data.jibunAddress; // 지번 주소 변수
+	            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	            document.getElementById('member_post').value = data.zonecode;
+	            if(roadAddr !== ''){
+	                document.getElementById("member_addr").value = roadAddr;
+	            } 
+	            else if(jibunAddr !== ''){
+	                document.getElementById("member_addr").value = jibunAddr;
+	            }
+	        }
+	    }).open();
+	}
+	
+	//보류---------------------------------
+	$(function(){
+
+		$("#member_post").on("click", "#zipserach", function(event) {
+			  event.preventDefault();
+			  alert("이 링크는 동작하지 않습니다!");
+		});
+		
+	})
+	//---------------------------------------------
+ 	 
+ 	 
+
+ 	 
+   	$(function() {
+	
+
+
+	
+  		//아이디 중복체크
+		$('#chk').on('click', function() {
+			
+			
+			event.preventDefault(); 
+			
+	
+	
+			//입력한 값 가져오기
+			idvalue = $('#umail').val().trim();
+			//값을 입력
+			if(idvalue.length != 0){
+				//현재값을 인증메일로
+				getsendMail = idvalue
+				//서버로 전송
+				$.ajax({
+					url: '/cumtrip/IdCheck.do',
+					type: 'get',
+					data: {"id" : idvalue},
+					success: function(res) {
+						//alert(res.flag);
+						$('#idspan').html(res.flag).css('color','red');
+						if(res.flag == "사용가능!"){
+							$('#chk_mail2').removeAttr("disabled");
+							
+						}
+						if(res.flag == "사용불가!"){
+							//$('#chk_mail2').prop("disabled", true);
+							
+						}
+						
+					},
+					error: function(xhr) {
+						alert("상태: "+xhr.status);
+					},
+					dataType: 'json'
+					
+				})
+			}else{
+				$('#idspan').html("아이디 값을 입력해주세요").css('color','red');
+			}
+
+			
+			
+		})
+
+
+
+		
+		
+$('#chk_mail2').on('click', function(){
+
+	$.ajax({
+			url: '/cumtrip/MailSend.do',
+			data: { "mem_email": getsendMail },
+			type: 'post',
+			success: function(res) {
+				alert("인증메일을 성공적으로 보냈습니다.");
+				q_mail = res.num;
+				
+			},
+			error: function(vhr) {
+				alert("상태: "+vhr.status)
+			},
+			dataType: 'json'
+			
+			})			
+
+})		
+		
+		
+		
+		
+	
+	
+	
+	//join insert
+	
+	$('form').on('submit', function() {
+
+		
+/*		fdata1 = $('form').serialize();
+		fdata2 = $('form').serializeArray();
+		fdata3 = $('form').serializeJSON();
+		
+		
+		console.log(fdata1);
+		console.log(fdata2);
+		console.log(fdata3);*/
+	
+			zipserach = $('#member_post').val().trim();
+			member_addr = $('#member_addr').val().trim();
+			member_addr2 =$('#member_addr2').val().trim();
+			
+			
+			mem_email = $('#umail').val().trim();
+			mem_pass = $('#pwd').val().trim();
+			mem_pass2 = $('#pwd2').val().trim();
+			mem_name = $('#uname').val().trim();
+			mem_addr = zipserach+" "+member_addr+" "+member_addr2;
+			mem_tel = $('#phon').val().trim();
+			mail_number = $('#mail_number').val().trim();
+
+			
+			if( mem_pass != mem_pass2 || q_mail != $('#mail_number').val()){
+				if( mem_pass != mem_pass2 ){
+					$('.passMiss').html("비밀번호가 일치 하지 않습니다.").css('color','red');
+				}
+				if( q_mail != $('#mail_number').val() ){
+					alert( "인증번호가 일치 하지않습니다." );
+				}
+				
+			}else{
+				
+			$.ajax({
+				url: '/cumtrip/mamberJoinInsert.do',
+				data: { "mem_email": mem_email,
+						"mem_pass" : mem_pass,
+						"mem_name" : mem_name,
+						"mem_addr" : mem_addr,
+						"mem_tel" : mem_tel
+					
+				},
+				type: 'post',
+				success: function(res) {
+					$('#joinspan').html(res.flag).css('color','red');
+					//alert(res.flag);
+					if( res.sou == "성공") location.href = "index.jsp";
+					
+				},
+				error: function(vhr) {
+					alert("상태: "+vhr.status)
+				},
+				dataType: 'json'
+				
+				})			
+			}
+			
+			return false;
+			
+
+			
+		
+		
+	})
+	
+	
+	
+	
+	
+	
+	
+})
+	

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap 
+	PUBLIC "//iBATIS.com//DTD SQL Map 2.0//EN"
+	 "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+ <sqlMap  namespace="photo">
+	<insert	id='insertphoto' parameterClass='map'>
+	insert into photo (photo_no, photo_path, mid_no, mem_email)
+	 values('PT000'||space_seq.nextval , #filename# ,(select mid_no from middle where mid_name=#mid_name# and mid_location=#mid_location#),'admin') 
+	</insert>
+	
+	<insert	id='insertstayphoto' parameterClass='map'>
+	insert into s_photo (spho_no, spho_path, stay_no, room_no)
+	 values('SP000'||s_photo_seq.nextval,#filename# ,#stayno#,'upload') 
+	</insert>
+	
+		
+ </sqlMap>

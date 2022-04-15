@@ -1,0 +1,66 @@
+package cumtrip.admin.service;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+import com.ibatis.sqlmap.client.SqlMapException;
+
+import cumtrip.admin.dao.PlaceDao;
+import cumtrip.admin.dao.RestaurantDao;
+import cumtrip.util.SqlMapClientFactory;
+import cumtrip.vo.MiddleVO;
+
+public class RestaurantService {
+	private RestaurantDao dao;
+	private static RestaurantService service;
+	
+	private RestaurantService() {
+		dao = RestaurantDao.getInstance();
+	}
+	public static RestaurantService getInstance() {
+		if(service == null) service = new RestaurantService();
+		return service;
+	}
+	
+	public int insertrestaurant(Map<String,Object> map){
+		SqlMapClient smc = null;
+		int result = 0;
+		
+		try {
+		smc = SqlMapClientFactory.getsqlMapClient();
+		result = dao.insertrestaurant(smc, map);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public int insertphoto(Map<String,String> map){
+		SqlMapClient smc = null;
+		int result = 0;
+		
+		try {
+		smc = SqlMapClientFactory.getsqlMapClient();
+		result = dao.insertphoto(smc, map);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public List<MiddleVO> selectallrestaurant(){
+		SqlMapClient smc = null;
+		List<MiddleVO> list  = null;
+		
+		try {
+			smc = SqlMapClientFactory.getsqlMapClient();
+			list = dao.selectallrestaurant(smc);
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return list;
+		
+	}
+}

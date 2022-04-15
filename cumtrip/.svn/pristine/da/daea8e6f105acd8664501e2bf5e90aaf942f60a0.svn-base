@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'></script>
+<script type="text/javascript" src="../js/unitegallery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/unite-gallery.css" />
+<script type="text/javascript" src="../js/ug-theme-compact.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/ug-theme-default.css" />
+
+
+<script>
+$(function() {
+    $("#gallery").unitegallery({
+        gallery_theme: "compact",
+        theme_panel_position: "left",
+
+
+        gallery_width:800,                            //gallery width        
+        gallery_height:400,                            //gallery height
+        gallery_images_preload_type: "minimal"
+    });
+    $(".ug-textpanel-bg").css("display", "none"); // 하단 검정 탭 숨김
+})
+</script>				
+				
+</head>
+<body>
+
+<div id="gallery">
+    <img src="https://unitegallery.net/images-preview/image13.jpg" data-image="https://unitegallery.net/images-preview/image13.jpg" />
+        <img src="https://unitegallery.net/images-preview/image12.jpg" data-image="https://unitegallery.net/images-preview/image12.jpg" />
+        <img src="https://unitegallery.net/images-preview/image02.jpg" data-image="https://unitegallery.net/images-preview/image02.jpg" />
+        <img src="https://unitegallery.net/images-preview/image01.jpg" data-image="https://unitegallery.net/images-preview/image01.jpg" />
+        <img src="https://unitegallery.net/images-preview/image04.jpg" data-image="https://unitegallery.net/images-preview/image04.jpg" />
+        <img src="https://unitegallery.net/images-preview/image13.jpg" data-image="https://unitegallery.net/images-preview/image13.jpg" />
+        <img src="https://unitegallery.net/images-preview/image12.jpg" data-image="https://unitegallery.net/images-preview/image12.jpg" />
+        <img src="https://unitegallery.net/images-preview/image02.jpg" data-image="https://unitegallery.net/images-preview/image02.jpg" />
+        <img src="https://unitegallery.net/images-preview/image01.jpg" data-image="https://unitegallery.net/images-preview/image01.jpg" />
+        <img src="https://unitegallery.net/images-preview/image04.jpg" data-image="https://unitegallery.net/images-preview/image04.jpg" />
+        <img src="https://unitegallery.net/images-preview/image13.jpg" data-image="https://unitegallery.net/images-preview/image13.jpg" />
+        <img src="https://unitegallery.net/images-preview/image12.jpg" data-image="https://unitegallery.net/images-preview/image12.jpg" />
+        <img src="https://unitegallery.net/images-preview/image02.jpg" data-image="https://unitegallery.net/images-preview/image02.jpg" />
+        <img src="https://unitegallery.net/images-preview/image01.jpg" data-image="https://unitegallery.net/images-preview/image01.jpg" />
+        <img src="https://unitegallery.net/images-preview/image04.jpg" data-image="https://unitegallery.net/images-preview/image04.jpg" />
+</div>
+
+
+</body>
+</html>

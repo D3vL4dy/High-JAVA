@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap 
+	PUBLIC "//iBATIS.com//DTD SQL Map 2.0//EN"
+	 "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+ <sqlMap  namespace="main">
+	<select	id='spacemain' resultClass='string'>
+		select main_cate from main where main_name = '관광명소'
+	</select>
+	<select	id='restaurantmain' resultClass='string'>
+		select main_cate from main where main_name = '음식점'
+	</select>
+		
+ </sqlMap>

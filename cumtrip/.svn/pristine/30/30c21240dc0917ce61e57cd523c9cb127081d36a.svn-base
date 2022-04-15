@@ -1,0 +1,374 @@
+<%@page import="cumtrip.vo.MemberVO"%>
+
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+   
+<!DOCTYPE html >
+<html>
+ <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>selectstay</title>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+         <link href="css/styles.css" rel="stylesheet" />
+        <script href="js/jquery.serializejson.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+       
+       
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    	 <style type="text/css">
+    	 .room{
+    	 	width : 70px;
+    	 	margin : 5px;
+    	 }
+    	 </style>
+   <script type="text/javascript">
+   $(function(){
+	   
+	   $.ajax({
+		   url: '/cumtrip/selectstay.do', 
+		   type : 'get',
+		   success : function(res){
+			   str ="";
+			  
+                $.each(res, function(i, v){
+                	
+            str += '<tr>';
+            str +=    '<td>'+v.stay_no+'</td>';
+            str +=     '<td>'+v.stay_name+ '</td>';
+            str +=     '<td>'+v.stay_location+ '</td>';
+            str +=     '<td>'+v.stay_cate+ '</td>';
+            str +=     '<td><button type ="button" id="detailstay" value="'+v.stay_no+'">숙소상세조회</button></td>';
+            str +=     '<td><button type ="button" id="detailroom" value="'+v.stay_no+'">룸상세조회</button></td>';
+            str +=     '<td><button type ="button" id="inputphoto" value="'+v.stay_no+'">룸사진추가</button></td>';
+            str +=   '</tr>';
+          
+			  	})
+                $('#table').html(str);
+		   },
+		   error: function(xhr){
+			   alert(xhr.status);
+		   },
+		   dataType: 'json'
+	   })
+	   
+	  
+   	
+	$(document).on('click','#detailstay', function(){
+		stayno = $(this).val();
+		$.ajax({
+			url: '/cumtrip/selectonestay.do',
+			type: 'get',
+			data : {"stayno" : stayno},
+			success : function(res){
+			 str = '<div class="modal" id="myModal">';
+			 str+= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
+		     str+=     '<h4 class="modal-title">숙소 수정</h4>'                                              ;
+		     str+=     '<button type="button" class="close" data-dismiss="modal">&times;</button>'               ;
+		     str+=   '</div>'                                                                                    ;
+		     str+=   '<div class="modal-body">'                                                                  ;
+		  	 str+=  '<form id="modify" action="/cumtrip/updatestay.do?stayno='+res.stay_no +'" method="post" >';
+		     str+= '<table>'                                                                                     ;
+		     str+= 	'<tr>'                                                                                       ;
+		     str+= 		'<td>숙소 번호</td>'                                                                        ;
+		     str+= 		'<td>' + res.stay_no + '</td>'   ;
+		     str+= 	'</tr>'                                                                                      ;
+		     str+= 	'<tr>'                                                                                       ;
+		     str+= 		'<td>이름</td>'                                                                          ;
+		     str+= 		'<td><input type="text" name ="name" value= "'+res.stay_name+'"></td>'     		                                   ;
+		     str+= 	'</tr>'                                                                                     ;
+		     str+= 	'<tr>'                                                                                       ;
+		     str+= 		'<td>장소</td>'                                                                          ;
+		     str+= 		'<td><input type="text" name ="addr" value= "'+res.stay_location+'"></td>'  		                                   ;
+		     str+= 	'</tr>'                                                                                      ;
+		     str+= 	'<tr>'                                                                                       ;
+		     str+= 		'<td>x좌표</td>'                                                                      ;
+		     str+= 		'<td><input type="text" name ="xsite" value = "'+res.stay_x+'"></td>' 		                                   ;
+		     str+= 	'</tr>'                                                                                      ;
+		     str+= 	'<tr>'                                                                                       ;
+		     str+= 		'<td>y좌표</td>'                                                                      ;
+		     str+= 		'<td><input type="text" name ="ysite" value = "'+res.stay_y+'"></td>' 		                                   ;
+		     str+= 	'</tr>'                                                                                      ;                                                                                ;
+		     str+= 	'<tr>'                                                                                       ;                                                                                       ;
+		     str+= 		'<td>카테고리</td>'                                                                      ;
+		     str+= 		'<td><input type="text" name ="code" value = "'+res.stay_cate+'"></td>' 		          		                                   ;
+		     str+= 	'</tr>'                                                                                      ;
+		     str+= 	'<tr>'                                                                                       ;
+		     str+= 		'<td>설명</td>'                                                                      ;
+		     str+= 		'<td><textarea  name ="ex" >'+res.stay_ex+'</textarea></td>' 		     ;  
+		     str+= 	'</tr>'                                                                                      ;
+		     str+= '</table>';
+		     str+=	'</form>';		  
+		     str+=  '</div>'                                                                                    ;
+		     str+=  '<div class="modal-footer">';
+		     str+=   '<input type="button" value="수정하기" id="mod">' ;
+		     str+=   '<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>'        ;
+		     str+=  '</div>    </div> </div>  </div>'                                                           ;
+		  $('#display').html(str);
+		  $('#myModal').show();
+			},
+			error: function(xhr){
+				alert(xhr.status);
+			},
+			dataType: 'json'
+		})
+	})
+		
+	$(document).on('click', '#detailroom', function(){
+		stayno = $(this).val();
+		$.ajax({
+			url: '/cumtrip/selectroom.do',
+			type: 'get',
+			data : {"stayno" : stayno},
+			success : function(res){
+			 str = '<div class="modal" id="myModal">';
+			 str+= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
+		     str+=     '<h4 class="modal-title">숙소 수정</h4>'                                              ;
+		     str+=     '<button type="button" class="close" data-dismiss="modal">&times;</button>'               ;
+		     str+=   '</div>'                                                                                    ;
+		     str+=   '<div class="modal-body">'                                                                  ;
+		  	 str+=  '<form id="modify" action="/cumtrip/updateroom.do?stayno='+stayno +'" method="post" >';
+		     str+= '<table>'                                                                                     ;  
+		     $.each(res, function(i,v){
+		    	
+		    	 str+= 	'<tr>'                                                                                       ;
+			     str+= 		'<td>룸번호 <input type="text" name ="roomno" class="room" value= "'+v.room_no+'"></td>'     ;                                                                     ;
+			     str+= 		'<td>룸등급 <input type="text" name ="grade" class="room" value= "'+v.room_grade+'"></td>'   ;                                                                       ;
+			     str+= 		'<td>룸가격 <input type="text" name ="price" class="room" value= "'+v.room_price+'"></td>'   ;                                                                       ;
+			     str+= 		'<input type="text" name ="roomnum" value= "'+v.room_no+'" hidden>'     ;                                                                     ;
+			     str+= 		'<input type="text" name ="stayno" value= "'+stayno+'" hidden>'     ;                                                                     ;
+			     str+= 	'</tr>'  ;
+			    
+		     })                                                                         ;   
+		     str+= '</table>';
+		     str+=	'</form>';		  
+		     str+=  '</div>'                                                                                    ;
+		     str+=  '<div class="modal-footer">';
+		     str+=   '<input type="button" value="수정하기" id="mod">' ;
+		     str+=   '<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>'        ;
+		     str+=  '</div>    </div> </div>  </div>'                                                           ;
+		  $('#display').html(str);
+		  $('#myModal').show();
+			},
+			error: function(xhr){
+				alert(xhr.status);
+			},
+			dataType: 'json'
+		})
+		
+	})
+	
+	$(document).on('click', '#inputphoto', function(){
+		stayno = $(this).val();
+		$.ajax({
+			url: '/cumtrip/selectroom.do',
+			type: 'get',
+			data : {"stayno" : stayno},
+			success : function(res){
+			 str = '<div class="modal" id="myModal">';
+			 str+= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
+		     str+=     '<h4 class="modal-title">룸 사진 추가</h4>'                                              ;
+		     str+=     '<button type="button" class="close" data-dismiss="modal">&times;</button>'               ;
+		     str+=   '</div>'                                                                                    ;
+		     str+=   '<div class="modal-body">'                                                                  ;
+		    
+		     $.each(res, function(i,v){
+		    str += '<form action="/cumtrip/roomupload.do" method="post"  enctype="multipart/form-data">  '	 
+			str += '<div>';
+			str += 	'룸번호<input type="text" value= "'+v.room_no+'" class="room" disabled>'     ;                                                                     ;
+		     str+= 	'<input type="text" name ="roomno" value= "'+v.room_no+'" hidden>'     ;       
+		     str+= 	'<input type="text" name ="stayno" value= "'+stayno+'" hidden>'     ;       
+			str += '<input type="file"  name="file" multiple>';
+			str += '<input type="button" value="룸사진추가" class="photosend btn-success" style="margin: 0px 120px;" > '
+			str+='</div>'	;
+			str+= '</form><hr>';
+		     })                   		  
+		     str+=  '</div>'                                                                                    ;
+		     str+=  '<div class="modal-footer">';
+		     str+=   '<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>'        ;
+		     str+=  '</div>    </div> </div>  </div>'  ;   
+		     $('#display').html(str);
+			  $('#myModal').show();
+		},
+		error: function(xhr){
+			
+		},
+		dataType : 'json'
+			
+		})
+		
+	})
+
+	$(document).on('click', '.btn-danger', function(){
+		  $('#myModal').hide();
+	})
+	$(document).on('click', '.close', function(){
+		  $('#myModal').hide();
+	})
+	$(document).on('click', '#mod',function(){
+		$('#modify').submit();
+	})
+	
+	$(document).on('click', '.photosend',function(){
+		$(this).parent().parent().submit();
+	})
+})	
+
+ 
+   </script> 
+
+   
+    </head>
+    <body class="sb-nav-fixed">
+    
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="index.html">cumtrip admin</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+         
+           
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+        
+                          
+                            <div class="sb-sidenav-menu-heading">MENU</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#member" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                회원관리
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="member" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="membertable.jsp">회원정보</a>
+                                    <a class="nav-link" href="attraction.jsp">취향정보</a>
+                                    <a class="nav-link" href="review.jsp">게시글</a>
+                                    <a class="nav-link" href="qna.jsp">관리자 문의사항</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#space" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                관광명소
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            
+                            <div class="collapse" id="space" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="selectspace.jsp">관광명소 조회</a>
+                                    <a class="nav-link" href="addspace.jsp">관광명소 추가</a>
+                                </nav>
+                            </div>
+                            
+                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#restaurant" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                음식점
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="restaurant" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="selectrestaurant.jsp">음식점 조회</a>
+                                    <a class="nav-link" href="addrestaurant.jsp">음식점 추가</a>
+                                </nav>
+                            </div>
+                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#stay" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                숙소
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="stay" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="selectstay.jsp">숙소 조회</a>
+                                    <a class="nav-link" href="addstay.jsp">숙소 추가</a>
+                                    <a class="nav-link" href="bookstay.jsp">숙소 예약 조회</a>
+                                </nav>
+                            </div>
+                            
+                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#recommend" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                추천여행코스
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="recommend" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="selectrecommend.jsp">추천여행코스 조회</a>
+                                    <a class="nav-link" href="addrecommend.jsp">추천여행코스 추가</a>
+                                </nav>
+                            </div>
+                        </div></div>
+                </nav>
+            </div>
+            
+             <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">숙소</h1>
+                        <ol class="breadcrumb mb-4">
+                        </ol>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                관광명소조회
+                            </div>
+                            
+                      <div class="card-body">
+                      
+                      	   <table id="datatablesSimple">
+                      	   	<thead>
+                      	   		<tr>
+                      	   			
+                      	   		 	<th>숙소번호</th>
+                      	   		 	<th>이름</th>
+                      	   		 	<th>위치</th>
+                      	   		 	<th>카테고리</th>                      	   		
+                      	   		 	<th>숙소상세조회</th>                      	   		
+                      	   		 	<th>방 상세조회</th>                      	   		
+                      	   		 	<th>룸사진추가</th>                      	   		
+                      	   		</tr>
+           
+                      	   	</thead>
+                      	   	<tfoot>
+                      	   		<tr>
+                      	   		 	<th>숙소번호</th>
+                      	   		 	<th>이름</th>
+                      	   		 	<th>위치</th>
+                      	   		 	<th>카테고리</th>                      	   		
+                      	   		 	<th>숙소상세조회</th>                      	   		
+                      	   		 	<th>방 상세조회</th>    
+                      	   		 	<th>룸사진추가</th>    
+                      	   		</tr>
+                      	   	</tfoot>
+                      	  
+                      	   	<tbody id='table'>
+                      	  		
+                      	
+             		 
+                      	   	</tbody>
+                      	   
+                      	   </table>
+                      </div>
+                      </div>
+                      </div>
+                      <div id='display'></div>
+                      </main></div></div>
+
+
+ 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="js/datatables-simple-demo.js"></script>
+       
+        
+</body>
+</html>
