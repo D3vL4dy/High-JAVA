@@ -1,0 +1,23 @@
+
+ 
+ 
+ //상단, 하단 불러오기
+ 
+       $(document).ready(function(){
+         $("#header").load("headFoot/head.jsp")   
+      });
+      
+      $(document).ready(function(){
+          $("#footer").load("headFoot/footer.jsp")   
+       });
+       
+       
+      $(document).ready(function(){
+         $("#header").load("../headFoot/head.jsp")   
+      });
+      
+      $(document).ready(function(){
+          $("#footer").load("../headFoot/footer.jsp")   
+       });
+       
+       

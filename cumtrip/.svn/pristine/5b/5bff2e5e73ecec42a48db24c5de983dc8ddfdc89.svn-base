@@ -1,0 +1,42 @@
+<%@page import="cumtrip.vo.MemberVO"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<% 
+List<MemberVO> list = (List<MemberVO>)request.getAttribute("mypageInter");
+
+String mem_email = null;
+String mem_pass = null;
+String mem_name = null;
+String mem_addr = null;
+String mem_tel = null;
+String mem_since = null;
+String mem_status = null;
+String mem_photo = null;
+
+for( MemberVO vo: list ){
+	mem_email = vo.getMem_email();
+	mem_pass = vo.getMem_pass();
+	mem_name = vo.getMem_name();
+	mem_addr = vo.getMem_addr();
+	mem_tel = vo.getMem_tel();
+	mem_since = vo.getMem_since();
+	mem_status = vo.getMem_status();
+	mem_photo = vo.getMem_photo();
+}
+
+
+%>
+
+{
+	
+	"mem_email"   : "<%= mem_email %>",
+	"mem_pass"    : "<%= mem_pass %>",
+	"mem_name"    : "<%= mem_name %>",
+	"mem_addr"    : "<%= mem_addr %>",
+	"mem_tel"     : "<%= mem_tel %>",
+	"mem_since"   : "<%= mem_since %>",
+	"mem_status"  : "<%= mem_status %>",
+	"mem_photo"   : "<%= mem_photo %>"
+	
+}

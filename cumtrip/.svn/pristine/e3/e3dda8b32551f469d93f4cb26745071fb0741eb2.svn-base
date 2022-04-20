@@ -1,0 +1,304 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://kit.fontawesome.com/0661566fd2.js" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/main.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="../js/main.js"></script> 
+  
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#mainback{
+	width:  75%;
+	height: 400px;
+	margin: 5px 7px;
+
+}
+.search{
+	width: 807px;
+    justify-self: center;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
+
+div {
+    display: block;
+}
+
+.mainseach{
+   
+    padding-left: var(--page-margin);
+    padding-right: var(--page-margin);
+
+}
+.mainseach2{
+
+    height: 348px;
+    background-color: var(--exploreHeaderBackground);
+    position: relative;
+
+	
+
+}
+.2a{
+	display: grid;
+}
+
+.picture, .picture>img{
+    width: 100%;
+    height: 100%;
+}
+.picture{
+   position: absolute;
+}
+.p1{
+   top: 0;
+}
+.p2{
+  left: 0;
+}
+
+.mainsearch3 {
+    padding-left: 60px;
+    padding-right: 60px;
+    justify-self: stretch;
+}
+
+.p{
+    align-self: center;
+
+}
+
+.Xd {
+    height: 0;
+}
+
+.mainsearch4_1{
+    border: 0pt none;
+    display: inline-block;
+    width: 3px;
+    height: 1px;
+}
+
+.mainsearch5.5c{
+	height: 60px;
+}
+
+.mainsearch5{
+    position: relative;
+    height: 44px;
+    margin: 0 auto;
+}
+.5a{
+    z-index: 0;
+}
+.5b{
+    text-align: left;
+}
+
+.searchback{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: var(--primaryBackground);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .15s ease;
+
+
+}
+.mainsearch5.5c .searchform{
+    padding: 0 12px;
+    border-radius: 30px;
+    box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
+}
+
+
+.searchform{
+
+    display: block;
+    position: relative;
+    background: var(--fieldBackground);
+
+}
+
+.sf1{
+    overflow: hidden;
+}
+
+.mainsearch5.5c .sci1{
+    font-size: 18px;
+    line-height: 36px;
+    padding-left: 42px;
+    height: 60px;
+}
+
+.mainsearch5:not(.eoyKC) .sci1 {
+    text-overflow: ellipsis;
+}
+
+.sci1:focus, .sci1:invalid {
+    outline: none;
+    box-shadow: none;
+}
+
+.sci1 {
+    background: none;
+    width: 100%;
+    font-size: 16px;
+    line-height: 18px;
+    padding: 12px 40px 12px 5px;
+}
+
+.sci7 {
+    border-radius: 0;
+}
+
+.sci6{
+    color: var(--primaryText);
+}
+.sci3 {
+    border: none;
+}
+.sci5 {
+    font-family: inherit;
+}
+.sci2 {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.sci4 {
+    box-sizing: border-box;
+}
+
+input {
+    writing-mode: horizontal-tb !important;
+    font-style: ;
+    font-variant-ligatures: ;
+    font-variant-caps: ;
+    font-variant-numeric: ;
+    font-variant-east-asian: ;
+    font-weight: ;
+    font-stretch: ;
+    font-size: ;
+    font-family: ;
+    text-rendering: auto;
+    color: -internal-light-dark(black, white);
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
+    margin: 0em;
+    padding: 1px 2px;
+    border-width: 2px;
+    border-style: inset;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-image: initial;
+}
+
+button, input, select, textarea {
+    font-family: inherit;
+}
+input[type="hidden" i] {
+    appearance: none;
+    background-color: initial;
+    cursor: default;
+    display: none !important;
+    padding: initial;
+    border: initial;
+}
+body{
+  background-image: url('https://static.tacdn.com/img2/brand/home/homemar2022_dt_trans.png');
+
+}
+
+
+</style>  
+  
+</head>
+<body>
+<header id="header"><!-- 상단 헤더 불러오기 --></header>
+
+	
+		    <!-- <img role="none" src="https://static.tacdn.com/img2/brand/home/homemar2022_dt_trans.png">--> 
+	<contain>
+		<div class="mainseach">
+		  <div class="mainseach2 2a" >
+		    <picture class="picture p1 p2">
+		    	<div class ="bb">
+		    	</div>
+	        </picture>
+	      	   <div class = "mainsearch3 p">
+	      	     <div class = "mainsearch4 Xd">
+	      	       <div class = "mainsearch4_1">
+	      	          <iframe frameborder="0" src="https://983932a46c1f133addc69fc38d709940.safeframe.googlesyndication.com/safeframe/1-0-38/html/container.html"
+	      	           id="google_ads_iframe_/5349/ta.ta.kr.s/homepage_30" title="3rd party ad content" 
+	      	           name="" scrolling="no" marginwidth="0" marginheight="0" width="3" height="1" 
+	      	           data-is-safeframe="true" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" 
+	      	           role="region" aria-label="Advertisement" tabindex="0" data-google-container-id="i" 
+	      	           style="border: 0px; vertical-align: bottom;" data-load-complete="true">
+	      	           </iframe>
+	      	       </div>
+	      	     </div>
+	      	       <div class ="mainsearch5 5a 5b 5c">
+	      	       	 <div class ="searchback"></div>	
+	      	          <form action="" role="search" class="searchform sf1">
+	      	          <input type="search" autocomplete="off" autocorrect="off" autocapitalize="off" 
+	      	          spellcheck="false" required="" name="q" class="sci1 sci2 sci3 sci4 sci5 sci6 sci7" 
+	      	          placeholder="어디로 가시나요?" title="검색" role="searchbox" aria-label="검색" 
+	      	          aria-controls="typeahead_results" aria-autocomplete="list" value="">
+	      	          <input type="hidden" name="searchSessionId" 
+	      	          value="3681C759402FFE1BFC1A9C7689DBD6DA1649835788255ssid">
+	      	          <input type="hidden" name="searchNearby" value="false">
+	      	           
+	      	          </form>
+	      	       </div>
+	    	  </div>
+	      </div>
+	    </div>
+		<section>
+			<article>
+				<ol class="contain_box">
+						본문내용
+						
+				</ol>
+			</article>
+			
+		</section>
+	
+		</contain>
+		
+
+
+<footer id="footer"><!-- 하단불러오기 --></footer>
+		<!-- Copyright(c)2021 Hong -->
+
+</body>
+</html>

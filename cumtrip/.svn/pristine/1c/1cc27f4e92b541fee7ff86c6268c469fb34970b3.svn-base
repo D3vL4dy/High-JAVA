@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap 
+	PUBLIC "//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+ <sqlMap  namespace="review">
+	<select id="selectallreview" parameterClass="string" resultClass="m_reviewvo2">
+		select a.mre_no as mre_no , a.mre_title as mre_title, a.mre_content as mre_content ,
+		a.mre_date as mre_date, a.mre_point as mre_point ,
+		 a.mre_imgpath as mre_imgpath, a.mem_email as mem_email, a.mid_no as mid_no, b.mem_photo as mem_photo
+		from m_review a, member b 
+		where a.mem_email = b.mem_email
+		and a.mid_no = #data#
+	</select>
+	<select id="selectallstayreview" parameterClass="string" resultClass="s_reviewvo2">
+		select a.sre_no as sre_no , a.sre_title as sre_title, a.sre_content as sre_content ,
+		a.sre_date as sre_date, a.sre_point as sre_point ,
+		 a.sre_imgpath as sre_imgpath, a.mem_email as mem_email, a.stay_no as stay_no, b.mem_photo as mem_photo
+		from s_review a, member b 
+		where a.mem_email = b.mem_email
+		and a.stay_no = #data#
+	</select>
+	<select id="selectcomment" resultClass="m_commentvo" parameterClass="string">
+		select * from m_comment where mre_no = #data# 
+	</select>	
+	<select id="selectstaycomment" resultClass="s_commentvo" parameterClass="string">
+		select * from s_comment where sre_no = #data# 
+	</select>	
+	<insert id="insertcomment" parameterClass="m_commentvo">
+		insert into m_comment (com_no, com_content, com_date,mre_no,mem_email)
+		values('MC000'||m_comment_seq.nextval, #com_content#, sysdate, #mre_no#,#mem_email#)
+		
+	</insert>	
+	<insert id="insertstaycomment" parameterClass="s_commentvo">
+		insert into s_comment (sco_no, sco_content, sco_date,sre_no,mem_email)
+		values('SC000'||s_comment_seq.nextval, #sco_content#, sysdate, #sre_no#,#mem_email#)
+	</insert>	
+	
+<!-- 	<select id="reviewlike" resultClass="membervo" parameterClass="string">
+		select mem_email from member where mem_email = #mem_email#
+	</select> -->
+	
+ </sqlMap>

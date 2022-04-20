@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap 
+	PUBLIC "//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+ <sqlMap namespace="member">
+ 	
+	<select id="selectMember" resultClass="membervo">
+		select* from member
+	</select>
+	<select id="selectMemberone" resultClass="membervo" parameterClass="string">
+		select* from member where mem_email = #email#
+	</select>
+	<update id="updatemember" parameterClass="membervo">
+		update member set mem_name = #mem_name#, mem_addr = #mem_addr#, mem_tel = #mem_tel# where mem_email = #mem_email#
+	</update>
+	
+	<update id="updatemember2" parameterClass="string">
+		update member set mem_status = 'N' where mem_email = #mem_email#
+	</update>
+	
+
+
+	
+<!-- 회원가입 시작 -->
+   	
+   	<!-- 중복검사 -->
+   	<select id="memberCount" resultClass="membervo" parameterClass="string">
+   		select * from member where mem_email =#data#
+   	</select>
+   	
+   	<!-- 저장하기 -->
+<!--    	<insert id="memberInsert" parameterClass="membervo"> -->
+<!--    		insert into member (mem_email, mem_pass, mem_name, mem_addr, mem_tel, mem_since, mem_status, mem_photo) -->
+<!-- 		values(#mem_email#, #mem_pass#, #mem_name#, #mem_addr#, #mem_tel#, sysdate, 'y', '') -->
+
+   	<insert id="memberInsert" parameterClass="membervo">
+   		insert into member (mem_email, mem_pass, mem_name, mem_addr, mem_tel, mem_since, mem_status, mem_photo)
+		values(#mem_email#, #mem_pass#, #mem_name#, #mem_addr#, #mem_tel#, sysdate, 'y', '')
+	</insert>
+  
+
+   
+<!--     	insert는 null값으로 넘어감 -->
+<!--     	<selectKey keyProperty="mem_email" resultClass="string" > -->
+<!--     		select mem_email from member where mem_email = #mem_email# -->
+<!--     	</selectKey> -->
+
+   
+    	<!-- insert는 null값으로 넘어감 -->
+<!--     	<selectKey keyProperty="mem_email" resultClass="string" > -->
+<!--     		select mem_email from member where mem_email = #mem_email# -->
+<!--     	</selectKey>  -->
+    
+   
+   	
+<!--    	</insert> -->
+
+<!-- 회원가입 마침 -->
+
+
+
+<!-- 로그인 시작 -->
+
+	<select id="memberLogin" resultClass="membervo" parameterClass="membervo">
+		select * from member where mem_email=#mem_email# and mem_pass=#mem_pass# and mem_status='y'
+	</select>
+
+<!-- 로그인 마침 -->
+
+
+<!-- 아이디찾기 -->
+	<select id="memberidFind" resultClass="membervo" parameterClass="membervo">
+   		select * from member where mem_name=#mem_name# and mem_tel=#mem_tel#
+   	</select>
+<!-- 아이디 찾기 마침 -->
+
+
+<!-- 비밀번호찾기 -->
+	<select id="memberPassFind" resultClass="membervo" parameterClass="membervo">
+   		select * from member where mem_name=#mem_name# and mem_email=#mem_email#
+   	</select>
+<!-- 비밀번호 찾기 마침 -->
+
+
+<!-- 비밀번호 변경 -->
+	
+	<update id="memberPassSetFind" parameterClass="membervo">
+
+		update member set mem_pass=#mem_pass# where mem_email=#mem_email#
+	</update>
+<!-- 비밀번호 변경 마침 -->
+
+<!-- 회원정보수정 -->
+	<update id="updateMember_Mypage" parameterClass="membervo">
+		update member set mem_name = #mem_name#, mem_addr = #mem_addr#, mem_tel = #mem_tel#, mem_pass = #mem_pass# where mem_email = #mem_email#
+	</update>
+<!-- 회원정보수정 마침 -->
+
+<!-- 회원탈퇴 -->
+	<update id="deleteMember_Mypage" parameterClass="membervo">
+		update member set mem_status='t' where mem_email = #mem_email#
+	</update>
+<!-- 회원탈퇴 -->
+
+
+<!-- 마이페이지 좋아요 -->
+	<select id="likeMypage01" resultClass="membervo" parameterClass="string">
+		select c.mem_email as mem_email, c.mre_title as mre_title, c.mre_date as mre_date, b.mr_like as mr_like
+		from member a, mr_likes b, m_review c
+		where a.mem_email = b.mem_email and b.mre_no = c.mre_no
+		and a.mem_email = #data#
+	</select>
+<!-- 마이페이지 좋아요 마침 -->
+
+	<select id="likeMypage02" resultClass="membervo" parameterClass="string">
+		select c.mem_email as mem_email, c.sre_title as mre_title, c.sre_date as mre_date, b.sr_like as mr_like
+				from member a, sr_likes b, s_review c
+		  where a.mem_email = b.mem_email and b.sre_no = c.sre_no
+				and a.mem_email = #data#'
+	</select>
+	
+ </sqlMap>

@@ -1,0 +1,44 @@
+$(function(){
+	
+	$.ajax({
+		url: '/cumtrip/MypageLike.do',
+		type: 'post',
+		success: function(res){
+			
+				str = "";	 
+				$.each(res, function(i, v){
+					
+					str += '<li class="mypage_boxLike_li">';
+					str += '	<div class="m_Like_no">'+v.mem_email+'</div>';
+					str += '	<div class="m_Like_poto">'+v.Mre_title+'</div>';
+					str += '	<div class="m_Like_name">'+v.Mre_date+'</div>';
+					str += '	<div class="m_Like_2">';
+					if(v.Mr_like == 1){
+						str += '<a href="#" class="mypage_LikeBottom">찜풀기</a>';	
+					}
+					
+					str += '	</div>';
+					str += '</li>';				
+				})                                                                      
+	
+				$('.mypage_boxLike_span').html(str);	
+			
+		},
+		error: function(xhr){
+			alert("상태: "+xhr.status);
+/*			if(xhr.status == 500){ 
+				
+				//location.href = "../index.jsp" 
+				
+				}*/
+		},
+		dataType: 'json'
+	})
+	
+	
+	
+	
+	
+	
+	
+})

@@ -1,0 +1,148 @@
+package cumtrip.detail.service;
+
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import cumtrip.admin.service.MainService;
+import cumtrip.detail.dao.DetailDao;
+import cumtrip.util.SqlMapClientFactory;
+import cumtrip.vo.M_commentVO;
+import cumtrip.vo.M_reviewVO;
+import cumtrip.vo.M_reviewVO2;
+import cumtrip.vo.MiddleVO;
+import cumtrip.vo.MiddleinfoVO;
+import cumtrip.vo.PhotoVO;
+
+public class DetailService {
+
+	private DetailDao dao;
+	private static DetailService service;
+	
+	private DetailService() {
+		dao = DetailDao.getInstance();
+	}
+	public static DetailService getInstance() {
+		if(service == null) service = new DetailService();
+		return service;
+	}
+	
+	public MiddleVO seletectdetail(String midno) {
+		SqlMapClient smc = null;
+		MiddleVO vo  = null;
+		
+		try {
+			smc = SqlMapClientFactory.getsqlMapClient();
+			vo = dao.seletectdetail(smc, midno);
+		
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return vo;
+		
+	}
+	public List<String> selectonephoto(String midno) {
+		SqlMapClient smc = null;
+		 List<String> list = null;
+		try {
+			smc = SqlMapClientFactory.getsqlMapClient();
+			list= dao.selectonephoto(smc, midno);
+		
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return list;
+	}
+	public List<MiddleinfoVO> aroundspacephoto(Map<String,String> map){
+		SqlMapClient smc = null;
+		List<MiddleinfoVO> list = null;
+		try {
+			smc = SqlMapClientFactory.getsqlMapClient();
+			list= dao.aroundspacephoto(smc, map);
+		
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return list;
+		
+	}
+	public List<MiddleinfoVO> aroundrestaurantphoto(Map<String,String> map){
+		SqlMapClient smc = null;
+		List<MiddleinfoVO> list = null;
+		try {
+			smc = SqlMapClientFactory.getsqlMapClient();
+			list= dao.aroundrestaurantphoto(smc, map);
+		
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return list;
+	
+	}
+	public int insertmreview(M_reviewVO vo) {
+		SqlMapClient smc = null;
+		int result = 0 ;
+		 
+		try {
+			smc = SqlMapClientFactory.getsqlMapClient();
+			result = dao.insertmreview(smc, vo);
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return result;
+	}
+	public int insertcomment(M_commentVO vo) {
+		SqlMapClient smc = null;
+		int result = 0 ;
+		
+		try {
+			smc = SqlMapClientFactory.getsqlMapClient();
+			result = dao.insertcomment(smc, vo);
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return result;
+	}
+	
+	public int insertphoto2(PhotoVO vo) {
+		SqlMapClient smc = null;
+		int result = 0 ;
+		
+		try {
+			smc = SqlMapClientFactory.getsqlMapClient();
+			result = dao.insertphoto2(smc, vo);
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return result;
+	}
+	public List<M_reviewVO2> selectallreview(String midno){
+		SqlMapClient smc = null;
+		List<M_reviewVO2> list = null;
+		
+		try {
+			smc = SqlMapClientFactory.getsqlMapClient();
+			list = dao.selectallreview(smc, midno);
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return list;
+	}
+	public List<M_commentVO> selectcomment(String mreno){
+		SqlMapClient smc = null;
+		List<M_commentVO> list = null;
+		
+		try {
+			smc = SqlMapClientFactory.getsqlMapClient();
+			list = dao.selectcomment(smc, mreno);
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return list;
+	}
+
+	
+}

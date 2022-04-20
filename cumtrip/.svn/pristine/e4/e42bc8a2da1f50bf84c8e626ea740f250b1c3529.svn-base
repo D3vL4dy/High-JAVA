@@ -1,0 +1,47 @@
+/**
+ * 
+ */
+ 
+  $(function(){
+	$('form').on('submit', function(){
+		
+		add1 = $('#member_post').val().trim();
+		add2 =$('#member_addr').val().trim();
+		add3 = $('#member_addr2').val().trim();
+		
+		uname = $('#uname').val().trim();
+		pwd = $('#pwd').val().trim();
+		phon = $('#phon').val().trim();
+		add = add1+" "+add2+" "+add3;
+		
+		$.ajax({
+			url: '/cumtrip/Mypage_update.do',
+			data: {
+				"mem_name" : uname,
+				"mem_pass" : pwd,
+				"mem_addr" : add,
+				"mem_tel" : phon
+				
+			},
+			type: 'post',
+			success: function(res){
+				alert("업데이트 성공!");
+/*				if(res.sou == "1"){
+				alert("업데이트 성공!");
+				location.href = "mypage_index.jsp";	
+					
+				}else{
+				alert("업데이트 실패");
+				location.href = "mypage_index.jsp";	
+					
+				}*/
+				
+			},
+			error: function(xhr){
+				alert("상태: "+xhr.status);
+			},
+			dataType: 'json'
+		})
+	})
+	
+})

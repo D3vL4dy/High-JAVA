@@ -1,0 +1,151 @@
+package cumtrip.detail.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import cumtrip.admin.dao.MainDao;
+import cumtrip.vo.M_commentVO;
+import cumtrip.vo.M_reviewVO;
+import cumtrip.vo.M_reviewVO2;
+import cumtrip.vo.MemberVO;
+import cumtrip.vo.MiddleVO;
+import cumtrip.vo.MiddleinfoVO;
+import cumtrip.vo.PhotoVO;
+import cumtrip.vo.S_commentVO;
+import cumtrip.vo.S_reviewVO;
+import cumtrip.vo.S_reviewVO2;
+import cumtrip.vo.StayVO;
+
+public class DetailDao {
+	private static DetailDao dao;
+	private DetailDao( ) {}
+	public static DetailDao getInstance() {
+		if(dao == null) dao = new DetailDao();
+		return dao;
+	}
+	
+	public MiddleVO seletectdetail(SqlMapClient smc, String midno) throws SQLException {
+		
+		
+		return (MiddleVO)smc.queryForObject("middle.seletectdetail", midno);
+	}
+	public List<String> selectonephoto(SqlMapClient smc, String midno) throws SQLException{
+		
+		return  smc.queryForList("photo.selectonephoto", midno); 
+	}
+	public List<MiddleinfoVO> aroundspacephoto(SqlMapClient smc,Map<String,String> map) throws SQLException{
+		
+		return (List<MiddleinfoVO>)smc.queryForList("middle.aroundspace", map);
+	}
+	public List<MiddleinfoVO> aroundrestaurantphoto(SqlMapClient smc,Map<String,String> map) throws SQLException{
+		
+		return (List<MiddleinfoVO>)smc.queryForList("middle.aroundrestaurant", map);
+	}
+	public int insertmreview(SqlMapClient smc, M_reviewVO vo) throws SQLException {
+		int result = 0;
+		Object temp = smc.insert("middle.insertmreview", vo);
+		
+		if(temp !=null) {
+			result = 1;
+		}
+		return result;
+	}
+	public int insertsreview(SqlMapClient smc, S_reviewVO vo) throws SQLException {
+		int result = 0;
+		Object temp = smc.insert("middle.insertsreview", vo);
+		
+		if(temp !=null) {
+			result = 1;
+		}
+		return result;
+	}
+	public int insertcomment(SqlMapClient smc, M_commentVO vo) throws SQLException {
+		int result = 0;
+		Object temp = smc.insert("review.insertcomment", vo);
+		
+		if(temp !=null) {
+			result = 1;
+		}
+		return result;
+	}
+	public int insertstaycomment(SqlMapClient smc, S_commentVO vo) throws SQLException {
+		int result = 0;
+		Object temp = smc.insert("review.insertstaycomment", vo);
+		
+		if(temp !=null) {
+			result = 1;
+		}
+		return result;
+	}
+	public int insertphoto2(SqlMapClient smc, PhotoVO vo) throws SQLException {
+		int result = 0;
+		Object temp = smc.insert("photo.insertphoto2", vo);
+		
+		if(temp !=null) {
+			result = 1;
+		}
+		return result;
+	}
+	public List<M_reviewVO2> selectallreview(SqlMapClient smc, String midno) throws SQLException{
+		List<M_reviewVO2> list = null;
+		
+		list = smc.queryForList("review.selectallreview",midno);
+		
+		return list;
+	}
+	public List<S_reviewVO2> selectallstayreview(SqlMapClient smc, String stayno) throws SQLException{
+		List<S_reviewVO2> list = null;
+		
+		list = smc.queryForList("review.selectallstayreview",stayno);
+		
+		return list;
+	}
+	public List<M_commentVO> selectcomment(SqlMapClient smc, String mreno) throws SQLException{
+		List<M_commentVO> list =null;
+		
+		list = smc.queryForList("review.selectcomment", mreno);
+		
+		return list;
+		
+	}
+	public List<S_commentVO> selectstaycomment(SqlMapClient smc, String sreno) throws SQLException{
+		List<S_commentVO> list =null;
+		
+		list = smc.queryForList("review.selectstaycomment", sreno);
+		
+		return list;
+		
+	}
+	public int veiws(SqlMapClient smc , String midno) throws SQLException{
+		int result = 0 ; 
+		
+		result = smc.update("middle.veiws", midno);
+		
+		return result;
+		
+	}
+	public StayVO detailstay(SqlMapClient smc, String stayno) throws SQLException{
+		StayVO vo = null;
+		
+		vo = (StayVO)smc.queryForObject("stay.detailstay", stayno);
+		
+		return vo;
+	}
+	public List<String> selectonestayphoto(SqlMapClient smc, String stayno)throws SQLException{
+		List<String>list = null;
+		
+		list = smc.queryForList("photo.selectonestayphoto", stayno);
+		
+		return list;
+	}
+	
+	public MemberVO reviewLike(SqlMapClient smc, String mem_email)throws SQLException{
+		MemberVO vo = null;
+		
+		vo = (MemberVO)smc.queryForObject("review.reviewlike", mem_email);
+		return vo;
+	}
+}

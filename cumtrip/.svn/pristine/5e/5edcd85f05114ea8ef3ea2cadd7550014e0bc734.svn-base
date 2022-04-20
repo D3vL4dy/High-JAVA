@@ -1,0 +1,64 @@
+/**
+ * 
+ */
+ 
+  $(function(){
+	$('form').on('submit', function(){
+		
+		add1 = $('#member_post').val().trim();
+		add2 =$('#member_addr').val().trim();
+		add3 = $('#member_addr2').val().trim();
+		
+		uname = $('#uname').val().trim();
+		pwd = $('#pwd').val().trim();
+		pwd2 = $('#pwd2').val().trim();
+		phon = $('#phon').val().trim();
+		add = add1+" "+add2+" "+add3;
+		
+		
+		if(uname.length != 0 || pwd.length != 0 || phon.length != 0
+		|| add2.length != 0 || add3.length != 0 || pwd != pwd2){
+			if(uname.length != 0) alert("이름은 비워둘수 없습니다.");
+			if(pwd.length != 0) alert("패스워드는 비워둘수 없습니다.");
+			if(phon.length != 0) alert("전화번호는 비워둘수 없습니다.");
+			if(add2.length != 0) alert("주소는 비워둘수 없습니다.");
+			if(add3.length != 0) alert("상세 주소를 입력해주세요.");
+			if(pwd != pwd2) alert("패스워드가 서로 다릅니다.");
+		}else{
+				$.ajax({
+					url: '/cumtrip/Mypage_update.do',
+					data: {
+						"mem_name" : uname,
+						"mem_pass" : pwd,
+						"mem_addr" : add,
+						"mem_tel" : phon
+						
+					},
+					type: 'post',
+					success: function(res){
+						alert("업데이트 성공!");
+		/*				if(res.sou == "1"){
+						alert("업데이트 성공!");
+						location.href = "mypage_index.jsp";	
+							
+						}else{
+						alert("업데이트 실패");
+						location.href = "mypage_index.jsp";	
+							
+						}*/
+						
+					},
+					error: function(xhr){
+						alert("상태: "+xhr.status);
+						if(xhr.status == 500){ 
+							alert("로그인 상태가 아닙니다.");
+							location.href = "../index.jsp" };
+					},
+					dataType: 'json'
+				})
+		}
+		
+
+	})
+	
+})

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap 
+	PUBLIC "//iBATIS.com//DTD SQL Map 2.0//EN"
+	 "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="sub">
+<!-- 	<select id="tPhoto" resultClass="photovo">
+		select photo_path from photo
+		where mid_no in (select mid_no from middle where mid_location like
+		'대전광역시'||'%' and mid_no like 'T'||'%' )
+	</select>
+
+	<select id="fPhoto" resultClass="photovo">
+		select photo_path from photo
+		where mid_no in (select mid_no from middle where mid_location like
+		'대전광역시'||'%' and mid_no like 'F'||'%' )
+	</select>
+
+	<select id="tname" resultClass="contentvo">
+		select a.mid_name,
+		b.photo_path
+		from middle a, photo b
+		where a.mid_no = b.mid_no
+		and photo_path in
+		(select photo_path from photo
+		where mid_no in (select mid_no from
+		middle where mid_location like
+		'대전광역시'||'%' and mid_no like 'T'||'%' ))
+	</select> -->
+
+	<select id="tprint" resultClass="printvo" parameterClass="string">
+		select a.main_cate, b.mid_name, c.photo_path, b.mid_no
+		from main a, middle b,photo c 
+		where a.main_code = b.main_code
+		and b.mid_no = c.mid_no
+		and b.mid_location like #data#||'%'
+		and b.mid_no like 'T'||'%'
+		<![CDATA[	and rownum <=9 ]]>
+	</select>
+
+	<select id="fprint" resultClass="printvo"  parameterClass="string">
+		select a.main_cate, b.mid_name, c.photo_path, b.mid_no
+		from main a, middle b,photo c 
+		where a.main_code = b.main_code
+		and b.mid_no = c.mid_no
+		and b.mid_location like #data#||'%'
+		and b.mid_no like 'F'||'%'
+		<![CDATA[	and rownum <=9 ]]>
+	</select>
+	
+<!-- 숙소 추가 -->
+
+
+	<select id="tourlist1" resultClass="printvo">
+		select * from(select a.main_cate, b.mid_name, c.photo_path, b.mid_no, rownum as rnum
+		from main a, middle b,photo c 
+		where a.main_code = b.main_code
+		and b.mid_no = c.mid_no
+		and b.mid_no like 'T'||'%'
+		and a.main_cate = '랜드마크')
+		<![CDATA[	
+        where rnum >= 0  
+        and rnum <= 9  ]]>
+        order by 1
+	</select> 
+
+	<select id="tourlist2" resultClass="printvo">
+		select * from(select a.main_cate, b.mid_name, c.photo_path, b.mid_no, rownum as rnum
+		from main a, middle b,photo c 
+		where a.main_code = b.main_code
+		and b.mid_no = c.mid_no
+		and b.mid_no like 'T'||'%'
+		<![CDATA[	
+		and a.main_cate <> '랜드마크'
+        and a.main_cate <> '자연공원'
+        and a.main_cate <> '쇼핑')
+        where rnum >= 0  
+        and rnum <= 9  ]]>
+        order by 1
+	</select> 
+
+	<select id="tourlist3" resultClass="printvo">
+		select * from(select a.main_cate, b.mid_name, c.photo_path, b.mid_no, rownum as rnum
+		from main a, middle b,photo c 
+		where a.main_code = b.main_code
+		and b.mid_no = c.mid_no
+		and b.mid_no like 'T'||'%'
+		<![CDATA[	
+		and a.main_cate <> '랜드마크'
+        and a.main_cate <> '박물관'
+        and a.main_cate <> '레저'
+        and a.main_cate <> '투어')
+        where rnum >= 0  
+        and rnum <= 9  ]]>
+        order by 1
+	</select> 
+ 
+
+
+</sqlMap>	 

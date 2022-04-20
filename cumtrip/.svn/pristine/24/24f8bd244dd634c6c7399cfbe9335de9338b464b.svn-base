@@ -1,0 +1,122 @@
+package cumtrip.main.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import cumtrip.util.SqlMapClientFactory;
+import cumtrip.vo.Lo_searchVO;
+import cumtrip.vo.MemberVO;
+
+
+//mapper접근 - SqlMapClient객체가 필요
+//dao클래스 객체 생성 - 리턴 - service에서 사용
+
+
+public class MemberDaolmpl implements IMemberDao {
+
+	private SqlMapClient client;
+	private static IMemberDao dao;
+	
+	private MemberDaolmpl() {
+		client = SqlMapClientFactory.getsqlMapClient();
+	}
+	
+	public static IMemberDao getInstance() {
+		if( dao == null ) dao = new MemberDaolmpl();
+		return dao;
+	}
+	
+
+
+	
+
+	@Override
+	public List<MemberVO> Count(String id) throws SQLException {
+
+		return client.queryForList("member.memberCount", id);
+	}
+
+
+	
+	
+	@Override
+	public String insert(MemberVO vo) throws SQLException {
+
+			return (String)client.insert("member.memberInsert", vo);
+		}
+	
+	//로그인
+	@Override
+	public List<MemberVO> getMember(MemberVO memVo)throws SQLException{
+		return client.queryForList("member.memberLogin", memVo);
+	
+	}
+
+	@Override
+	public List<Lo_searchVO> getSido() throws SQLException{
+		
+		return client.queryForList("main.sidomain");
+	}
+	
+	
+	
+	//아이디찾기
+	@Override
+	public List<MemberVO> idFind(MemberVO vo) throws SQLException {
+		return client.queryForList("member.memberidFind", vo);
+	}
+
+	//비밀번호 찾기
+	@Override
+	public List<MemberVO> passFind(MemberVO vo) throws SQLException {
+		return client.queryForList("member.memberPassFind", vo);
+	}
+
+	//비밀번호 변경
+	@Override
+	public int PassSetFind( MemberVO vo ) throws SQLException {
+		return (int)client.update("member.memberPassSetFind", vo);
+		
+	}
+
+	@Override
+	public int updateMember_Mypage(MemberVO vo) throws SQLException {
+		return (int)client.update("member.updateMember_Mypage", vo);
+	}
+
+	@Override
+	public int deleteMember_Mypage(MemberVO vo) throws SQLException {
+		return (int)client.update("member.deleteMember_Mypage", vo);
+	}
+
+	@Override
+	public List<MemberVO> likeMypage01( String id ) throws SQLException {
+		return client.queryForList("member.likeMypage01", id);
+	}
+
+	@Override
+	public List<MemberVO> likeMypage02(String id) throws SQLException {
+		return client.queryForList("member.likeMypage02", id);
+	}
+	
+	
+
+	
+	
+	
+	
+	
+	
+	}
+
+
+
+
+
+
+

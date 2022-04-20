@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMapConfig 
-	PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
-     "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
-
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
 
 <!-- 이 xml문서는 ibatis에 대한 환경을 설정하는 문서이다. -->
 
@@ -20,11 +19,22 @@
 	<typeAlias alias="mainvo" type="cumtrip.vo.MainVO" />	
 	<typeAlias alias="stayvo" type="cumtrip.vo.StayVO" />	
 	<typeAlias alias="roomvo" type="cumtrip.vo.RoomVO" />	
+	<typeAlias alias="roomvo2" type="cumtrip.vo.RoomVO2" />	
 	<typeAlias alias="photovo" type="cumtrip.vo.PhotoVO" />
 	<typeAlias alias="s_photovo" type="cumtrip.vo.S_photoVO" />	
 	<typeAlias alias="photovo" type="cumtrip.vo.PhotoVO" />	
 	<typeAlias alias="lo_searchvo" type="cumtrip.vo.Lo_searchVO" />	
 	<typeAlias alias="printvo" type="cumtrip.vo.SubPrintVO" />	
+	<typeAlias alias="middleinfovo" type="cumtrip.vo.MiddleinfoVO" />	
+	<typeAlias alias="m_reviewvo" type="cumtrip.vo.M_reviewVO" />	
+	<typeAlias alias="m_reviewvo2" type="cumtrip.vo.M_reviewVO2" />	
+	<typeAlias alias="m_commentvo" type="cumtrip.vo.M_commentVO" />	
+	<typeAlias alias="s_reviewvo2" type="cumtrip.vo.S_reviewVO2" />	
+	<typeAlias alias="s_reviewvo" type="cumtrip.vo.S_reviewVO" />	
+	<typeAlias alias="s_commentvo" type="cumtrip.vo.S_commentVO" />	
+	<typeAlias alias="printvo2" type="cumtrip.vo.SubPrintVO2" />	
+
+
 		
 	<!-- DB와의 연결을 처리하는 부분 -->
 	<transactionManager type="JDBC">
@@ -45,6 +55,7 @@
 	<sqlMap resource="kr/or/ddit/ibatis/mapping/photo.xml" />
 	<sqlMap resource="kr/or/ddit/ibatis/mapping/stay.xml" />
 	<sqlMap resource="kr/or/ddit/ibatis/mapping/sub.xml" />
+	<sqlMap resource="kr/or/ddit/ibatis/mapping/review.xml" />
 
 </sqlMapConfig>
 

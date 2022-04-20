@@ -1,0 +1,25 @@
+package cumtrip.submain.service;
+
+import java.util.List;
+
+import cumtrip.vo.SubPrintVO;
+
+public interface ISubmainService {
+	
+	// 관광지 정보 출력
+	public List<SubPrintVO> tPrint(String location);
+	
+	// 숙소 추가
+	
+	// 음식점 정보 출력
+	public List<SubPrintVO> fPrint(String location);
+	
+	
+	
+	// 관광지 모두보기 링크1
+	public List<SubPrintVO> tourList1();
+	// 관광지 모두보기 링크2
+	public List<SubPrintVO> tourList2();
+	// 관광지 모두보기 링크3
+	public List<SubPrintVO> tourList3();
+}

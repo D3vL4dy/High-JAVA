@@ -1,0 +1,30 @@
+ $(function(){
+	$('delete_member').on('click', function(){
+		
+		$.ajax({
+			url: '/cumtrip/Mypage_delete.do',
+			type: 'post',
+			success: function(res){
+				alert("탈퇴성공");
+/*				if(res.sou == "1"){
+				alert("업데이트 성공!");
+				location.href = "mypage_index.jsp";	
+					
+				}else{
+				alert("업데이트 실패");
+				location.href = "mypage_index.jsp";	
+					
+				}*/
+				
+			},
+			error: function(xhr){
+				alert("상태: "+xhr.status);
+				if(xhr.status == 500){ 
+					alert("로그인 상태가 아닙니다.");
+					location.href = "../index.jsp" };
+			},
+			dataType: 'json'
+		})
+	})
+	
+})

@@ -1,0 +1,27 @@
+package cumtrip.submain.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import cumtrip.vo.PhotoVO;
+import cumtrip.vo.SubPrintVO;
+
+public interface ISubmainDao {
+	
+	// 관광지 정보 출력
+	public List<SubPrintVO> tPrint(String location)throws SQLException;
+	
+	// 숙소 추가
+	
+	// 음식점 정보 출력
+	public List<SubPrintVO> fPrint(String location)throws SQLException;
+	
+	
+	
+	// 관광지 모두보기 링크1
+	public List<SubPrintVO> tourList1()throws SQLException;
+	// 관광지 모두보기 링크2
+	public List<SubPrintVO> tourList2()throws SQLException;
+	// 관광지 모두보기 링크3
+	public List<SubPrintVO> tourList3()throws SQLException;
+}

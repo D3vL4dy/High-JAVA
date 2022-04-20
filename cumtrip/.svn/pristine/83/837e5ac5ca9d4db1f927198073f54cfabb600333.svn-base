@@ -1,0 +1,83 @@
+package cumtrip.main.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import cumtrip.main.service.IMemberService;
+import cumtrip.main.service.MemberServicelmpl;
+import cumtrip.vo.MemberVO;
+
+/**
+ * Servlet implementation class FindIDpass
+ */
+@WebServlet("/FindIDpass.do")
+public class FindIDpass extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+
+    public FindIDpass() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		String input = request.getParameter("flag");
+		if(input.equals("1")) findId(request, response);
+		if(input.equals("2")) findPass(request, response);
+		
+	}
+	
+	//아이디찾기
+	protected void findId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String name = request.getParameter("find_name");
+		String tel = request.getParameter("find_tel");
+		
+		
+		MemberVO vo = new MemberVO();
+		vo.setMem_name(name);
+		vo.setMem_tel(tel);
+		
+		IMemberService service = MemberServicelmpl.getInstance();
+		List<MemberVO> list = service.idFind(vo);
+		
+		
+		request.setAttribute("idFind", list);
+		request.getRequestDispatcher("view/jsp/forwardDo/idFind.jsp").forward(request, response);
+
+	}
+	
+	
+	//비밀번호찾기
+	protected void findPass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String name = request.getParameter("find_name");
+		String mail = request.getParameter("find_mail");
+		
+
+		
+		MemberVO vo = new MemberVO();
+		vo.setMem_name(name);
+		vo.setMem_email(mail);
+		
+		IMemberService service = MemberServicelmpl.getInstance();
+		List<MemberVO> list = service.passFind(vo);
+		
+		
+		request.setAttribute("passFind", list);
+		request.getRequestDispatcher("view/jsp/forwardDo/passFind.jsp").forward(request, response);
+		
+		
+		
+	}
+	
+	
+
+}

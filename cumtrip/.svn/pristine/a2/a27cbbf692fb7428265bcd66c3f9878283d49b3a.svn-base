@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap 
+	PUBLIC "//iBATIS.com//DTD SQL Map 2.0//EN"
+	 "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+ <sqlMap  namespace="stay">
+ 	<insert id="insertstay" parameterClass="stayvo">
+ 		insert into stay (stay_no, stay_name,stay_location, stay_x,stay_y, stay_ex,
+	  stay_cate)
+	 values('S000'||stay_seq.nextval ,#stay_name#,#stay_location#,#stay_x#, #stay_y#
+	  ,#stay_ex#, #stay_cate#) 
+ 	
+ 	</insert>
+	<select id="selectstayno" parameterClass="map" resultClass="string">
+	select stay_no from stay where stay_location = #location# and stay_name= #name#
+	 </select>
+	<insert id="insertroom" parameterClass="map">
+		insert into room (room_no, stay_no, room_grade, room_price)
+		values(#roomnum#,#stayno#, #grade#, #cost#)
+	</insert>	
+		
+		
+ </sqlMap>

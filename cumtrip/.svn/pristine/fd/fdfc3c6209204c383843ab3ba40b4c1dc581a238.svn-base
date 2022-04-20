@@ -1,0 +1,92 @@
+@charset "UTF-8";
+
+.carousel-inner img {
+	width: 100%;
+	height: 100%;
+	margin-top: 50px;
+	margin-bottom: 10px;
+}
+
+.carousel slide {
+	width: 800px;
+	height: 700px;
+}
+
+.carousel-inner span {
+	width: 22%;
+	height: 300px;
+	display: inline-block;
+}
+
+h4, h5{
+	font-weight: bold;
+}
+
+#mycarousel2{
+	margin-bottom: 100px;
+}
+
+#l1 {
+	float: left;
+	display: inline-block;
+	width: 25%;
+	margin-top: 60px;
+	margin-bottom: 230px;
+}
+
+#l2 {
+	float: left;
+	display: inline-block;
+	width: 25%;
+	margin-top: 170px;
+	margin-bottom: 240px;
+}
+
+#l3 {
+	float: left;
+	display: inline-block;
+	width: 25%;
+	margin-top: 160px;
+}
+
+.carousel-inner {
+	float: right;
+	display: inline-block;
+	margin: 0 auto;
+	margin-bottom: 10px;
+	width: 75%;
+}
+
+.carousel-inner span {
+	width: 30%;
+	padding: 10px;
+}
+
+.carousel-indicators{
+	width: 150px;
+	margin: 0 auto;
+	bottom: 80px;
+}
+
+body{
+	min-width: 1200px;
+	text-align: left;
+}
+
+#plz{
+	display: block;
+	flex: justify-content;
+	margin-bottom: 10px;
+}
+
+*, ::after, ::before {
+    box-sizing: content-box;
+}
+
+*{
+	text-align: left !important;
+}
+
+#wrap {
+    margin-bottom: 100px !important;
+}

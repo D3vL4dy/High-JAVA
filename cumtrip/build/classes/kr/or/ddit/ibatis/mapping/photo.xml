@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE sqlMap 
-	PUBLIC "//iBATIS.com//DTD SQL Map 2.0//EN"
-	 "http://www.ibatis.com/dtd/sql-map-2.dtd">
+	PUBLIC "//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
  <sqlMap  namespace="photo">
 	<insert	id='insertphoto' parameterClass='map'>
@@ -19,6 +19,14 @@
 	insert into s_photo (spho_no, spho_path, stay_no, room_no)
 	 values('SP000'||s_photo_seq.nextval,#spho_path# ,#stay_no#,#room_no#) 
 	</insert>
-	
-		
+	<select id="selectonephoto" parameterClass='string' resultClass='string'>
+		select photo_path from photo where mid_no =#mid_no#
+	</select>
+	<insert id="insertphoto2" parameterClass="photovo">
+		insert into photo (photo_no, photo_path, mid_no, mem_email)
+		values('PT000'||space_seq.nextval, #photo_path#, #mid_no#, #mem_email#)
+	</insert>
+	<select id ="selectonestayphoto" parameterClass="string" resultClass="string">
+	 select spho_path from s_photo where stay_no = #data#  
+	</select>	
  </sqlMap>

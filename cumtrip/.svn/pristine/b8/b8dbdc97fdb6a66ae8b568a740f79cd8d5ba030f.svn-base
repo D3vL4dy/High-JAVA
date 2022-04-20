@@ -1,0 +1,22 @@
+package cumtrip.main.controller;
+
+
+public class Mail {
+	public static void main(String[] args) throws EmailException {
+		
+		
+		System.out.println("=====start send=====");
+		Email email = new SimpleEmail();
+		email.setHostName("smtp.naver.com");
+		email.setSmtpPort(587);
+		email.setAuthenticator(new DefaultAuthenticator("wjdrbq", "zo7627sc!!"));
+		email.setSSLOnConnect(true);
+		email.setFrom("wjdrbq@naver.com");
+		email.setSubject("내용");
+		email.setMsg("연습");
+		email.addTo("wjdrbq@naver.com");
+		email.send();
+		System.out.println("=====end send=====");
+		
+	}
+}

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap 
+	PUBLIC "//iBATIS.com//DTD SQL Map 2.0//EN"
+	 "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+ <sqlMap  namespace="member">
+	<select id="selectMember" resultClass="membervo">
+	select* from member
+	</select>
+	<select id="selectMemberone" resultClass="membervo" parameterClass="string">
+	select* from member where mem_email = #email#
+	</select>
+	<update id="updatemember" parameterClass="membervo">
+		update member set mem_name = #mem_name#, mem_addr = #mem_addr#, mem_tel = #mem_tel# where mem_email = #mem_email#
+	</update>
+	<update id="updatemember2" parameterClass="string">
+		update member set mem_status = 'N' where mem_email = #mem_email#
+	</update>
+	
+	
+	
+	
+	
+	
+<!-- 회원가입 시작 -->
+   	
+   	<!-- 중복검사 -->
+   	<select id="memberCount" resultClass="int" parameterClass="string">
+   		select count(*) from member where mem_email =#data#
+   	</select>
+   	
+   	
+   	
+   	<!-- 저장하기 -->
+   	<insert id="memberInsert" parameterClass="membervo">
+   		insert into member (mem_email, mem_pass, mem_name, mem_addr, mem_tel, mem_since, mem_status, mem_photo)
+		values(#mem_email#, #mem_pass#, #mem_name#, #mem_addr#, #mem_tel#, sysdate, 'y', '')
+
+   
+    	<!-- insert는 null값으로 넘어감 -->
+    	<selectKey keyProperty="mem_email" resultClass="string" >
+    		select mem_email from member where mem_email = #mem_email#
+    	</selectKey>
+   	
+   	</insert>
+
+<!-- 회원가입 마침 -->
+	
+	
+	
+	
+ </sqlMap>

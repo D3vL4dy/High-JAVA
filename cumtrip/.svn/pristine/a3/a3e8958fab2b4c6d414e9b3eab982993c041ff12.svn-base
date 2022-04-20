@@ -1,0 +1,295 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+
+<script src="https://kit.fontawesome.com/0661566fd2.js"
+	crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="<%= request.getContextPath() %>/view/js/main.js"></script> 
+<script src="<%= request.getContextPath() %>/admin/js/typeahead.bundle.js"></script>
+
+<!-- 아이콘 -->
+ <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+ 
+  <!-- 로딩중 -->
+<link rel="stylesheet" href="<%= request.getContextPath() %>/view/css/fakeLoader.css">
+<script src="<%= request.getContextPath() %>/view/js/fakeLoader.js"></script>
+ <!-- 메인슬라이드 -->
+ <script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+ <script src="<%= request.getContextPath() %>/view/js/sub_tour.js"></script>
+ <link rel="stylesheet" href="<%= request.getContextPath() %>/view/css/sub_tour.css">
+ <script src="<%= request.getContextPath() %>/view/js/mainSild.js"></script>
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/view/css/main.css">
+  
+<script>  
+ $(document).ready(function(){
+	    var citys = [];
+		$.ajax({
+	    	url:'<%=request.getContextPath()%>/SearchSido.do' ,
+	    	type:'post',
+	    	success: function(res){
+	    	 	
+	    	$.each(res, function(i,v){	
+	    		 citys.push(''+v.sido+" "+v.gugun+'');
+	    	  })
+
+	    	  
+	    	  citys = new Bloodhound({
+	    	        datumTokenizer: Bloodhound.tokenizers.whitespace,
+	    	        queryTokenizer: Bloodhound.tokenizers.whitespace,
+	    	        local: citys 
+	    	       
+	    	    });
+	    	
+	    	  $('.typeahead').typeahead(null, {
+	    	         name: 'countries',
+	    	         limit: 100,    // 입력하면 아래에 나오는 예시 갯수 
+	    	         minLength: 1, // 검색창의 자동완성 기능 글자 나오는 설정 (숫자가 올라갈수록 숫자만큼 글자를 입력해야 미리보기가 나옴)
+	    	         source: citys
+	    	         
+	    	     });
+	    	  
+	    	
+	    	  	    	   
+	    	},
+	    	error: function(xhr){
+	    		alert('상태 :'+ xhr.status)
+	    	},
+	    	dataType:'json'
+	    		
+	    })
+	  
+		
+	   
+	    
+	   $('#submit').on('click',function(){
+		   
+		  addr =  $('#search').val();
+			
+		  location.href= '<%=request.getContextPath()%>/view/jsp/submain.jsp?addr='+addr+'';
+		  
+     
+   })	
+   
+
+});  
+</script> 
+  
+  
+  
+</head>
+<body>
+<header id="header"><!-- 상단 헤더 불러오기 --></header>
+
+	
+	<contain>
+		
+	  <article class="article_main">
+	   <div class="main_box">
+	    <div class="backgroundimg">
+	     <form class="maim_searchBox_wrap">
+	      <span class="icon">
+	      <button type="button" id="submit" class="btn1"><img  src="../images/돋보기.png">
+	      </button>
+	      </span>
+		  <input type="text" id="submit" name="search" autocomplete="off" spellcheck="false"  class="mainsch typeahead tt-query" 
+		  placeholder="어디로 가시나요?"> 	
+	     </form>
+		</div>
+	   </div>
+	  </article>
+		
+		   <nav class="top_menu">
+				<a href="../index1.html">
+				    <div class="top_menu_img_box">
+				      <i class="fas fa-smile"></i>
+				    </div>
+				<b>관광명소</b></a>
+				<a href="#">
+					<div class="top_menu_img_box">
+				      <i class="fas fa-smile"></i>
+				    </div>
+				<b>음식점</b></a>
+				<a href="#">
+					<div class="top_menu_img_box">
+				      <i class="fas fa-smile"></i>
+				    </div>
+				<b>숙소</b></a>
+			</nav>	
+	
+	
+	
+	
+	<!-- 메인 슬라이드 시작 -->
+	
+		<div id="wrap">
+	
+			<contain>
+			<section>
+				<article>
+					<ol class="contain_box mian_contain_box">
+						<div class="container mt-3">
+							<h1>대전의 관광명소</h1>
+	
+							<div id="myCarousel" class="carousel slide">
+								<!-- The slideshow -->
+								<div class="plz">
+									<div id="l1">
+										<span class="att">
+											<h4>랜드마크</h4>
+										</span>
+									</div>
+	
+									<div class="carousel-inner" data-interval="false">
+										<div class="carousel-item active" id="t1"></div>
+										<div class="carousel-item" id="t2"></div>
+										<div class="carousel-item" id="t3"></div>
+										<br><br>
+	
+										<!-- Indicators 몇 개의 슬라이드가 있고 현재 어느 슬라이드인지 알려주는 부분 -->
+										<div class="in">
+											<ul class="carousel-indicators">
+												<li class="item1 active"></li>
+												<li class="item2"></li>
+												<li class="item3"></li>
+											</ul>
+										</div>
+									</div>
+									<!-- carousel-inner 끝 -->
+								</div>
+								<!-- plz 끝 -->
+							</div>
+							<!-- myCarousel 끝 -->
+	
+	<!-- 
+							Left and right controls 이전, 다음 버튼
+							<a class="carousel-control-prev" href="#myCarousel"> 
+								<span class="carousel-control-prev-icon"></span>
+							</a> 
+							<a class="carousel-control-next" href="#myCarousel"> 
+								<span class="carousel-control-next-icon"></span>
+							</a>
+							 -->
+							
+							<!-- 관광지 끝 -->
+	
+							
+							<div id="myCarousel2" class="carousel slide">
+								<!-- The slideshow -->
+								<div class="plz">
+									<div id="l2">
+										<span class="att">
+											<h4>레저 & 박물관</h4>
+										</span>
+									</div>
+	
+									<div class="carousel-inner" data-interval="false">
+										<div class="carousel-item active" id="s1"></div>
+										<div class="carousel-item" id="s2"></div>
+										<div class="carousel-item" id="s3"></div>
+										<br><br>
+	
+										<!-- Indicators 몇 개의 슬라이드가 있고 현재 어느 슬라이드인지 알려주는 부분 -->
+										<div class="in">
+											<ul class="carousel-indicators">
+												<li class="item21 active"></li>
+												<li class="item22"></li>
+												<li class="item23"></li>
+											</ul>
+										</div>
+									</div>
+									<!-- carousel-inner 끝-->
+								</div>
+								<!-- plz 끝-->
+							</div>
+							<!-- myCarousel2 끝 -->
+	<!-- 
+							Left and right controls 이전, 다음 버튼
+							<a class="carousel-control-prev" href="#myCarousel"> 
+								<span class="carousel-control-prev-icon"></span>
+							</a> 
+							<a class="carousel-control-next" href="#myCarousel"> 
+								<span class="carousel-control-next-icon"></span>
+							</a>
+							 -->
+							
+							<!-- 숙소 끝 -->
+							
+							
+							<div id="myCarousel3" class="carousel slide">
+								<!-- The slideshow -->
+								<div class="plz">
+									<div id="l3">
+										<span class="att">
+											<h4>쇼핑 & 자연공원</h4>
+										</span>
+									</div>
+	
+									<div class="carousel-inner" data-interval="false">
+										<div class="carousel-item active" id="f1" ></div>
+										<div class="carousel-item" id="f2"></div>
+										<div class="carousel-item" id="f3"></div>
+										<br><br>
+	
+										<!-- Indicators 몇 개의 슬라이드가 있고 현재 어느 슬라이드인지 알려주는 부분 -->
+										<div class="in">
+											<ul class="carousel-indicators">
+												<li class="item31 active"></li>
+												<li class="item32"></li>
+												<li class="item33"></li>
+											</ul>
+										</div>
+									</div>
+									<!-- carousel-inner 끝 -->
+								</div>
+								<!-- plz 끝 -->
+							</div>
+							<!-- myCarousel3 끝 -->
+	
+	<!-- 
+							Left and right controls 이전, 다음 버튼
+							<a class="carousel-control-prev" href="#myCarousel"> 
+								<span class="carousel-control-prev-icon"></span>
+							</a> 
+							<a class="carousel-control-next" href="#myCarousel"> 
+							<span class="carousel-control-next-icon"></span>
+							</a>
+							 -->
+							<!-- 음식점 끝 -->
+						</div>
+						<!-- container mt-3 끝 -->
+	
+	
+					</ol>
+				</article>
+	
+			</section>
+	
+			</contain>
+	
+		</div>
+	
+	<!-- 메인슬라이드 마침 -->
+	
+	</contain>
+		
+
+
+<footer id="footer"><!-- 하단불러오기 --></footer>
+<!-- 로딩 -->
+ <div class="fakeLoader"></div>
+ <script src="<%= request.getContextPath() %>/view/js/fakeLoader_speed.js"></script>
+	
+
+</body>
+</html>

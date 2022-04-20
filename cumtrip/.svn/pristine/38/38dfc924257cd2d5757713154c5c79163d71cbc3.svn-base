@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap 
+	PUBLIC "//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+ <sqlMap  namespace="review">
+	<select id="selectallreview" parameterClass="string" resultClass="m_reviewvo2">
+		select a.mre_no as mre_no , a.mre_title as mre_title, a.mre_content as mre_content ,
+		a.mre_date as mre_date, a.mre_point as mre_point ,
+		 a.mre_imgpath as mre_imgpath, a.mem_email as mem_email, a.mid_no as mid_no, b.mem_photo as mem_photo
+		from m_review a, member b 
+		where a.mem_email = b.mem_email
+		and a.mid_no = #data#
+	</select>
+	<select id="selectcomment" resultClass="m_comment" parameterClass="string">
+		select * from m_cmment where mre_no = #data# 
+	</select>	
+	<insert id="insertcomment" parameterClass="m_comment">
+		insert into m_comment (com_no, com_content, com_date,mre_no,mem_email)
+		values('MC000'||m_comment_seq.nextval, #com_content#, sysdate, #mre_no#,#mem_email#)
+		
+	</insert>	
+ </sqlMap>

@@ -1,0 +1,66 @@
+package cumtrip.submain.service;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import cumtrip.submain.dao.ISubmainDao;
+import cumtrip.submain.dao.SubmainDaoImpl;
+import cumtrip.vo.SubPrintVO;
+
+//dao에 접근 - dao객체가 필요
+//service객체 생성 리턴 - controller가 사용
+public class SubmainServiceImpl implements ISubmainService{
+
+	private ISubmainDao dao;
+	private static ISubmainService service;
+	
+	private SubmainServiceImpl() {
+		dao = SubmainDaoImpl.getInstance();
+	}
+	
+	public static ISubmainService getInstance() {
+		if(service == null) service = new SubmainServiceImpl();
+		return service;
+	}
+
+	@Override
+	public List<SubPrintVO> tPrint(String location) {
+		List<SubPrintVO> vo = null;
+		
+		try {
+			vo = dao.tPrint(location);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vo;
+	}
+
+	@Override
+	public List<SubPrintVO> fPrint(String location) {
+		List<SubPrintVO> vo = null;
+		
+		try {
+			vo = dao.fPrint(location);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vo;
+	}
+
+	@Override
+	public List<SubPrintVO> tourList() {
+		List<SubPrintVO> vo = null;
+		
+		try {
+			vo = dao.tourList();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vo;
+	}
+
+
+}

@@ -1,0 +1,53 @@
+package cumtrip.main.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import cumtrip.main.service.IMemberService;
+import cumtrip.main.service.MemberServicelmpl;
+import cumtrip.vo.MemberVO;
+
+
+@WebServlet("/Mypage_delete.do")
+public class Mypage_delete extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+
+    public Mypage_delete() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession();
+		
+		//session값을 개별적으로 구하는 방법
+		MemberVO sessionValue = (MemberVO)session.getAttribute("loginMember");
+		//String mem_mailset = sessionValue.getMem_email();
+
+		
+		//2.service객체 얻기
+		IMemberService service = MemberServicelmpl.getInstance();
+		
+		//3.service메소드 호출하기
+		int res = service.deleteMember_Mypage(sessionValue);
+		
+		
+		request.setAttribute("res1", res);
+		request.getRequestDispatcher("view/jsp/forwardDo/result2.jsp").forward(request, response);
+		
+		
+	}
+
+}

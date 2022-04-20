@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE sqlMap 
-	PUBLIC "//iBATIS.com//DTD SQL Map 2.0//EN"
-	 "http://www.ibatis.com/dtd/sql-map-2.dtd">
+	PUBLIC "//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
  <sqlMap  namespace="stay">
  	<insert id="insertstay" parameterClass="stayvo">
@@ -35,5 +35,14 @@
 	<update id="updateroom" parameterClass="map">
 	 update room set room_no = #room_no#, room_grade = #room_grade#, room_price = #room_price# where stay_no = #stay_no# and room_no = #roomnum#	
 	</update>
-
+	<select id ="detailstay" parameterClass="string" resultClass="stayvo">
+		select * from stay where stay_no = #data#
+	
+	</select>
+	<select id ="selectallroom" parameterClass="string" resultClass="roomvo2">
+		select a.room_no, a.room_grade, a.room_price, b.spho_path from room a, s_photo b
+		where a.stay_no = b.stay_no
+		and a.stay_no = #data# 
+	
+	</select>
  </sqlMap>

@@ -1,0 +1,136 @@
+$(function(){
+	
+	//아이디찾기
+	
+	$('#find_id_form').on('submit',function(){
+		
+		find_name = $('#find_name').val().trim();
+		find_tel = $('#find_tel').val().trim();
+		
+		if( find_name.length == 0 || find_tel.length == 0 ){
+			if(find_name.length == 0 ){
+				alert("이름을 입력해주세요");
+			}
+			if(find_tel.length == 0 ){
+				alert("전화번호를 입력해주세요");
+			}	
+		}else{
+			
+				$.ajax({
+				url : '/cumtrip/FindIDpass.do',
+				data: { 
+					"flag" : 1,
+					"find_name": find_name,
+					"find_tel" : find_tel
+				 },
+				type: 'post',
+				success: function(res){
+					if(res.status == 1){
+						alert("아이디는 "+res.sendMail+"입니다");	
+					}
+					if(res.status == 0){
+						alert(res.flag);	
+					}
+					
+				},
+				error: function(vhr){
+					alert("상태: "+vhr.status)
+				},
+				dataType: 'json'
+				
+			})
+		
+		}
+		
+		
+		return false;
+		
+	})
+	
+	
+	
+	
+	
+	
+	
+	
+	//비밀번호 찾기
+	$('#find_pass_form').on('submit',function(){
+		
+		find_name = $('#find_name').val().trim();
+		find_mail = $('#find_mail').val().trim();
+		if(find_name.length == 0 || find_mail.length == 0 ){
+			if(find_name.length == 0){
+				alert("이름을 입력해주세요");
+			}
+			if(find_mail.length == 0){
+				alert("아이디 메일을 입력해주세요");
+			}	
+		}else{
+			
+			$.ajax({
+			url : '/cumtrip/FindIDpass.do',
+			data: { 
+				"flag" : 2,
+				"find_name": find_name,
+				"find_mail" : find_mail
+			 },
+			type: 'post',
+			success: function(res){
+				if(res.status == 1){
+					//비밀번호를 변경할 아이디
+					setPassMail = res.sendMail; 
+					alert("비밀번호 변경을 진행합니다.");
+					location.href ="findPassSet.jsp";
+				}
+				if(res.status == 0){
+					alert(res.flag);	
+				}
+				
+			},
+			error: function(vhr){
+				alert("상태: "+vhr.status)
+			},
+			dataType: 'json'
+			
+		})
+		
+		}
+		
+		
+		return false;
+		
+	})
+	
+	
+	//비밀번호 변경
+	$('#find_passSet_form').on('submit',function(){
+		
+		$.ajax({
+			url : '/cumtrip/FindIDpass.do',
+			data: { 
+				"flag" : 3,
+				"setPassMail": setPassMail
+			 },
+			type: 'post',
+			success: function(res){
+				alert("비밀번호 변경완료!");
+				
+			},
+			error: function(vhr){
+				alert("상태: "+vhr.status)
+			},
+			dataType: 'json'
+			
+		})
+		
+		
+	})
+	
+	
+})
+
+
+
+
+
